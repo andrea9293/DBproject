@@ -20,6 +20,7 @@ public class RisultatoQuery extends javax.swing.JDialog {
     public RisultatoQuery(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jComboBox2.setVisible(false);
     }
 
     RisultatoQuery() {
@@ -41,6 +42,7 @@ public class RisultatoQuery extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -67,7 +69,7 @@ public class RisultatoQuery extends javax.swing.JDialog {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Giocatore", "Torneo. Squadra" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Giocatore", "Torneo", "Squadra", "Staff" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ricerca"));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -82,6 +84,8 @@ public class RisultatoQuery extends javax.swing.JDialog {
             }
         });
 
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "allenatore", "dirigente", "presidente" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,10 +95,13 @@ public class RisultatoQuery extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -111,6 +118,8 @@ public class RisultatoQuery extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addContainerGap())
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)))
@@ -125,11 +134,24 @@ public class RisultatoQuery extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ResultSet rs;
-        String id=jTextField1.getText();
         
         if("Giocatore".equals((String) jComboBox1.getSelectedItem())){
+               String id=jTextField1.getText();
                try {
                rs=DBproject.ricGioc(this, id);
+               jTable1.setModel (new VistaTabelle(rs));
+               pack();
+
+           } catch(SQLException ex) {
+               DBproject.showError(this, ex);
+           }
+       }
+        if("Staff".equals((String) jComboBox1.getSelectedItem())){
+            String cognome =jTextField1.getText();
+            String prof = (String) jComboBox2.getSelectedItem();
+            
+            try {
+               rs=DBproject.ricStaff(this, prof, cognome);
                jTable1.setModel (new VistaTabelle(rs));
                pack();
 
@@ -142,7 +164,11 @@ public class RisultatoQuery extends javax.swing.JDialog {
        }    }//GEN-LAST:event_jButton1ActionPerformed
 */
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        jTextField1.setText("");
+        jComboBox2.setVisible(false);
+        switch (jComboBox1.getSelectedIndex()){
+            case 4: 
+                jComboBox2.setVisible(true);
+        }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
@@ -190,6 +216,7 @@ public class RisultatoQuery extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
