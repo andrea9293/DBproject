@@ -100,7 +100,7 @@ public class DBproject {
         static Statement ricGioc;
         static String ricercaGiocatore;
         static ResultSet ricGioc (java.awt.Component thrower, String gioc) throws SQLException{
-            ricercaGiocatore="SELECT Nome, Cognome, Goal, Tiri, Falli, Gialli, Rossi, Fuorigioco, Assist, TiriInPorta FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = " + gioc;
+            ricercaGiocatore="SELECT Nome, Cognome, Goal, Tiri, Falli, Gialli, Rossi, Fuorigioco, Assist, TiriInPorta FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = LOWER('" + gioc +"')";
             ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
             return result;
