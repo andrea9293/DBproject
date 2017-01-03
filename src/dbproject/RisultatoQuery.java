@@ -69,6 +69,11 @@ public class RisultatoQuery extends javax.swing.JDialog {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Giocatore", "Torneo. Squadra" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ricerca"));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         jButton1.setText("Cerca");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -122,14 +127,23 @@ public class RisultatoQuery extends javax.swing.JDialog {
         ResultSet rs;
         String id=jTextField1.getText();
         
-        try {
-           rs=DBproject.ricGioc(this, id);
-           jTable1.setModel (new VistaTabelle(rs));
-           pack();
-           
-       } catch(SQLException ex) {
-           DBproject.showError(this, ex);
+        if("Giocatore".equals((String) jComboBox1.getSelectedItem())){
+               try {
+               rs=DBproject.ricGioc(this, id);
+               jTable1.setModel (new VistaTabelle(rs));
+               pack();
+
+           } catch(SQLException ex) {
+               DBproject.showError(this, ex);
+           }
+       }
+    }    
+       /* 
        }    }//GEN-LAST:event_jButton1ActionPerformed
+*/
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        jTextField1.setText("");
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments
