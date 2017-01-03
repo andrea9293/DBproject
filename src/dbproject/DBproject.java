@@ -99,8 +99,8 @@ public class DBproject {
         //VISTA PER LA RICERCA DEL GIOCATORE
         static Statement ricGioc;
         static String ricercaGiocatore;
-        static ResultSet ricGioc (java.awt.Component thrower, Integer idgioc) throws SQLException{
-            ricercaGiocatore="SELECT Nome, Cognome, Goal, Tiri, Falli, Gialli, Rossi, Fuorigioco, Assist, TiriInPorta FROM STAT_INDIVIDUALI WHERE LOWER(idgiocatore) = " + idgioc.toString();
+        static ResultSet ricGioc (java.awt.Component thrower, String gioc) throws SQLException{
+            ricercaGiocatore="SELECT Nome, Cognome, Goal, Tiri, Falli, Gialli, Rossi, Fuorigioco, Assist, TiriInPorta FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = " + gioc;
             ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
             return result;
