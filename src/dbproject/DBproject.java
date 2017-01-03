@@ -80,6 +80,9 @@ public class DBproject {
         JOptionPane.showMessageDialog(thrower, "Inserimento Eseguito");
     }
     
+    
+    //VISTE
+        //CALCOLO DEGLI ID
         static Statement calcMax;
         static String calc;
         static int calcMax (String tab, String col) throws SQLException{
@@ -93,14 +96,17 @@ public class DBproject {
         return id;
         }
         
+        //VISTA PER LA RICERCA DEL GIOCATORE
         static Statement ricGioc;
         static String ricercaGiocatore;
         static ResultSet ricGioc (java.awt.Component thrower, Integer idgioc) throws SQLException{
-            ricercaGiocatore="SELECT Nome, Cognome, Goal, Tiri, CartellinoG, CartellinoR, Fuorigioco, Assist, TiriInPorta FROM STAT_INDIVIDUALI WHERE IDGIOCATORE = " + idgioc.toString();
+            ricercaGiocatore="SELECT Nome, Cognome, Goal, Tiri, Falli, Gialli, Rossi, Fuorigioco, Assist, TiriInPorta FROM STAT_INDIVIDUALI WHERE LOWER(idgiocatore) = " + idgioc.toString();
             ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
             return result;
         }
+        
+        
 }
 
 
