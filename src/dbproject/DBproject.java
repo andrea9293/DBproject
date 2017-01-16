@@ -81,7 +81,7 @@ public class DBproject {
     }
     
     
-    //VISTE
+        //VISTE
         //CALCOLO DEGLI ID
         static Statement calcMax;
         static String calc;
@@ -104,6 +104,28 @@ public class DBproject {
             ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
             System.out.println(ricercaGiocatore);
+            return result;
+        }
+        
+        //VISTA PER LA RICERCA DI UNA SQUADRA
+        static Statement ricSq;
+        static String ricercaSquadra;
+        static ResultSet ricSq (java.awt.Component thrower, String sq) throws SQLException{
+            ricercaSquadra="SELECT Squadra, Nome, Cognome, Goal, Assist, CartelliniGialli, CartelliniRossi FROM STAT_INDIVIDUALI WHERE LOWER(squadra) = LOWER('" + sq +"')";
+            ricSq=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = ricSq.executeQuery(ricercaSquadra);
+            System.out.println(ricercaSquadra);
+            return result;
+        }
+        
+        //VISTA PER LA RICERCA DELLE SQUADRE PER TIPO
+        static Statement ricSqT;
+        static String ricercaSquadraTipo;
+        static ResultSet ricSqT (java.awt.Component thrower, String tipo) throws SQLException{
+            ricercaSquadraTipo="SELECT IDsquadra, Nome, Tipo FROM SQUADRA WHERE LOWER(tipo) = LOWER('" + tipo +"')";
+            ricSqT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = ricSqT.executeQuery(ricercaSquadraTipo);
+            System.out.println(ricercaSquadraTipo);
             return result;
         }
         
