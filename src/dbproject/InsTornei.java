@@ -25,6 +25,7 @@ public class InsTornei extends javax.swing.JFrame {
      */
     public InsTornei() {
         initComponents();
+        setLocationRelativeTo(null);
         jLabel1.setText("Inserire gli ID relativi alle squadre \nche parteciperanno al torneo");
         ResultSet rs;
         String tipo=(String) jComboBox1.getSelectedItem();

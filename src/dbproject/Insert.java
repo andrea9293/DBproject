@@ -18,6 +18,7 @@ public class Insert extends javax.swing.JFrame {
      */
     public Insert() {
         initComponents();
+        setLocationRelativeTo(null);
         jText1.setVisible(false);
         jText2.setVisible(false);
         jText3.setVisible(false);

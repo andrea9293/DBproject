@@ -20,6 +20,7 @@ public class RisultatoQuery extends javax.swing.JDialog {
     public RisultatoQuery(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         jComboBox2.setVisible(false);
     }
 
