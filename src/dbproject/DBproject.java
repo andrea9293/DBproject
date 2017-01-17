@@ -100,7 +100,7 @@ public class DBproject {
         static Statement ricGioc;
         static String ricercaGiocatore;
         static ResultSet ricGioc (java.awt.Component thrower, String gioc) throws SQLException{
-            ricercaGiocatore="SELECT Nome, Cognome, Squadra, Goal, Tiri, Falli, CartelliniGialli, CartelliniRossi, Fuorigioco, Assist, TiriInPorta FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = LOWER('" + gioc +"')";
+            ricercaGiocatore="SELECT Nome, Cognome, Squadra, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = LOWER('" + gioc +"')";
             ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
             System.out.println(ricercaGiocatore);
@@ -111,7 +111,7 @@ public class DBproject {
         static Statement ricSq;
         static String ricercaSquadra;
         static ResultSet ricSq (java.awt.Component thrower, String sq) throws SQLException{
-            ricercaSquadra="SELECT Squadra, Nome, Cognome, Goal, Assist, CartelliniGialli, CartelliniRossi FROM STAT_INDIVIDUALI WHERE LOWER(squadra) = LOWER('" + sq +"')";
+            ricercaSquadra="SELECT Squadra, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE LOWER(squadra) = LOWER('" + sq +"')";
             ricSq=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricSq.executeQuery(ricercaSquadra);
             System.out.println(ricercaSquadra);
