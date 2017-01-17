@@ -15,12 +15,12 @@ import oracle.jdbc.pool.OracleDataSource;
 
 /**
  *
- * @author Andrtea
+ * @author Andrea
  */
 public class DBproject {
 
     
-        //Stringa contentente l'username per il login
+    //Stringa contentente l'username per il login
     static public String userName = "";
     //Stringa contenente la password per il login
     static public String passWord = "";
