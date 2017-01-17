@@ -35,7 +35,6 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         ricGioc = new javax.swing.JButton();
         calcoloClassifica = new javax.swing.JButton();
-        infoTorneo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -45,21 +44,19 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Menu Principale");
 
-        ricGioc.setText("Ricerca giocatore");
+        ricGioc.setText("Ricerca");
         ricGioc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ricGiocActionPerformed(evt);
             }
         });
 
-        calcoloClassifica.setText("Calcolo Classifica");
+        calcoloClassifica.setText("Tornei");
         calcoloClassifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calcoloClassificaActionPerformed(evt);
             }
         });
-
-        infoTorneo.setText("Info Torneo");
 
         jButton1.setText("Inserimento");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,15 +72,13 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(calcoloClassifica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ricGioc, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                                .addComponent(infoTorneo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(calcoloClassifica, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ricGioc, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -92,14 +87,11 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(calcoloClassifica)
-                .addGap(18, 18, 18)
-                .addComponent(ricGioc)
-                .addGap(18, 18, 18)
-                .addComponent(infoTorneo)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(calcoloClassifica)
+                    .addComponent(ricGioc))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,7 +148,6 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton calcoloClassifica;
-    private javax.swing.JButton infoTorneo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton ricGioc;

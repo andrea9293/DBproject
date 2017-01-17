@@ -29,17 +29,13 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" alignment="1" pref="380" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="calcoloClassifica" alignment="0" max="32767" attributes="0"/>
-                              <Component id="ricGioc" pref="116" max="32767" attributes="0"/>
-                              <Component id="infoTorneo" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jButton1" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="116" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="calcoloClassifica" pref="119" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="ricGioc" min="-2" pref="119" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -52,14 +48,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="calcoloClassifica" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="ricGioc" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="infoTorneo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="70" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="calcoloClassifica" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ricGioc" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="193" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,7 +70,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="ricGioc">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ricerca giocatore"/>
+        <Property name="text" type="java.lang.String" value="Ricerca"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ricGiocActionPerformed"/>
@@ -84,16 +78,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="calcoloClassifica">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Calcolo Classifica"/>
+        <Property name="text" type="java.lang.String" value="Tornei"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calcoloClassificaActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="infoTorneo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Info Torneo"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
