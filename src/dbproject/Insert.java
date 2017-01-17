@@ -262,11 +262,11 @@ public class Insert extends javax.swing.JFrame {
                     DBproject.insert(assT, assC, assV);
                 }
                 if("PARTITA".equals((String)selTab.getSelectedItem())){
-                    String assV = "('" + jText1.getText() + "', " + jText3.getText() + "'";
+                    String assV = "('" + jText1.getText() + "', '" + jText3.getText() + "')";
                     String assC = "(IDPARTITA, IDSQUADRA)";
                     String assT = "INCONTRI";
                     DBproject.insert(assT, assC, assV);
-                    assV = "('" + jText1.getText() + "', " + jText4.getText() + "'";
+                    assV = "('" + jText1.getText() + "', '" + jText4.getText() + "')";
                     DBproject.insert(assT, assC, assV);
                 }
             }catch (SQLException ex) {
@@ -489,6 +489,15 @@ public class Insert extends javax.swing.JFrame {
                 break;
             case 5:
                 //partite
+                jComboBoxTipo.setVisible(true);
+                tipo=(String) jComboBoxTipo.getSelectedItem();
+                try {
+                    rs=DBproject.ricSqT(this, tipo);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
                 jText1.setVisible(true);
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
                 colonne+="IDPARTITA, ";
