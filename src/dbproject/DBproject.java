@@ -140,6 +140,17 @@ public class DBproject {
             return result;
         }
         
+        //VISTA RISULTATO PARTITE
+        static Statement risPart;
+        static String risultatoPartite;
+        static ResultSet risPart (java.awt.Component thrower/*, String prof, String cognome*/) throws SQLException{
+            risultatoPartite="SELECT IDpartita, IDsq1, Squadra1, Gol1, Gol2, Squadra2, IDsq2 FROM VISTA_RIS_PARTITE ORDER BY IDPARTITA DESC";
+            risPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = risPart.executeQuery(risultatoPartite);
+            System.out.println(risultatoPartite);
+            return result;
+        }
+        
 }
 
 
