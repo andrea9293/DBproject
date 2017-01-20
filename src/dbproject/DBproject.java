@@ -154,8 +154,8 @@ public class DBproject {
         //VISTA RISULTATO PARTITE
         static Statement ricAllGioc;
         static String tuttiGiocatori;
-        static ResultSet ricAllGioc (java.awt.Component thrower) throws SQLException{
-            tuttiGiocatori="SELECT IDgiocatore, Cognome, Squadra, Goal, Ammonizioni, Espulsioni, Assist FROM STAT_INDIVIDUALI ORDER BY SQUADRA ASC";
+        static ResultSet ricAllGioc (java.awt.Component thrower, String order) throws SQLException{
+            tuttiGiocatori="SELECT IDgiocatore, Cognome, Squadra, Goal, Ammonizioni, Espulsioni, Assist FROM STAT_INDIVIDUALI ORDER BY " + order + " DESC";
             ricAllGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricAllGioc.executeQuery(tuttiGiocatori);
             System.out.println(tuttiGiocatori);

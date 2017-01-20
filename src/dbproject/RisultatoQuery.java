@@ -22,6 +22,16 @@ public class RisultatoQuery extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         jComboBox2.setVisible(false);
+        jTable1.setShowGrid(false);
+        ResultSet rs;
+        try {
+            String order="GOAL";
+            rs=DBproject.ricAllGioc(this, order);
+            jTable1.setModel (new VistaTabelle(rs));
+            pack();
+        } catch(SQLException ex) {
+            DBproject.showError(this, ex);
+        }
     }
 
     RisultatoQuery() {

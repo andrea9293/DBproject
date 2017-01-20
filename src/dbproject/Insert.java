@@ -33,7 +33,8 @@ public class Insert extends javax.swing.JFrame {
         box.setVisible(false);
         jComboBoxTipo.setVisible(false);
         try {
-            rs=DBproject.ricAllGioc(this);
+            String order="SQUADRA";
+            rs=DBproject.ricAllGioc(this, order);
             jTable2.setModel (new VistaTabelle(rs));
             pack();
         } catch(SQLException ex) {
