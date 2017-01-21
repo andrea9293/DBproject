@@ -31,6 +31,7 @@ public class Insert extends javax.swing.JFrame {
         jText5.setVisible(false);
         jText6.setVisible(false);
         box.setVisible(false);
+        jLabel2.setVisible(false);
         jComboBoxTipo.setVisible(false);
         try {
             String order="SQUADRA";
@@ -58,30 +59,26 @@ public class Insert extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jText1 = new javax.swing.JTextField();
-        jText3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        selTab = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jText2 = new javax.swing.JTextField();
-        jText4 = new javax.swing.JTextField();
-        box = new javax.swing.JComboBox<>();
-        jText5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jText6 = new javax.swing.JTextField();
-        jComboBoxTipo = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jText5 = new javax.swing.JTextField();
+        box = new javax.swing.JComboBox<>();
+        selTab = new javax.swing.JComboBox<>();
+        jText3 = new javax.swing.JTextField();
+        jText2 = new javax.swing.JTextField();
+        jText6 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jText4 = new javax.swing.JTextField();
+        jText1 = new javax.swing.JTextField();
+        jComboBoxTipo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jText1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
-
-        jText3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Data nascita (gg/mm/aaaa)"));
 
         jButton1.setText("Inserisci");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -90,64 +87,14 @@ public class Insert extends javax.swing.JFrame {
             }
         });
 
-        selTab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "EVENTO", "SQUADRA", "GIOCATORE", "MEMBRO STAFF", "PARTITA", "TORNEO GIRONI", "TORNEO ELIMINAZIONE" }));
-        selTab.setBorder(javax.swing.BorderFactory.createTitledBorder("Scegliere cosa Inserire"));
-        selTab.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                selTabItemStateChanged(evt);
-            }
-        });
-        selTab.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selTabActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Inserimento");
-
-        jText2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
-        jText2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jText2ActionPerformed(evt);
-            }
-        });
-
-        jText4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("Luogo di nascita"));
-
-        box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "'allenatore'", "'dirigente'", "'presidente'" }));
-        box.setBorder(javax.swing.BorderFactory.createTitledBorder("Professione"));
-        box.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                boxItemStateChanged(evt);
-            }
-        });
-
-        jText5.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Nazionalità"));
 
         jButton2.setText("Annulla/Fine");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra"));
-        jText6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jText6ActionPerformed(evt);
-            }
-        });
-
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Club", "Nazionale" }));
-        jComboBoxTipo.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo "));
-        jComboBoxTipo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxTipoItemStateChanged(evt);
             }
         });
 
@@ -177,6 +124,124 @@ public class Insert extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jText5.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Nazionalità"));
+
+        box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "'allenatore'", "'dirigente'", "'presidente'" }));
+        box.setBorder(javax.swing.BorderFactory.createTitledBorder("Professione"));
+        box.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                boxItemStateChanged(evt);
+            }
+        });
+
+        selTab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "EVENTO", "SQUADRA", "GIOCATORE", "MEMBRO STAFF", "PARTITA", "TORNEO GIRONI", "TORNEO ELIMINAZIONE" }));
+        selTab.setBorder(javax.swing.BorderFactory.createTitledBorder("Scegliere cosa Inserire"));
+        selTab.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                selTabItemStateChanged(evt);
+            }
+        });
+        selTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selTabActionPerformed(evt);
+            }
+        });
+
+        jText3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Data nascita (gg/mm/aaaa)"));
+
+        jText2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
+        jText2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jText2ActionPerformed(evt);
+            }
+        });
+
+        jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra"));
+        jText6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jText6ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("jLabel2");
+
+        jText4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("Luogo di nascita"));
+
+        jText1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Club", "Nazionale" }));
+        jComboBoxTipo.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo "));
+        jComboBoxTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTipoItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(selTab, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jText6)
+                            .addComponent(jText4)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jText1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jText2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jText3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jText5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(1, 1, 1))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jText6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jText4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jText5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,26 +254,10 @@ public class Insert extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
                                 .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(selTab, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jText6)
-                                    .addComponent(jText4)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jText5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jText3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jText1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jText2)
-                                    .addComponent(box, 0, 199, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(1, 1, 1)))
-                        .addGap(18, 18, 18)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                             .addComponent(jScrollPane1))
@@ -227,24 +276,8 @@ public class Insert extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jText6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jText4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jText5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(jButton2))))
@@ -307,6 +340,31 @@ public class Insert extends javax.swing.JFrame {
                 }
             }catch (SQLException ex) {
                 DBproject.showError(this, ex);
+            }
+            
+            //AGGIORNAMENTO IN TEMPO REALE DEGLI EVENTI E DELLE STATISTICHE
+            if("EVENTO".equals((String)selTab.getSelectedItem())){
+                Integer index = Integer.parseInt(jText1.getText());
+                jText1.setText(Integer.toString(index+1));
+                try {
+                    Integer idpartita= Integer.parseInt(jText2.getText());
+                    rs=DBproject.dettEv(this, idpartita);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                    String ris = DBproject.risultatoSingolo(this, idpartita);
+                    jLabel2.setVisible(true);
+                    jLabel2.setText(ris);
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    String order="SQUADRA";
+                    rs=DBproject.ricAllGioc(this, order);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
             }
     }//GEN-LAST:event_jButton1ActionPerformed
     
@@ -386,6 +444,7 @@ public class Insert extends javax.swing.JFrame {
         Integer ID = 0;
         colonne="(";
         jText1.setText("");
+        jLabel2.setVisible(false);
         jText1.setEditable(true);
         jText2.setText("");
         jText3.setText("");
@@ -406,7 +465,6 @@ public class Insert extends javax.swing.JFrame {
             case 1:
                 try {
                     rs=DBproject.risPart(this);
-                    System.out.println("appena andato su evento");
                     jTable1.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
@@ -416,11 +474,20 @@ public class Insert extends javax.swing.JFrame {
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDevento"));
                 colonne+="IDEVENTO, ";
                 try {
-                        ID = DBproject.calcMax("EVENTI", "IDEVENTO") +1;
+                        ID = DBproject.calcMax("EVENTI", "IDEVENTO");
                     } catch (SQLException ex) {
                         DBproject.showError(this, ex);
                     }
-                jText1.setText(Integer.toString(ID));
+                if(!"".equals(jText1.getText())){
+                    if (ID < Integer.parseInt(jText1.getText())){
+                        jText1.setText(Integer.toString(ID));
+                    }else{
+                        jText1.setText(Integer.toString(ID+1));
+                    }
+                }else{
+                    jText1.setText(Integer.toString(ID+1));
+                }
+
                 jText1.setEditable(false);
                 jText2.setVisible(true);
                 jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
@@ -489,6 +556,7 @@ public class Insert extends javax.swing.JFrame {
                 jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
                 colonne+="COGNOME, ";
                 jText6.setVisible(true);
+                jText6.setEditable(true);
                 jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID squadra di riferimento"));
                 box.setVisible(true);
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "portiere", "difensore", "centrocampista", "attaccante"}));
@@ -528,6 +596,7 @@ public class Insert extends javax.swing.JFrame {
                 jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data di Nascita (aaaa-mm-gg)"));
                 colonne+="DATANASCITA, ";
                 jText6.setVisible(true);
+                jText6.setEditable(true);
                 jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra"));
                 colonne+="IDSQUADRA, ";
                 box.setVisible(true);
@@ -537,6 +606,13 @@ public class Insert extends javax.swing.JFrame {
                 break;
             case 5:
                 //partite
+                try {
+                    rs=DBproject.elTG(this);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
                 jComboBoxTipo.setVisible(true);
                 tipo=(String) jComboBoxTipo.getSelectedItem();
                 try {
@@ -569,15 +645,11 @@ public class Insert extends javax.swing.JFrame {
                 jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data (aaaa-mm-gg)"));
                 colonne+="DATA";
                 jText6.setVisible(true);
+                jText6.setEditable(false);
                 jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID del torneo"));
                 box.setVisible(true);
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Torneo a Gironi", "Torneo ad Eliminazione"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo di Torneo"));
-                /*int index = box.getSelectedIndex();
-                if (index == 1) 
-                    colonne+=", IDTORNEOG";
-                if (index == 2)
-                    colonne+=", IDTORNEOE";*/
                 break;
             case 6:
                 //torneo gironi
@@ -619,8 +691,15 @@ public class Insert extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxItemStateChanged
-        if("Torneo a gironi".equals((String)box.getSelectedItem()) || "Torneo ad Eminazione".equals((String)selTab.getSelectedItem())){
-            jText6.setEditable(true);   
+        //RENDE MODIFICABILE O MENO IL CAMPO IDTORNEO A SECONDA SE SI TRATTA DI UNA PARTITA DI TORNEO OPPURE NO
+        if("PARTITA".equals((String)selTab.getSelectedItem())){
+            System.out.println((String)box.getSelectedItem());
+            int index = box.getSelectedIndex();
+                if (index == 1 || index == 2){
+                    jText6.setEditable(true);
+                }else{
+                    jText6.setEditable(false);
+                }
         }
     }//GEN-LAST:event_boxItemStateChanged
 
@@ -684,6 +763,8 @@ public class Insert extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

@@ -143,8 +143,8 @@ public class DBproject {
         //VISTA RISULTATO PARTITE
         static Statement risPart;
         static String risultatoPartite;
-        static ResultSet risPart (java.awt.Component thrower/*, String prof, String cognome*/) throws SQLException{
-            risultatoPartite="SELECT IDpartita, IDsq1, Squadra1, Gol1, Gol2, Squadra2, IDsq2 FROM VISTA_RIS_PARTITE ORDER BY IDPARTITA DESC";
+        static ResultSet risPart (java.awt.Component thrower) throws SQLException{
+            risultatoPartite="SELECT IDpartita, Squadra1, Gol1, Gol2, Squadra2 FROM VISTA_RIS_PARTITE ORDER BY IDPARTITA DESC";
             risPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = risPart.executeQuery(risultatoPartite);
             System.out.println(risultatoPartite);
@@ -160,6 +160,50 @@ public class DBproject {
             ResultSet result = ricAllGioc.executeQuery(tuttiGiocatori);
             System.out.println(tuttiGiocatori);
             return result;
+        }
+        
+        //SELECT PER ELENCO TORNEI
+        static Statement elTG;
+        static String elencoTorneiG;
+        static ResultSet elTG (java.awt.Component thrower) throws SQLException{
+            elencoTorneiG="SELECT IDTORNEOG, NOMETORNEOG, STAGIONEG FROM TORNEO_GIRONI ORDER BY IDTORNEOG DESC";
+            elTG=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = elTG.executeQuery(elencoTorneiG);
+            System.out.println(elencoTorneiG);
+            return result;
+        }
+        
+        //VISTA DETTAGLI EVENTI PER PARTITA
+        static Statement dettEv;
+        static String dettagliEventi;
+        static ResultSet dettEv (java.awt.Component thrower, Integer idpartita) throws SQLException{
+            dettagliEventi="SELECT MINUTO, SQUADRA, EVENTO, GIOCATORE, IDPARTITA  FROM VISTA_EVENTI WHERE IDPARTITA = " + idpartita + " ORDER BY MINUTO DESC";
+            dettEv=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = dettEv.executeQuery(dettagliEventi);
+            System.out.println(dettagliEventi);
+            return result;
+        }
+        
+        //RISULTATO SINGOLA PARTITA
+        static Statement risSPart;
+        static String risultatoSingolaPartita;
+        static String risultatoSingolo (java.awt.Component thrower, Integer idpartita) throws SQLException{
+            risultatoSingolaPartita="SELECT SQUADRA1, SQUADRA2, GOL1, GOL2 FROM VISTA_RIS_PARTITE WHERE IDPARTITA = " + idpartita;
+            risSPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = risSPart.executeQuery(risultatoSingolaPartita);
+            System.out.println(risultatoSingolaPartita);
+            String ris=null;
+            while (result.next()){
+                ris = result.getString("SQUADRA1");
+                ris += " ";
+                ris += result.getInt("GOL1");
+                ris += " - ";
+                ris += result.getInt("GOL2");
+                ris += " ";
+                ris += result.getString("SQUADRA2");
+            }
+            System.out.println(ris);
+            return ris;
         }
 }
 
