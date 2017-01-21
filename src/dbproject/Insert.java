@@ -260,7 +260,6 @@ public class Insert extends javax.swing.JFrame {
     ResultSet rs;
     String tipo;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            // TODO add your handling code here:
             String tab=searchTab();
             if("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
                 InsTornei tg = new InsTornei ();
@@ -278,6 +277,17 @@ public class Insert extends javax.swing.JFrame {
             }
 
             String col=colonne;
+            if("PARTITA".equals((String)selTab.getSelectedItem())){
+                Integer index = box.getSelectedIndex();
+                if (index == 1){
+                    col+=", IDTORNEOG";
+                }
+                if (index == 2){
+                    col+=", IDTORNEOE";
+                }       
+            }
+            col+=")";
+           
             String val=values;
             val=createValues();    
             try {
@@ -294,8 +304,6 @@ public class Insert extends javax.swing.JFrame {
                     String assC = "(IDPARTITA, IDSQ1, IDSQ2)";
                     String assT = "INCONTRI";
                     DBproject.insert(assT, assC, assV);
-                    /*assV = "('" + jText1.getText() + "', '" + jText4.getText() + "')";
-                    DBproject.insert(assT, assC, assV);*/
                 }
             }catch (SQLException ex) {
                 DBproject.showError(this, ex);
@@ -323,8 +331,13 @@ public class Insert extends javax.swing.JFrame {
                 values+=", '" + jText6.getText() + "'";
             }
         }
-        if (box.isVisible() && !"".equals((String)box.getSelectedItem()))
-            values+=", '" + (String)box.getSelectedItem() + "'";
+        if (box.isVisible() && !"".equals((String)box.getSelectedItem())){
+            if("PARTITA".equals((String)selTab.getSelectedItem())){
+                //
+            }else{
+                values+=", '" + (String)box.getSelectedItem() + "'";
+            }
+        }
         values+=")";
         return values;        
     }
@@ -332,22 +345,22 @@ public class Insert extends javax.swing.JFrame {
         String tab="";
         if ("EVENTO".equals((String)selTab.getSelectedItem())){
             tab="EVENTI";
-            Integer index = Integer.parseInt(jText1.getText()) + 1;
+            Integer index = Integer.parseInt(jText1.getText());
             jText1.setText(index.toString());
         }
         if ("SQUADRA".equals((String)selTab.getSelectedItem())){
             tab="SQUADRA";
-            Integer index = Integer.parseInt(jText1.getText()) + 1;
+            Integer index = Integer.parseInt(jText1.getText());
             jText1.setText(index.toString());
         }
         if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
             tab="GIOCATORE";
-            Integer index = Integer.parseInt(jText1.getText()) + 1;
+            Integer index = Integer.parseInt(jText1.getText());
             jText1.setText(index.toString());
         }
         if ("MEMBRO STAFF".equals((String)selTab.getSelectedItem())){
             tab="STAFF";
-            Integer index = Integer.parseInt(jText1.getText()) + 1;
+            Integer index = Integer.parseInt(jText1.getText());
             jText1.setText(index.toString());
         }
         if ("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
@@ -358,7 +371,7 @@ public class Insert extends javax.swing.JFrame {
         }
         if ("PARTITA".equals((String)selTab.getSelectedItem())){
             tab="PARTITA";
-            Integer index = Integer.parseInt(jText1.getText()) + 1;
+            Integer index = Integer.parseInt(jText1.getText());
             jText1.setText(index.toString());
         }
         return tab;        
@@ -393,6 +406,7 @@ public class Insert extends javax.swing.JFrame {
             case 1:
                 try {
                     rs=DBproject.risPart(this);
+                    System.out.println("appena andato su evento");
                     jTable1.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
@@ -536,7 +550,7 @@ public class Insert extends javax.swing.JFrame {
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
                 colonne+="IDPARTITA, ";
                 try {
-                        ID = DBproject.calcMax("PARTITA", "IDPARTITA") + 1;
+                        ID = DBproject.calcMax("PARTITA", "IDPARTITA")+1;
                     } catch (SQLException ex) {
                         DBproject.showError(this, ex);
                     }
@@ -554,15 +568,16 @@ public class Insert extends javax.swing.JFrame {
                 jText5.setVisible(true);
                 jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data (aaaa-mm-gg)"));
                 colonne+="DATA";
-                jText6.setVisible(false);
+                jText6.setVisible(true);
+                jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID del torneo"));
                 box.setVisible(true);
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Torneo a Gironi", "Torneo ad Eliminazione"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo di Torneo"));
-                int index = box.getSelectedIndex();
-                if (index == 1)    
+                /*int index = box.getSelectedIndex();
+                if (index == 1) 
                     colonne+=", IDTORNEOG";
                 if (index == 2)
-                    colonne+=", IDTORNEOE";
+                    colonne+=", IDTORNEOE";*/
                 break;
             case 6:
                 //torneo gironi
@@ -597,7 +612,6 @@ public class Insert extends javax.swing.JFrame {
                 box.setVisible(false);
                 break;                
         }
-        colonne+=")";
     }//GEN-LAST:event_selTabItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -605,7 +619,9 @@ public class Insert extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxItemStateChanged
-        // TODO add your handling code here:
+        if("Torneo a gironi".equals((String)box.getSelectedItem()) || "Torneo ad Eminazione".equals((String)selTab.getSelectedItem())){
+            jText6.setEditable(true);   
+        }
     }//GEN-LAST:event_boxItemStateChanged
 
     private void jText6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jText6ActionPerformed
