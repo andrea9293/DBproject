@@ -29,7 +29,7 @@ public class DBproject {
     //Datasource necessario per la connessione
     static private OracleDataSource ods;
     //Connessione di default
-    static private Connection defaultConn;
+    static Connection defaultConn;
     private static Component thrower;
     
     
@@ -204,6 +204,28 @@ public class DBproject {
             }
             System.out.println(ris);
             return ris;
+        }
+        
+        //VISTA PER CLASSIFICA MARCATORI 
+        static Statement classMarc;
+        static String classificaMarcatori;
+        static ResultSet classMarc (java.awt.Component thrower, Integer torneo) throws SQLException{
+            classificaMarcatori="SELECT GIOCATORE, SQUADRA, GOAL FROM VISTA_MARCATORI WHERE IDTORNEO = " + torneo + " ORDER BY GOAL DESC";
+            classMarc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = classMarc.executeQuery(classificaMarcatori);
+            System.out.println(classificaMarcatori);
+            return result;
+        }
+        
+        //VISTA PER CLASSIFICA ASSIST
+        static Statement classAss;
+        static String classificaAssist;
+        static ResultSet classAss (java.awt.Component thrower, Integer torneo) throws SQLException{
+            classificaAssist="SELECT GIOCATORE, SQUADRA, ASSIST FROM VISTA_ASSIST WHERE IDTORNEO = " + torneo + " ORDER BY ASSIST DESC";
+            classAss=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = classAss.executeQuery(classificaAssist);
+            System.out.println(classificaAssist);
+            return result;
         }
 }
 

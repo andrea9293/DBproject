@@ -103,7 +103,12 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_ricGiocActionPerformed
 
     private void calcoloClassificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcoloClassificaActionPerformed
-        // TODO add your handling code here:
+        try {
+            infoTornei it = new infoTornei ();
+            it.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_calcoloClassificaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
