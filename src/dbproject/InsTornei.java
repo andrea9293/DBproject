@@ -94,7 +94,7 @@ public class InsTornei extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Annulla");
+        jButton2.setText("Fine/Annulla");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -154,7 +154,7 @@ public class InsTornei extends javax.swing.JFrame {
                             .addComponent(jTextField9)
                             .addComponent(jTextField5)
                             .addComponent(jTextField1)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField2)
