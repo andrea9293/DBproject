@@ -7,6 +7,8 @@ package dbproject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -301,6 +303,7 @@ public class Insert extends javax.swing.JFrame {
                 tg.tabella="PARTECIPANTI_GIRONI";
                 tg.setVisible(true);
             }
+            
             if("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
                 InsTornei tg = new InsTornei ();
                 tg.colonne="(IDTORNEOE, IDSQUADRA)";
@@ -317,6 +320,7 @@ public class Insert extends javax.swing.JFrame {
                 }
                 if (index == 2){
                     col+=", IDTORNEOE";
+                    col+=", NUMERO_TURNO_TORNEO";
                 }       
             }
             col+=")";
@@ -394,6 +398,18 @@ public class Insert extends javax.swing.JFrame {
                 //
             }else{
                 values+=", '" + (String)box.getSelectedItem() + "'";
+            }
+        }
+        if ("Torneo ad Eliminazione".equals((String)box.getSelectedItem())){
+            //GENERAZIONE DEL NUMERO TURNO
+            if (!"".equals(jText6.getText())){
+                Integer num=null;
+                try {
+                    num=DBproject.numT(this, Integer.parseInt(jText6.getText()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(Insert.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                values+=", '" + num + "'";
             }
         }
         values+=")";

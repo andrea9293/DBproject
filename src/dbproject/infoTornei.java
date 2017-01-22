@@ -23,6 +23,7 @@ public class infoTornei extends javax.swing.JFrame {
         jTable2.setShowGrid(false);
         jTable1.setShowGrid(false);
         setLocationRelativeTo(null);
+    //Funzioni per tornei a gironi
         boxItemG();
         ResultSet rs;
         //RICERCA DELL'IDTORNEO DELLA PRIMA SELEZIONE
@@ -37,6 +38,10 @@ public class infoTornei extends javax.swing.JFrame {
         } catch(SQLException ex) {
             DBproject.showError(this, ex);
         }
+        
+    //Funzioni per tornei ad eliminaizone
+        
+      
     }
     
     
@@ -51,7 +56,19 @@ public class infoTornei extends javax.swing.JFrame {
             ris += result.getString("IDTORNEOG");
             jComboBox1.addItem(ris);
         }
-        
+    }
+
+    //AGGIUNGERE 
+    private void boxItemE () throws SQLException{
+        Statement boxItem;
+        boxItem=DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet result = boxItem.executeQuery("SELECT NOMETORNEOE, IDTORNEOE FROM TORNEO_ELIMINAZIONE");
+        while (result.next()){
+            String ris = result.getString("NOMETORNEOE");
+            ris += ", ";
+            ris += result.getString("IDTORNEOE");
+            jComboBox2.addItem(ris);
+        }
     }
     
     

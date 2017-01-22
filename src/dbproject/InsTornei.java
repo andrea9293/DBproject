@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -235,8 +236,69 @@ public class InsTornei extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private Boolean isPower (){
+                    Integer index=0;
+            if (!"".equals(jTextField1.getText())){
+                index=index+1;
+            }
+        
+            if (!"".equals(jTextField2.getText())){
+                index=index+1; 
+            }
+            if (!"".equals(jTextField3.getText())){
+                index=index+1; 
+            }
+            if (!"".equals(jTextField4.getText())){
+                index=index+1; 
+            }
+            if (!"".equals(jTextField5.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField6.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField7.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField8.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField9.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField10.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField11.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField12.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField13.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField14.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField15.getText())){
+                index=index+1;
+            }
+            if (!"".equals(jTextField16.getText())){
+                index=index+1;
+            }
+            
+            System.out.println(index);
+            Boolean ris;
+            if ((index & -index) == index){
+                ris=true;
+            }else{
+                ris=false;
+            }
+            return ris;
+    }
+    
+    private void createParticipants (){
         String val;
         if (!"".equals(jTextField1.getText())){
             val=valori;
@@ -397,6 +459,19 @@ public class InsTornei extends javax.swing.JFrame {
                 DBproject.showError(this, ex);
 
             }
+        }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if ("PARTECIPANTI_ELIMINAZIONE".equals(tabella)){
+            Boolean ris=isPower();
+            if (ris){
+                createParticipants();
+            }else{
+                System.out.println("non è cosa\n");
+                JOptionPane.showMessageDialog(null, "Il numero dei partecipanti deve essere una potenza di 2 per un torneo ad eliminazione diretta!", "ERRORE", JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+            createParticipants();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

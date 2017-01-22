@@ -227,6 +227,72 @@ public class DBproject {
             System.out.println(classificaAssist);
             return result;
         }
+        
+        //QUERY PER LA RICERCA E CREAZIONE DEL NUMERO TURNO TORNEO
+        static Statement numT;
+        static String numeroTurno;
+        static Integer numT (java.awt.Component thrower, Integer torneo) throws SQLException{
+        //RICERCA DELL'ULTIMO NUMERO TURNO UTILIZZATO PER QUEL TORNEO
+            numeroTurno="SELECT NUMERO_TURNO_TORNEO FROM PARTITA WHERE IDTORNEOE = " + torneo + " ORDER BY NUMERO_TURNO_TORNEO ASC";
+            numT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = numT.executeQuery(numeroTurno);
+            System.out.println(numeroTurno);
+            Integer num=null;
+            while (result.next()){
+                num = result.getInt("NUMERO_TURNO_TORNEO");
+            }
+            
+            System.out.println("stampo num=" + num);
+            
+            
+        //RICERCA DEL NUMERO DEI PARTECIPANTI AL TORNEO
+            numeroTurno="SELECT COUNT(IDSQUADRA) AS IDSQUADRA FROM PARTECIPANTI_ELIMINAZIONE WHERE IDTORNEOE = " + torneo;
+            numT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            result = numT.executeQuery(numeroTurno);
+            System.out.println(numeroTurno);
+            Integer numPartecipanti=null;
+            while (result.next()){
+                numPartecipanti = result.getInt("IDSQUADRA");
+            }  
+           
+            System.out.println("stampo numP=" + numPartecipanti);
+            
+        //CALCOLO DEGLI UTILIZZI DELLO STESSO NUMERO TURNO
+            numeroTurno="SELECT COUNT(NUMERO_TURNO_TORNEO) AS NUMERO_TURNO_TORNEO FROM PARTITA WHERE IDTORNEOE = " + torneo + " AND NUMERO_TURNO_TORNEO = " + num;
+            numT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            result = numT.executeQuery(numeroTurno);
+            System.out.println(numeroTurno);
+            Integer quantoNum=null;
+            while (result.next()){
+                quantoNum = result.getInt("NUMERO_TURNO_TORNEO");
+            }
+            System.out.println("stampo quantoNum=" + quantoNum);
+      
+        //CALCOLO DELLE VOLTE IN CUI È STATO UTILIZZATO IL NUMERO TURNO (num) 
+            //PER UTILIZZARE LO STESSO NUMERO TURNO DEVE ESSERE quantoNum<(numPartecipanti/2)
+            //QUESTO PERCHÉ IL NUMERO DI PARTECIPANTI DEVE ESSERE UNA POTENZA DI 2 
+            //E LE PARTITE DEL PRIMO TURNO SONO ESATTAMENTE IL NUMERO DEI PARTECIPANTI /2.
+            //I PARTECIPANTI VENGONO DIMEZZATI AD OGNI TURNO, QUINDI PER OGNI MAGGIORAZIONE DI 1 IN NUMERO TURNO
+            //PER SAPERE QUANTE PARTITE AVRANNO LO STESSO NUMERO TURNO, SI DEVE FARE numPartecipanti/2^num
+            //QUINDI PER I TURNI SUCCESSIVI AL PRIMO, SI POTRÀ UTILIZZARE LO STESSO NUMERO TURNO
+            //ESATTAMENTE numPartecipanti/2^num.
+            //POSSIAMO QUINDI DIRE CHE CON num!=0 IL CALCOLO DEL NUMERO TURNO DA ASSEGNARE È 
+            Integer ris=null;
+            if(num==null){
+                ris=1;
+                System.out.println("viene restituito 1\n");
+            }else {
+                if(quantoNum<=numPartecipanti/(2^num)){
+                    ris=num;
+                    System.out.println("num va bene\n");
+                }else{
+                    ris=num+1;
+                    System.out.println("num viene incrementato\n");
+                }
+            }
+            
+            return ris;
+        }
 }
 
 
