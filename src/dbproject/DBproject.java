@@ -103,7 +103,6 @@ public class DBproject {
             ricercaGiocatore="SELECT Nome, Cognome, Squadra, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = LOWER('" + gioc +"')";
             ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
-            System.out.println(ricercaGiocatore);
             return result;
         }
         
@@ -114,7 +113,6 @@ public class DBproject {
             ricercaSquadra="SELECT Squadra, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE LOWER(squadra) = LOWER('" + sq +"')";
             ricSq=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricSq.executeQuery(ricercaSquadra);
-            System.out.println(ricercaSquadra);
             return result;
         }
         
@@ -125,7 +123,6 @@ public class DBproject {
             ricercaSquadraTipo="SELECT IDsquadra, Nome, Tipo FROM SQUADRA WHERE LOWER(tipo) = LOWER('" + tipo +"')";
             ricSqT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricSqT.executeQuery(ricercaSquadraTipo);
-            System.out.println(ricercaSquadraTipo);
             return result;
         }
         
@@ -136,7 +133,6 @@ public class DBproject {
             ricercaStaff="SELECT Nome, Cognome, Nazionalita, DataNascita, Squadra FROM VISTA_STAFF WHERE LOWER(PROFESSIONE) = LOWER('" + prof +"') AND LOWER(COGNOME) = LOWER ('" + cognome + "')";
             ricStaff=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricStaff.executeQuery(ricercaStaff);
-            System.out.println(ricercaStaff);
             return result;
         }
         
@@ -147,7 +143,6 @@ public class DBproject {
             risultatoPartite="SELECT IDpartita, Squadra1, Gol1, Gol2, Squadra2 FROM VISTA_RIS_PARTITE ORDER BY IDPARTITA DESC";
             risPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = risPart.executeQuery(risultatoPartite);
-            System.out.println(risultatoPartite);
             return result;
         }
 
@@ -158,7 +153,6 @@ public class DBproject {
             tuttiGiocatori="SELECT IDgiocatore, Cognome, Squadra, Goal, Ammonizioni, Espulsioni, Assist FROM STAT_INDIVIDUALI ORDER BY " + order + " DESC";
             ricAllGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricAllGioc.executeQuery(tuttiGiocatori);
-            System.out.println(tuttiGiocatori);
             return result;
         }
         
@@ -180,7 +174,6 @@ public class DBproject {
             dettagliEventi="SELECT MINUTO, SQUADRA, EVENTO, GIOCATORE, IDPARTITA  FROM VISTA_EVENTI WHERE IDPARTITA = " + idpartita + " ORDER BY MINUTO DESC";
             dettEv=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = dettEv.executeQuery(dettagliEventi);
-            System.out.println(dettagliEventi);
             return result;
         }
         
@@ -191,7 +184,6 @@ public class DBproject {
             risultatoSingolaPartita="SELECT SQUADRA1, SQUADRA2, GOL1, GOL2 FROM VISTA_RIS_PARTITE WHERE IDPARTITA = " + idpartita;
             risSPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = risSPart.executeQuery(risultatoSingolaPartita);
-            System.out.println(risultatoSingolaPartita);
             String ris=null;
             while (result.next()){
                 ris = result.getString("SQUADRA1");
@@ -202,7 +194,6 @@ public class DBproject {
                 ris += " ";
                 ris += result.getString("SQUADRA2");
             }
-            System.out.println(ris);
             return ris;
         }
         
@@ -213,7 +204,6 @@ public class DBproject {
             classificaMarcatori="SELECT GIOCATORE, SQUADRA, GOAL FROM VISTA_MARCATORI WHERE IDTORNEO = " + torneo + " ORDER BY GOAL DESC";
             classMarc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = classMarc.executeQuery(classificaMarcatori);
-            System.out.println(classificaMarcatori);
             return result;
         }
         
@@ -224,7 +214,6 @@ public class DBproject {
             classificaAssist="SELECT GIOCATORE, SQUADRA, ASSIST FROM VISTA_ASSIST WHERE IDTORNEO = " + torneo + " ORDER BY ASSIST DESC";
             classAss=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = classAss.executeQuery(classificaAssist);
-            System.out.println(classificaAssist);
             return result;
         }
         
@@ -236,37 +225,28 @@ public class DBproject {
             numeroTurno="SELECT NUMERO_TURNO_TORNEO FROM PARTITA WHERE IDTORNEOE = " + torneo + " ORDER BY NUMERO_TURNO_TORNEO ASC";
             numT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = numT.executeQuery(numeroTurno);
-            System.out.println(numeroTurno);
             Integer num=null;
             while (result.next()){
                 num = result.getInt("NUMERO_TURNO_TORNEO");
             }
             
-            System.out.println("stampo num=" + num);
-            
-            
         //RICERCA DEL NUMERO DEI PARTECIPANTI AL TORNEO
             numeroTurno="SELECT COUNT(IDSQUADRA) AS IDSQUADRA FROM PARTECIPANTI_ELIMINAZIONE WHERE IDTORNEOE = " + torneo;
             numT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             result = numT.executeQuery(numeroTurno);
-            System.out.println(numeroTurno);
             Integer numPartecipanti=null;
             while (result.next()){
                 numPartecipanti = result.getInt("IDSQUADRA");
             }  
-           
-            System.out.println("stampo numP=" + numPartecipanti);
-            
+                      
         //CALCOLO DEGLI UTILIZZI DELLO STESSO NUMERO TURNO
             numeroTurno="SELECT COUNT(NUMERO_TURNO_TORNEO) AS NUMERO_TURNO_TORNEO FROM PARTITA WHERE IDTORNEOE = " + torneo + " AND NUMERO_TURNO_TORNEO = " + num;
             numT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             result = numT.executeQuery(numeroTurno);
-            System.out.println(numeroTurno);
             Integer quantoNum=null;
             while (result.next()){
                 quantoNum = result.getInt("NUMERO_TURNO_TORNEO");
             }
-            System.out.println("stampo quantoNum=" + quantoNum);
       
         //CALCOLO DELLE VOLTE IN CUI È STATO UTILIZZATO IL NUMERO TURNO (num) 
             //PER UTILIZZARE LO STESSO NUMERO TURNO DEVE ESSERE quantoNum<(numPartecipanti/2)
@@ -280,14 +260,11 @@ public class DBproject {
             Integer ris=null;
             if(num==null){
                 ris=1;
-                System.out.println("viene restituito 1\n");
             }else {
                 if(quantoNum<=numPartecipanti/(2^num)){
                     ris=num;
-                    System.out.println("num va bene\n");
                 }else{
                     ris=num+1;
-                    System.out.println("num viene incrementato\n");
                 }
             }
             

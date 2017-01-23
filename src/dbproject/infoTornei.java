@@ -29,7 +29,7 @@ public class infoTornei extends javax.swing.JFrame {
         //RICERCA DELL'IDTORNEO DELLA PRIMA SELEZIONE
         String str = (String) jComboBox1.getSelectedItem();
         str = str.replaceAll("[^0-9]+", "");
-        index = Integer.parseInt(str);
+        Integer index = Integer.parseInt(str);
         
         try {
             rs=DBproject.classMarc(this, index);
@@ -40,12 +40,84 @@ public class infoTornei extends javax.swing.JFrame {
         }
         
     //Funzioni per tornei ad eliminaizone
+        boxItemE();
+        str = (String) jComboBox2.getSelectedItem();
+        str = str.replaceAll("[^0-9]+", "");
+        index = Integer.parseInt(str);
+        createScheme(index);
         
       
     }
     
+    private void createScheme(Integer index) throws SQLException{
+        Statement createScheme;        
+        String query;
+        query= "SELECT IDTORNEOE, SQUADRA1, GOL1, GOL2, SQUADRA2, NUMERO_TURNO FROM VISTA_RIS_PARTITE WHERE IDTORNEOE = " + index;
+        createScheme = DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet result = createScheme.executeQuery(query);
+        String vit1 = null;
+        String vit2 = null;
+        while (result.next()){
+            index = result.getInt("NUMERO_TURNO"); 
+            String sq1 = result.getString("SQUADRA1") + " " + result.getString("GOL1");
+            vit1 = result.getString("SQUADRA1");
+            String sq2 = result.getString("SQUADRA2") + " " + result.getString("GOL2");
+            vit2 = result.getString("SQUADRA2");
+            System.out.println(sq1 + " " + sq2 + " " + index + "\n");
+            if (index == 1){
+                //SQUADRE PER IL PRIMO TURNO
+                //INSERIMENTO SQUADRE DI CASA
+                if("".equals(jLabel10.getText()) && jLabel10.isVisible()){
+                    jLabel10.setText(sq1);
+                }else if("".equals(jLabel8.getText()) && jLabel8.isVisible()){
+                    jLabel8.setText(sq1);
+                }else if ("".equals(jLabel16.getText())){
+                    jLabel16.setText(sq1);
+                    System.out.println("metto l'ultima squadra");
+                }
+                
+                //INSERIMENTO SQUADRE OSPITI
+                if("".equals(jLabel12.getText()) && jLabel12.isVisible()){
+                    jLabel12.setText(sq2);
+                    System.out.println("ora metto gli ospiti " + sq2);
+                }else if("".equals(jLabel7.getText()) && jLabel7.isVisible()){
+                    jLabel7.setText(sq2);
+                }else if ("".equals(jLabel15.getText())){
+                    jLabel15.setText(sq2);
+                }
+            }else {
+                //INSERIMENTO SQUADRA DI CASA
+                if ("".equals(jLabel16.getText())){
+                    jLabel16.setText(sq1);
+                }
+                //INSERIMENTO SQUADRA OSPITE
+                if ("".equals(jLabel15.getText())){
+                    jLabel15.setText(sq2);
+                }
+            }
+        }
+        
+        //CALCOLO DEL VINCITORE
+        if (!"".equals(jLabel16.getText())){
+            Integer gol1=0;
+            Integer gol2=0;
+            String str = jLabel16.getText();
+            str = str.replaceAll("[^0-9]+", "");
+            gol1 = Integer.parseInt(str);
+            str = jLabel15.getText();
+            str = str.replaceAll("[^0-9]+", "");
+            gol2 = Integer.parseInt(str);
+
+            if (gol1>gol2){
+                jLabel13.setText(vit1);
+            }else {
+                jLabel13.setText(vit2);
+            }
+        }
+
+    }
     
-    Integer index;
+    
     private void boxItemG () throws SQLException{
         Statement boxItem;
         boxItem=DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -243,40 +315,33 @@ public class infoTornei extends javax.swing.JFrame {
         });
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Squadra1");
         jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Squadra1");
         jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("VS");
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Squadra1");
         jLabel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("VS");
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Squadra1");
         jLabel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Squadra1");
         jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("VS");
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Squadra1");
         jLabel15.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Squadra1");
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -383,6 +448,7 @@ public class infoTornei extends javax.swing.JFrame {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         ResultSet rs;
         String str;
+        Integer index;
         if(jComboBox3.getSelectedIndex() == 0){
             str = (String) jComboBox1.getSelectedItem();
             str = str.replaceAll("[^0-9]+", "");
@@ -422,6 +488,7 @@ public class infoTornei extends javax.swing.JFrame {
     private void jComboBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3ItemStateChanged
         ResultSet rs;
         String str;
+        Integer index;
         switch(jComboBox3.getSelectedIndex()){
             case 0:
                 str = (String) jComboBox1.getSelectedItem();
@@ -455,7 +522,7 @@ public class infoTornei extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

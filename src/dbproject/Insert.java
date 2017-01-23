@@ -709,7 +709,6 @@ public class Insert extends javax.swing.JFrame {
     private void boxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxItemStateChanged
         //RENDE MODIFICABILE O MENO IL CAMPO IDTORNEO A SECONDA SE SI TRATTA DI UNA PARTITA DI TORNEO OPPURE NO
         if("PARTITA".equals((String)selTab.getSelectedItem())){
-            System.out.println((String)box.getSelectedItem());
             int index = box.getSelectedIndex();
                 if (index == 1 || index == 2){
                     jText6.setEditable(true);

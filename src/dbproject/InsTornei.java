@@ -288,7 +288,6 @@ public class InsTornei extends javax.swing.JFrame {
                 index=index+1;
             }
             
-            System.out.println(index);
             Boolean ris;
             if ((index & -index) == index){
                 ris=true;
@@ -467,7 +466,6 @@ public class InsTornei extends javax.swing.JFrame {
             if (ris){
                 createParticipants();
             }else{
-                System.out.println("non è cosa\n");
                 JOptionPane.showMessageDialog(null, "Il numero dei partecipanti deve essere una potenza di 2 per un torneo ad eliminazione diretta!", "ERRORE", JOptionPane.ERROR_MESSAGE);
             }
         }else{
