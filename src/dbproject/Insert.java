@@ -222,9 +222,9 @@ public class Insert extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(selTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jText6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jText6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selTab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,7 +234,7 @@ public class Insert extends javax.swing.JFrame {
                     .addComponent(jText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jText4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(box, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jText5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -336,12 +336,12 @@ public class Insert extends javax.swing.JFrame {
                     String assT = "SQUADRA_GIOCATORI";
                     DBproject.insert(assT, assC, assV);
                 }
-                if("PARTITA".equals((String)selTab.getSelectedItem())){
+                /*if("PARTITA".equals((String)selTab.getSelectedItem())){
                     String assV = "('" + jText1.getText() + "', '" + jText3.getText() + "', '" + jText4.getText() + "')";
                     String assC = "(IDPARTITA, IDSQ1, IDSQ2)";
                     String assT = "INCONTRI";
                     DBproject.insert(assT, assC, assV);
-                }
+                }*/
             }catch (SQLException ex) {
                 DBproject.showError(this, ex);
             }
@@ -389,8 +389,9 @@ public class Insert extends javax.swing.JFrame {
             }
         }
         if(jText6.isVisible()){
-            if(!"GIOCATORE".equals((String)selTab.getSelectedItem())){
+            if(!"GIOCATORE".equals((String)selTab.getSelectedItem()) && jText6.isEditable()){
                 values+=", '" + jText6.getText() + "'";
+                System.out.println("preso");
             }
         }
         if (box.isVisible() && !"".equals((String)box.getSelectedItem())){
@@ -400,7 +401,7 @@ public class Insert extends javax.swing.JFrame {
                 values+=", '" + (String)box.getSelectedItem() + "'";
             }
         }
-        if ("Torneo ad Eliminazione".equals((String)box.getSelectedItem())){
+        if (box.getSelectedIndex() == 2){
             //GENERAZIONE DEL NUMERO TURNO
             if (!"".equals(jText6.getText())){
                 Integer num=null;
@@ -642,7 +643,7 @@ public class Insert extends javax.swing.JFrame {
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
                 colonne+="IDPARTITA, ";
                 try {
-                        ID = DBproject.calcMax("PARTITA", "IDPARTITA")+1;
+                        ID = DBproject.calcMax("PARTITA", "IDPARTITA") + 1;
                     } catch (SQLException ex) {
                         DBproject.showError(this, ex);
                     }

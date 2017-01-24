@@ -92,7 +92,7 @@ public class DBproject {
         int id = 0;
         while (result.next()) {
             id = result.getInt(1);
-        }
+        }System.out.println(id);
         return id;
         }
         
@@ -146,7 +146,7 @@ public class DBproject {
             return result;
         }
 
-        //VISTA RISULTATO PARTITE
+        //VISTA RCERCA GIOCATORI
         static Statement ricAllGioc;
         static String tuttiGiocatori;
         static ResultSet ricAllGioc (java.awt.Component thrower, String order) throws SQLException{
@@ -156,7 +156,7 @@ public class DBproject {
             return result;
         }
         
-        //SELECT PER ELENCO TORNEI
+        //SELECT PER ELENCO TORNEI A GIRONI
         static Statement elTG;
         static String elencoTorneiG;
         static ResultSet elTG (java.awt.Component thrower) throws SQLException{
