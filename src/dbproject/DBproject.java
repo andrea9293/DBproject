@@ -64,7 +64,6 @@ public class DBproject {
         String message;
         message = e.getMessage();
         message += "SQLSTATE" + e.getSQLState() + "\n";
-        
         JOptionPane.showMessageDialog(thrower, message, "Errore" + e.getErrorCode(), JOptionPane.ERROR_MESSAGE);
     }
     
@@ -77,7 +76,7 @@ public class DBproject {
         System.out.println(up);
         insert=defaultConn.createStatement();
         insert.executeUpdate(up);
-        JOptionPane.showMessageDialog(thrower, "Inserimento Eseguito");
+        //JOptionPane.showMessageDialog(thrower, "Inserimento Eseguito");
     }
     
     
@@ -196,6 +195,16 @@ public class DBproject {
             }
             return ris;
         }
+
+        //VISTA PER CLASSIFICHE TORNEI
+        static Statement classTg;
+        static String classificaTorneiG;
+        static ResultSet classTg (java.awt.Component thrower, Integer torneo) throws SQLException{
+            classificaTorneiG="SELECT POS, SQ, PTI, V, P FROM VISTA_CLASSIFICA WHERE IDTORNEO = " + torneo + " ORDER BY PTI DESC";
+            classTg=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = classTg.executeQuery(classificaTorneiG);
+            return result;
+        }
         
         //VISTA PER CLASSIFICA MARCATORI 
         static Statement classMarc;
@@ -269,6 +278,85 @@ public class DBproject {
             }
             
             return ris;
+        }
+        
+        //SELECT PER LA MODIFICA DEGLI ELEMENTI
+        static Statement modEv;
+        static String modificaEventi;
+        static ResultSet modEv (java.awt.Component thrower) throws SQLException{
+            modificaEventi="SELECT IDEVENTO, IDPARTITA, MINUTO, IDGIOCATORE, EVENTO, GIOCATORE, SQUADRA FROM VISTA_EVENTI ORDER BY IDEVENTO";
+            modEv=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = modEv .executeQuery(modificaEventi);
+            return result;
+        }
+        
+        //SELECT PER LA MODIFICA DI UNA SQUADRA
+        static Statement modSq;
+        static String modificaSquadra;
+        static ResultSet modSq (java.awt.Component thrower) throws SQLException{
+            modificaSquadra="SELECT IDSQUADRA, NOME, TIPO FROM SQUADRA ORDER BY NOME";
+            modSq=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = modSq .executeQuery(modificaSquadra);
+            return result;
+        }
+        
+        //SELECT PER LA MODIFICA DI UN GIOCATROE
+        static Statement modGioc;
+        static String modificaGiocatore;
+        static ResultSet modGioc (java.awt.Component thrower) throws SQLException{
+            modificaGiocatore="SELECT IDGIOCATORE, NOME, COGNOME, IDSQUADRA, RUOLO FROM STAT_INDIVIDUALI ORDER BY COGNOME";
+            modGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = modGioc .executeQuery(modificaGiocatore);
+            return result;
+        }
+        
+        //SELECT PER LA MODIFICA DELLO STAFF
+        static Statement modStaff;
+        static String modificaStaff;
+        static ResultSet modStaff (java.awt.Component thrower) throws SQLException{
+            modificaStaff="SELECT IDSTAFF, NOME, COGNOME, NAZIONALITA, DATANASCITA IDSQUADRA, PROFESSIONE FROM STAFF ORDER BY COGNOME";
+            modStaff=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = modStaff .executeQuery(modificaStaff);
+            return result;
+        }
+        //SELECT PER LA MODIFICA DELLE PARTITE
+        static Statement modPar;
+        static String modificaPartita;
+        static ResultSet modPar (java.awt.Component thrower) throws SQLException{
+            modificaPartita="SELECT IDPARTITA, STADIO, IDSQ1, IDSQ2, DATA, IDTORNEOG, IDTORNEOE FROM PARTITA ORDER BY IDPARTITA DESC";
+            modPar=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = modPar.executeQuery(modificaPartita);
+            return result;
+        }
+        
+        //SELECT PER LA MODIFICA DI UN TORNEO A GIRONI
+        static Statement modTg;
+        static String modificaTorneoG;
+        static ResultSet modTg (java.awt.Component thrower) throws SQLException{
+            modificaTorneoG="SELECT IDTORNEOG, STAGIONEG, NOMETORNEOG FROM TORNEO_GIRONI ORDER BY IDTORNEOG DESC";
+            modTg=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = modTg.executeQuery(modificaTorneoG);
+            return result;
+        }
+        
+        //SELECT PER LA MODIFICA DI UN TORNEO AD ELIMINAIZONE
+        static Statement modTe;
+        static String modificaTorneoE;
+        static ResultSet modTe (java.awt.Component thrower) throws SQLException{
+            modificaTorneoE="SELECT IDTORNEOEE, STAGIONEE, NOMETORNEOE FROM TORNEO_ELIMINAZIONE ORDER BY IDTORNEOE DESC";
+            modTe=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = modTe.executeQuery(modificaTorneoE);
+            return result;
+        }
+        
+        //FUNZIONE PER GLI AGGIORNAMENTI
+        static Statement upd;
+        static String update;
+        static void upd (String tab, String col, String val, String index, String id) throws SQLException{
+            update="UPDATE " + tab + " SET " + col + " = " + val + " WHERE " + index + " = " + id;
+            upd=defaultConn.createStatement();
+            System.out.println(update);
+            upd.executeUpdate(update);
         }
 }
 

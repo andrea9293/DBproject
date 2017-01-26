@@ -299,166 +299,90 @@ public class InsTornei extends javax.swing.JFrame {
     
     private void createParticipants (){
         String val;
-        if (!"".equals(jTextField1.getText())){
-            val=valori;
-            val+="'" + jTextField1.getText() + "')";
-            try {
+        try {
+            if (!"".equals(jTextField1.getText())){
+                val=valori;
+                val+="'" + jTextField1.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-            }    
-        }
-        
-        if (!"".equals(jTextField2.getText())){
-            val=valori;
-            val+="'" + jTextField2.getText() + "')";
-            try {
-                DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
-            } 
-        }
-        if (!"".equals(jTextField3.getText())){
-            val=valori;
-            val+="'" + jTextField3.getText() + "')";
-            try {
-                DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
-            } 
-        }
-        if (!"".equals(jTextField4.getText())){
-            val=valori;
-            val+="'" + jTextField4.getText() + "')";
-            try {
-                DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
-            } 
-        }
-        if (!"".equals(jTextField5.getText())){
-            val=valori;
-            val+="'" + jTextField5.getText() + "')";
-            try {
-                DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField6.getText())){
-            val=valori;
-            val+="'" + jTextField6.getText() + "')";
-            try {
+            if (!"".equals(jTextField2.getText())){
+                val=valori;
+                val+="'" + jTextField2.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField7.getText())){
-            val=valori;
-            val+="'" + jTextField7.getText() + "')";
-            try {
+            if (!"".equals(jTextField3.getText())){
+                val=valori;
+                val+="'" + jTextField3.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField8.getText())){
-            val=valori;
-            val+="'" + jTextField8.getText() + "')";
-            try {
+            if (!"".equals(jTextField4.getText())){
+                val=valori;
+                val+="'" + jTextField4.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField9.getText())){
-            val=valori;
-            val+="'" + jTextField9.getText() + "')";
-            try {
+            if (!"".equals(jTextField5.getText())){
+                val=valori;
+                val+="'" + jTextField5.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField10.getText())){
-            val=valori;
-            val+="'" + jTextField10.getText() + "')";
-            try {
+            if (!"".equals(jTextField6.getText())){
+                val=valori;
+                val+="'" + jTextField6.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField11.getText())){
-            val=valori;
-            val+="'" + jTextField11.getText() + "')";
-            try {
+            if (!"".equals(jTextField7.getText())){
+                val=valori;
+                val+="'" + jTextField7.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField12.getText())){
-            val=valori;
-            val+="'" + jTextField12.getText() + "')";
-            try {
+            if (!"".equals(jTextField8.getText())){
+                val=valori;
+                val+="'" + jTextField8.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField13.getText())){
-            val=valori;
-            val+="'" + jTextField13.getText() + "')";
-            try {
+            if (!"".equals(jTextField9.getText())){
+                val=valori;
+                val+="'" + jTextField9.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField14.getText())){
-            val=valori;
-            val+="'" + jTextField14.getText() + "')";
-            try {
+            if (!"".equals(jTextField10.getText())){
+                val=valori;
+                val+="'" + jTextField10.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField15.getText())){
-            val=valori;
-            val+="'" + jTextField15.getText() + "')";
-            try {
+            if (!"".equals(jTextField11.getText())){
+                val=valori;
+                val+="'" + jTextField11.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
-        if (!"".equals(jTextField16.getText())){
-            val=valori;
-            val+="'" + jTextField16.getText() + "')";
-            try {
+            if (!"".equals(jTextField12.getText())){
+                val=valori;
+                val+="'" + jTextField12.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
-            } catch (SQLException ex) {
-                DBproject.showError(this, ex);
-
             }
-        }
+            if (!"".equals(jTextField13.getText())){
+                val=valori;
+                val+="'" + jTextField13.getText() + "')";
+                DBproject.insert(tabella, colonne, val);
+            }
+            if (!"".equals(jTextField14.getText())){
+                val=valori;
+                val+="'" + jTextField14.getText() + "')";
+                DBproject.insert(tabella, colonne, val);
+            }
+            if (!"".equals(jTextField15.getText())){
+                val=valori;
+                val+="'" + jTextField15.getText() + "')";
+                DBproject.insert(tabella, colonne, val);
+            }
+            if (!"".equals(jTextField16.getText())){
+                val=valori;
+                val+="'" + jTextField16.getText() + "')";
+                DBproject.insert(tabella, colonne, val);
+            }
+        } catch (SQLException ex) {
+                DBproject.showError(this, ex);
+            }
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if ("PARTECIPANTI_ELIMINAZIONE".equals(tabella)){

@@ -31,6 +31,16 @@ public class infoTornei extends javax.swing.JFrame {
         str = str.replaceAll("[^0-9]+", "");
         Integer index = Integer.parseInt(str);
         
+        //CLASSIFICA PER TORNEI
+        try {
+            rs=DBproject.classTg(this, index);
+            jTable1.setModel (new VistaTabelle(rs));
+            pack();
+        } catch(SQLException ex) {
+            DBproject.showError(this, ex);
+        }
+
+        //CLASSIFICA MARCATORI
         try {
             rs=DBproject.classMarc(this, index);
             jTable2.setModel (new VistaTabelle(rs));
@@ -453,6 +463,15 @@ public class infoTornei extends javax.swing.JFrame {
             str = (String) jComboBox1.getSelectedItem();
             str = str.replaceAll("[^0-9]+", "");
             index = Integer.parseInt(str);
+            //CLASSIFICA PER TORNEI
+            try {
+                rs=DBproject.classTg(this, index);
+                jTable1.setModel (new VistaTabelle(rs));
+                pack();
+            } catch(SQLException ex) {
+                DBproject.showError(this, ex);
+            }
+            //CLASSIFICA MARCATORI
             try {
                 rs=DBproject.classMarc(this, index);
                 jTable2.setModel (new VistaTabelle(rs));
@@ -464,6 +483,15 @@ public class infoTornei extends javax.swing.JFrame {
             str = (String) jComboBox1.getSelectedItem();
             str = str.replaceAll("[^0-9]+", "");
             index = Integer.parseInt(str);
+            //CLASSIFICA PER TORNEI
+            try {
+                rs=DBproject.classTg(this, index);
+                jTable1.setModel (new VistaTabelle(rs));
+                pack();
+            } catch(SQLException ex) {
+                DBproject.showError(this, ex);
+            }
+            //CLASSIFICA MARCATORI
             try {
                 rs=DBproject.classAss(this, index);
                 jTable2.setModel (new VistaTabelle(rs));
