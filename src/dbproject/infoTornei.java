@@ -22,6 +22,7 @@ public class infoTornei extends javax.swing.JFrame {
         initComponents();
         jTable2.setShowGrid(false);
         jTable1.setShowGrid(false);
+        jTable3.setShowGrid(false);
         setLocationRelativeTo(null);
     //Funzioni per tornei a gironi
         boxItemG();
