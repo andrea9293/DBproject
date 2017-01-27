@@ -344,6 +344,9 @@ public class Insert extends javax.swing.JFrame {
                     DBproject.insert(tab, col, val);
                 }
                 JOptionPane.showMessageDialog(null, "Inserimento Eseguito");
+                // INCREMENTO DELL'ID PER IL SUCCESSIVO INSERIMENTO
+                Integer index = Integer.parseInt(jText1.getText()) +1;
+                jText1.setText(index.toString());
             }catch (SQLException ex) {
                 DBproject.showError(this, ex);
             }
@@ -421,38 +424,24 @@ public class Insert extends javax.swing.JFrame {
         String tab="";
         if ("EVENTO".equals((String)selTab.getSelectedItem())){
             tab="EVENTI";
-            Integer index = Integer.parseInt(jText1.getText()) +1;
-            jText1.setText(index.toString());
         }
         if ("SQUADRA".equals((String)selTab.getSelectedItem())){
             tab="SQUADRA";
-            Integer index = Integer.parseInt(jText1.getText()) +1;
-            jText1.setText(index.toString());
         }
         if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
             tab="GIOCATORE";
-            Integer index = Integer.parseInt(jText1.getText()) +1 ;
-            jText1.setText(index.toString());
         }
         if ("MEMBRO STAFF".equals((String)selTab.getSelectedItem())){
             tab="STAFF";
-            Integer index = Integer.parseInt(jText1.getText())+1;
-            jText1.setText(index.toString());
         }
         if ("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
             tab="TORNEO_GIRONI";
-            Integer index = Integer.parseInt(jText1.getText())+1;
-            jText1.setText(index.toString());
         }
         if ("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
             tab="TORNEO_ELIMINAZIONE";
-            Integer index = Integer.parseInt(jText1.getText())+1;
-            jText1.setText(index.toString());
         }
         if ("PARTITA".equals((String)selTab.getSelectedItem())){
             tab="PARTITA";
-            Integer index = Integer.parseInt(jText1.getText())+1;
-            jText1.setText(index.toString());
         }
         return tab;        
     }

@@ -7,8 +7,6 @@ package dbproject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -54,28 +52,41 @@ public class Modifica extends javax.swing.JFrame {
         String tab="";
         if ("EVENTO".equals((String)selTab.getSelectedItem())){
             tab="EVENTI";
-        }
-        if ("SQUADRA".equals((String)selTab.getSelectedItem())){
+        }else if ("SQUADRA".equals((String)selTab.getSelectedItem())){
             tab="SQUADRA";
-        }
-        if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
+        }else if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
             tab="GIOCATORE";
-        }
-        if ("MEMBRO STAFF".equals((String)selTab.getSelectedItem())){
+        }else if ("MEMBRO STAFF".equals((String)selTab.getSelectedItem())){
             tab="STAFF";
-        }
-        if ("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
+        }else if ("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
             tab="TORNEO_GIRONI";
-        }
-        if ("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
+        }else if ("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
             tab="TORNEO_ELIMINAZIONE";
-        }
-        if ("PARTITA".equals((String)selTab.getSelectedItem())){
+        }else if ("PARTITA".equals((String)selTab.getSelectedItem())){
             tab="PARTITA";
         }
-        return tab;        
+        return tab;
     }
     
+    private String searchCond(){
+        String cond="";
+        if ("EVENTO".equals((String)selTab.getSelectedItem())){
+            cond="IDEVENTO = ";
+        }else if ("SQUADRA".equals((String)selTab.getSelectedItem())){
+            cond="IDSQUADRA = ";
+        }else if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
+            cond="IDGIOCATORE = ";
+        }else if ("MEMBRO STAFF".equals((String)selTab.getSelectedItem())){
+            cond="STAFF = ";
+        }else if ("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
+            cond="IDTORNEOG = ";
+        }else if ("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
+            cond="IDTORNEOE = ";
+        }else if ("PARTITA".equals((String)selTab.getSelectedItem())){
+            cond="IDPARTITA";
+        }
+        return cond;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,6 +114,7 @@ public class Modifica extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -297,6 +309,13 @@ public class Modifica extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Elimina selezione");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -311,6 +330,8 @@ public class Modifica extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3)
+                                .addGap(38, 38, 38)
                                 .addComponent(jButton2))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 21, Short.MAX_VALUE)
@@ -335,7 +356,8 @@ public class Modifica extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
@@ -371,6 +393,7 @@ public class Modifica extends javax.swing.JFrame {
                 box.setVisible(false);
                 break;
             case 1:
+                //EVENTO
                 try {
                     ResultSet rs;
                     rs=DBproject.modEv(this);
@@ -403,10 +426,19 @@ public class Modifica extends javax.swing.JFrame {
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Evento"));
                 break;
             case 2:
+                //SQUADRA
                 try {
                     ResultSet rs;
                     rs=DBproject.modSq(this);
                     jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modGioc(this);
+                    jTable2.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
@@ -424,6 +456,7 @@ public class Modifica extends javax.swing.JFrame {
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Squadra"));
                 break;
             case 3:
+                //GIOCATORE
                 try {
                     ResultSet rs;
                     rs=DBproject.modGioc(this);
@@ -456,6 +489,7 @@ public class Modifica extends javax.swing.JFrame {
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Ruolo"));
                 break;
             case 4:
+                //STAFF
                 try {
                     ResultSet rs;
                     rs=DBproject.modStaff(this);
@@ -695,7 +729,7 @@ public class Modifica extends javax.swing.JFrame {
                 jText5.setText(jTable1.getValueAt(row, column).toString());
                 column++;
                 jText6.setText(jTable1.getValueAt(row, column).toString());
-                column++;
+                column=7;
                 if("allenatore".equals(jTable1.getValueAt(row, column).toString())){
                     box.setSelectedIndex(1);
                 }else if("dirigente".equals(jTable1.getValueAt(row, column).toString())){
@@ -803,6 +837,22 @@ public class Modifica extends javax.swing.JFrame {
                         val = "'" + box.getSelectedItem().toString() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modEv(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modGioc(this);
+                        jTable2.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
                     break;
                 case 2:
                     index = "IDSQUADRA";
@@ -816,6 +866,22 @@ public class Modifica extends javax.swing.JFrame {
                         col = "TIPO";
                         val = "'" + box.getSelectedItem().toString() + "'";
                         DBproject.upd(tab, col, val, index, id);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modSq(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modGioc(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
                     }
                     break;
                 case 3:
@@ -842,6 +908,22 @@ public class Modifica extends javax.swing.JFrame {
                         val = "'" + box.getSelectedItem().toString() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modGioc(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modSq(this);
+                        jTable2.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }  
                     break;
                 case 4:
                     index = "IDSTAFF";
@@ -871,10 +953,26 @@ public class Modifica extends javax.swing.JFrame {
                         val = jText6.getText();
                         DBproject.upd(tab, col, val, index, id);
                     }
-                    if(box.getSelectedItem().toString() != jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString()){
+                    if(box.getSelectedItem().toString() != jTable1.getValueAt(jTable1.getSelectedRow(), 7).toString()){
                         col = "PROFESSIONE";
                         val = "'" + box.getSelectedItem().toString() + "'";
                         DBproject.upd(tab, col, val, index, id);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modStaff(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modSq(this);
+                        jTable2.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
                     }
                     break;
                 case 5:
@@ -888,41 +986,161 @@ public class Modifica extends javax.swing.JFrame {
                     if (jText3.isEditable()){
                         col = "IDSQ1";
                         val = jText3.getText();
-                        DBproject.upd(tab, col, val, index, id);                    
+                        DBproject.upd(tab, col, val, index, id);
+                    //MODIFICA ASSOCIAZIONE INCONTRI
+                        String assT="INCONTRI";                        
+                        col="IDSQUADRA";
+                        val = jText4.getText();
+                        String assContr= jText1.getText() + " AND IDSQUADRA = " + jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString();
+                        DBproject.upd(assT, col, val, index, assContr);
                     }
                     if (jText4.isEditable()){
-                        col = "`IDSQ2";
+                        col = "IDSQ2";
                         val = jText4.getText();
-                        DBproject.upd(tab, col, val, index, id);                    
+                        DBproject.upd(tab, col, val, index, id);
+                    //MODIFICA ASSOCIAZIONE INCONTRI
+                        String assT="INCONTRI";                        
+                        col="IDSQUADRA";
+                        val = jText4.getText();
+                        String assContr= jText1.getText() + " AND IDSQUADRA = " + jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString();
+                        DBproject.upd(assT, col, val, index, assContr);
                     }
                     if (jText5.isEditable()){
                         col = "DATA";
                         val = "DATE '" + jText5.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);                    
                     }
-                    if(jText6.isEditable()){
-                        col = "IDSQUADRA";
+                    if(box.getSelectedItem().toString() == "Torneo ad Eliminazione" && jText6.isEditable()){
+                        col = "IDTORNEOE";
+                        val = jText6.getText();
+                        DBproject.upd(tab, col, val, index, id);
+                    }else if(box.getSelectedItem().toString() == "Torneo a Gironi" && jText6.isEditable()){
+                        col = "IDTORNEOG";
                         val = jText6.getText();
                         DBproject.upd(tab, col, val, index, id);
                     }
-                    
-                    //da sistemare da qui in poi
-                    if(box.getSelectedItem().toString() != jTable1.getValueAt(jTable1.getSelectedRow(), 5).toString()){
-                        col = "PROFESSIONE";
-                        val = "'" + box.getSelectedItem().toString() + "'";
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modPar(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modSq(this);
+                        jTable2.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+                case 6:                    
+                    id = jText1.getText();
+                    index = "IDTORNEOG";
+                    id = jText1.getText();
+                    if (jText2.isEditable()){
+                        col = "STAGIONE";
+                        val = jText2.getText();
                         DBproject.upd(tab, col, val, index, id);
+                    }
+                    if (jText3.isEditable()){
+                        col = "NOME";
+                        val = jText3.getText();
+                        DBproject.upd(tab, col, val, index, id);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modTg(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modSq(this);
+                        jTable2.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+                case 7:                    
+                    id = jText1.getText();
+                    index = "IDTORNEOE";
+                    id = jText1.getText();
+                    if (jText2.isEditable()){
+                        col = "STAGIONE";
+                        val = jText2.getText();
+                        DBproject.upd(tab, col, val, index, id);
+                    }
+                    if (jText3.isEditable()){
+                        col = "NOME";
+                        val = jText3.getText();
+                        DBproject.upd(tab, col, val, index, id);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modTe(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    try {
+                        ResultSet rs;
+                        rs=DBproject.modSq(this);
+                        jTable2.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
                     }
                     break;
             }
-            ResultSet rs;
-            rs=DBproject.modEv(this);
-            jTable1.setModel (new VistaTabelle(rs));
-            pack();
             JOptionPane.showMessageDialog(null, "Aggiornamento riuscito");
         }   catch (SQLException ex) {
                 DBproject.showError(this, ex);
             }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int option = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler eliminare l'elemento?", "Avviso", JOptionPane.YES_NO_OPTION);
+        if (option == 0) { 
+           String tab = searchTab();
+           String cond = searchCond();
+           try {
+               DBproject.del(this,tab,cond,jText1.getText());
+               //ELIMINAZIONE DI EVENTUALI ASSOCIAZIONI
+                if ("SQUADRA".equals(tab)){
+                    tab="SQUADRA_GIOCATORI";
+                    cond="IDSQUADRA = ";
+                    DBproject.del(this,tab,cond,jText1.getText());
+                }else if ("GIOCATORE".equals(tab)){
+                    tab="SQUADRA_GIOCATORI";
+                    cond="IDGIOCATORE = ";
+                    DBproject.del(this,tab,cond,jText1.getText());
+                }else if ("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
+                    tab="PARTECIPANTI_GIRONI";
+                    cond="IDTORNEOG = ";
+                    DBproject.del(this,tab,cond,jText1.getText());
+                }else if ("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
+                    tab="PARTECIPANTI_ELIMINAZIONE";
+                    cond="IDTORNEOE = ";
+                    DBproject.del(this,tab,cond,jText1.getText());
+                }else if ("PARTITA".equals((String)selTab.getSelectedItem())){
+                    tab="INCONTRI";
+                    cond="IDPARTITA = ";
+                    DBproject.del(this,tab,cond,jText1.getText());                
+                }
+           } catch (SQLException ex) {
+               DBproject.showError(this, ex);
+           }
+        } else {
+           System.out.print("no");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -963,6 +1181,7 @@ public class Modifica extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> box;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

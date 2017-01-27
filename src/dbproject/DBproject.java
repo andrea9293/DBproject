@@ -314,7 +314,7 @@ public class DBproject {
         static Statement modStaff;
         static String modificaStaff;
         static ResultSet modStaff (java.awt.Component thrower) throws SQLException{
-            modificaStaff="SELECT IDSTAFF, NOME, COGNOME, NAZIONALITA, DATANASCITA IDSQUADRA, PROFESSIONE FROM STAFF ORDER BY COGNOME";
+            modificaStaff="SELECT IDSTAFF, ST.NOME, COGNOME, NAZIONALITA, DATANASCITA, ST.IDSQUADRA, S.NOME AS SQUADRA, PROFESSIONE FROM STAFF ST, SQUADRA S WHERE ST.IDSQUADRA = S.IDSQUADRA ORDER BY COGNOME";
             modStaff=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modStaff .executeQuery(modificaStaff);
             return result;
@@ -358,6 +358,20 @@ public class DBproject {
             System.out.println(update);
             upd.executeUpdate(update);
         }
+        
+    //FUNZIONE PER LE ELIMINAIZONI
+
+        static String del;
+        static Statement delete;
+        static int nDel;
+        static public void del(java.awt.Component thrower, String tab, String cond, String val) throws SQLException {
+            del = "DELETE FROM " + tab + " WHERE " + cond + val;
+            System.out.println(del);
+            delete=defaultConn.createStatement();
+            nDel = delete.executeUpdate(del);
+            JOptionPane.showMessageDialog(thrower, nDel + " righe cancellate");
+        }
+        
 }
 
 
