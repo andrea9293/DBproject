@@ -8,6 +8,8 @@ package dbproject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -147,7 +149,7 @@ public class infoTornei extends javax.swing.JFrame {
     private void boxItemG () throws SQLException{
         Statement boxItem;
         boxItem=DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet result = boxItem.executeQuery("SELECT NOMETORNEOG, IDTORNEOG FROM TORNEO_GIRONI");
+        ResultSet result = boxItem.executeQuery("SELECT NOMETORNEOG, IDTORNEOG FROM TORNEO_GIRONI ORDER BY IDTORNEOG DESC");
         while (result.next()){
             String ris = result.getString("NOMETORNEOG");
             ris += ", ";
@@ -389,6 +391,11 @@ public class infoTornei extends javax.swing.JFrame {
         });
 
         jComboBox5.setBorder(javax.swing.BorderFactory.createTitledBorder("Tornei"));
+        jComboBox5.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox5ItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -503,7 +510,9 @@ public class infoTornei extends javax.swing.JFrame {
         ResultSet rs;
         String str;
         Integer index;
+                System.out.println("RILEVATO IL CAMBIAMENTO");
         if(jComboBox3.getSelectedIndex() == 0){
+            System.out.println("TENTO DI CREARE LA CLASSIFICA");
             str = (String) jComboBox1.getSelectedItem();
             str = str.replaceAll("[^0-9]+", "");
             index = Integer.parseInt(str);
@@ -511,6 +520,7 @@ public class infoTornei extends javax.swing.JFrame {
             try {
                 rs=DBproject.classTg(this, index);
                 jTable1.setModel (new VistaTabelle(rs));
+                System.out.println("creata la classifica");
                 pack();
             } catch(SQLException ex) {
                 DBproject.showError(this, ex);
@@ -534,17 +544,19 @@ public class infoTornei extends javax.swing.JFrame {
             try {
                 rs=DBproject.classTg(this, index);
                 jTable1.setModel (new VistaTabelle(rs));
+                System.out.println("creata la classifica");
                 pack();
             } catch(SQLException ex) {
                 DBproject.showError(this, ex);
             }
-            //CLASSIFICA MARCATORI
+            //CLASSIFICA ASSIST
             String cond;
             try {
                 cond = "IDTORNEOG = " + Integer.parseInt(str);
                 rs=DBproject.classAss(this, cond);
                 jTable3.setModel (new VistaTabelle(rs));
                 pack();
+                System.out.println("creata la classifica ASSIST");
             } catch(SQLException ex) {
                 DBproject.showError(this, ex);
             }
@@ -595,7 +607,7 @@ public class infoTornei extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox4ItemStateChanged
-            ResultSet rs;
+        ResultSet rs;
         String str;
         String cond;
         switch(jComboBox4.getSelectedIndex()){
@@ -629,6 +641,45 @@ public class infoTornei extends javax.swing.JFrame {
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void jComboBox5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox5ItemStateChanged
+        String str = (String) jComboBox5.getSelectedItem();
+        str = str.replaceAll("[^0-9]+", "");
+        Integer index = Integer.parseInt(str);
+        try {
+            createScheme(index);
+        } catch (SQLException ex) {
+            Logger.getLogger(infoTornei.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ResultSet rs;
+        String cond;
+        switch(jComboBox4.getSelectedIndex()){
+            case 0:
+                str = (String) jComboBox1.getSelectedItem();
+                str = str.replaceAll("[^0-9]+", "");
+                cond = "IDTORNEOE = " + Integer.parseInt(str);
+                try {
+                    rs=DBproject.classMarc(this, cond);
+                    jTable3.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                break;
+            case 1:
+                str = (String) jComboBox1.getSelectedItem();
+                str = str.replaceAll("[^0-9]+", "");
+                cond  = "IDTORNEOE = " + Integer.parseInt(str);
+                try {
+                    rs=DBproject.classAss(this, cond);
+                    jTable3.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                break;
+        }
+    }//GEN-LAST:event_jComboBox5ItemStateChanged
 
     /**
      * @param args the command line arguments
