@@ -24,30 +24,51 @@ public class infoTornei extends javax.swing.JFrame {
         jTable1.setShowGrid(false);
         setLocationRelativeTo(null);
     //Funzioni per tornei a gironi
-        boxItemG();
+        //boxItemG();
+        boxItemE();
+        String cond;
+        String str;
+        Integer index;
         ResultSet rs;
-        //RICERCA DELL'IDTORNEO DELLA PRIMA SELEZIONE
-        String str = (String) jComboBox1.getSelectedItem();
+       /* str = (String) jComboBox2.getSelectedItem();
         str = str.replaceAll("[^0-9]+", "");
-        Integer index = Integer.parseInt(str);
+        index = Integer.parseInt(str);
+        createScheme(index);
+        try {
+            cond = "IDTORNEOE = " + Integer.parseInt(str);
+            rs=DBproject.classMarc(this, cond);
+            jTable3.setModel (new VistaTabelle(rs));
+            System.out.println("classifica marcatori e");
+            pack();
+        } catch(SQLException ex) {
+            DBproject.showError(this, ex);
+        }
+        //RICERCA DELL'IDTORNEO DELLA PRIMA SELEZIONE
+        str = (String) jComboBox1.getSelectedItem();
+        str = str.replaceAll("[^0-9]+", "");
+        index = Integer.parseInt(str);
         
         //CLASSIFICA PER TORNEI
         try {
             rs=DBproject.classTg(this, index);
+            System.out.println("creata la prima classifica");
             jTable1.setModel (new VistaTabelle(rs));
             pack();
         } catch(SQLException ex) {
             DBproject.showError(this, ex);
         }
 
-        //CLASSIFICA MARCATORI
+        //CLASSIFICA MARCATORI TORNEO A GIRONI
         try {
-            rs=DBproject.classMarc(this, index);
+            cond = "IDTORNEOG = " + Integer.parseInt(str);
+            rs=DBproject.classMarc(this, cond);
             jTable2.setModel (new VistaTabelle(rs));
+            System.out.println("creata la classifica marcatori g");
             pack();
         } catch(SQLException ex) {
             DBproject.showError(this, ex);
         }
+        
         
     //Funzioni per tornei ad eliminaizone
         boxItemE();
@@ -55,8 +76,15 @@ public class infoTornei extends javax.swing.JFrame {
         str = str.replaceAll("[^0-9]+", "");
         index = Integer.parseInt(str);
         createScheme(index);
-        
-      
+        try {
+            cond = "IDTORNEOE = " + Integer.parseInt(str);
+            rs=DBproject.classMarc(this, cond);
+            jTable3.setModel (new VistaTabelle(rs));
+            System.out.println("classifica marcatori e");
+            pack();
+        } catch(SQLException ex) {
+            DBproject.showError(this, ex);
+        }*/
     }
     
     private void createScheme(Integer index) throws SQLException{
@@ -105,6 +133,7 @@ public class infoTornei extends javax.swing.JFrame {
                     jLabel15.setText(sq2);
                 }
             }
+        System.out.println("calcolo dei turni");
         }
         
         //CALCOLO DEL VINCITORE
@@ -123,7 +152,7 @@ public class infoTornei extends javax.swing.JFrame {
             }else {
                 jLabel13.setText(vit2);
             }
-        }
+        System.out.println("vincitore calcolato");}
 
     }
     
@@ -133,24 +162,31 @@ public class infoTornei extends javax.swing.JFrame {
         boxItem=DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet result = boxItem.executeQuery("SELECT NOMETORNEOG, IDTORNEOG FROM TORNEO_GIRONI");
         while (result.next()){
+            System.out.println("index box1 "+jComboBox1.getSelectedIndex());
             String ris = result.getString("NOMETORNEOG");
             ris += ", ";
             ris += result.getString("IDTORNEOG");
+            System.out.println(ris);
             jComboBox1.addItem(ris);
         }
+        System.out.println("creato il bo per tornei g");
     }
 
-    //AGGIUNGERE 
     private void boxItemE () throws SQLException{
         Statement boxItem;
         boxItem=DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet result = boxItem.executeQuery("SELECT NOMETORNEOE, IDTORNEOE FROM TORNEO_ELIMINAZIONE");
         while (result.next()){
+                        System.out.println("index box1 "+jComboBox1.getSelectedIndex());
             String ris = result.getString("NOMETORNEOE");
             ris += ", ";
             ris += result.getString("IDTORNEOE");
+                        System.out.println(result.getString("IDTORNEOE"));
+
+            System.out.println(ris);
             jComboBox2.addItem(ris);
         }
+        System.out.println("creato il bo per tornei e");
     }
     
     
@@ -188,6 +224,9 @@ public class infoTornei extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jComboBox4 = new javax.swing.JComboBox<>();
 
         jInternalFrame1.setVisible(true);
 
@@ -270,19 +309,16 @@ public class infoTornei extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -354,40 +390,68 @@ public class infoTornei extends javax.swing.JFrame {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Marcatori", "Assist" }));
+        jComboBox4.setBorder(javax.swing.BorderFactory.createTitledBorder("Classifiche per Giocatori"));
+        jComboBox4.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox4ItemStateChanged(evt);
+            }
+        });
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(57, 57, 57)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -395,34 +459,40 @@ public class infoTornei extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel11))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50)
+                                .addGap(26, 26, 26)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel9))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(33, 33, 33)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 19, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(108, 108, 108)
-                        .addComponent(jButton2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGap(62, 62, 62)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(45, 45, 45)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(13, 13, 13)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
 
         jTabbedPane1.addTab("Tornei ad eliminazione", jPanel2);
@@ -472,13 +542,16 @@ public class infoTornei extends javax.swing.JFrame {
                 DBproject.showError(this, ex);
             }
             //CLASSIFICA MARCATORI
+            String cond;
             try {
-                rs=DBproject.classMarc(this, index);
+                cond = "IDTORNEOG = " + Integer.parseInt(str);
+                rs=DBproject.classMarc(this, cond);
                 jTable2.setModel (new VistaTabelle(rs));
+                System.out.println("creata la classifica marcatori");
                 pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
+            } catch(SQLException ex) {
+                DBproject.showError(this, ex);
+            }
         }else if (jComboBox3.getSelectedIndex() == 1){
             str = (String) jComboBox1.getSelectedItem();
             str = str.replaceAll("[^0-9]+", "");
@@ -492,9 +565,11 @@ public class infoTornei extends javax.swing.JFrame {
                 DBproject.showError(this, ex);
             }
             //CLASSIFICA MARCATORI
+            String cond;
             try {
-                rs=DBproject.classAss(this, index);
-                jTable2.setModel (new VistaTabelle(rs));
+                cond = "IDTORNEOG = " + Integer.parseInt(str);
+                rs=DBproject.classAss(this, cond);
+                jTable3.setModel (new VistaTabelle(rs));
                 pack();
             } catch(SQLException ex) {
                 DBproject.showError(this, ex);
@@ -506,7 +581,32 @@ public class infoTornei extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
-        // TODO add your handling code here:
+        ResultSet rs;
+        String str = (String) jComboBox2.getSelectedItem();;
+        String cond;
+        if(jComboBox4.getSelectedIndex() == 0){
+            //CLASSIFICA MARCATORI
+            try {
+                cond = "IDTORNEOE = " + Integer.parseInt(str);
+                rs=DBproject.classMarc(this, cond);
+                jTable2.setModel (new VistaTabelle(rs));
+                System.out.println("creata la classifica marcatori");
+                pack();
+            } catch(SQLException ex) {
+                DBproject.showError(this, ex);
+            }
+        }else if (jComboBox3.getSelectedIndex() == 1){
+            str = str.replaceAll("[^0-9]+", "");
+            //CLASSIFICA MARCATORI
+            try {
+                cond = "IDTORNEOE = " + Integer.parseInt(str);
+                rs=DBproject.classAss(this, cond);
+                jTable3.setModel (new VistaTabelle(rs));
+                pack();
+            } catch(SQLException ex) {
+                DBproject.showError(this, ex);
+            }
+        }
     }//GEN-LAST:event_jComboBox2ItemStateChanged
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -516,14 +616,14 @@ public class infoTornei extends javax.swing.JFrame {
     private void jComboBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3ItemStateChanged
         ResultSet rs;
         String str;
-        Integer index;
+        String cond;
         switch(jComboBox3.getSelectedIndex()){
             case 0:
                 str = (String) jComboBox1.getSelectedItem();
                 str = str.replaceAll("[^0-9]+", "");
-                index = Integer.parseInt(str);
+                cond = "IDTORNEOG = " + Integer.parseInt(str);
                 try {
-                    rs=DBproject.classMarc(this, index);
+                    rs=DBproject.classMarc(this, cond);
                     jTable2.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
@@ -533,9 +633,9 @@ public class infoTornei extends javax.swing.JFrame {
             case 1:
                 str = (String) jComboBox1.getSelectedItem();
                 str = str.replaceAll("[^0-9]+", "");
-                index = Integer.parseInt(str);
+                cond  = "IDTORNEOG = " + Integer.parseInt(str);
                 try {
-                    rs=DBproject.classAss(this, index);
+                    rs=DBproject.classAss(this, cond);
                     jTable2.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
@@ -552,6 +652,42 @@ public class infoTornei extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox4ItemStateChanged
+            ResultSet rs;
+        String str;
+        String cond;
+        switch(jComboBox4.getSelectedIndex()){
+            case 0:
+                str = (String) jComboBox1.getSelectedItem();
+                str = str.replaceAll("[^0-9]+", "");
+                cond = "IDTORNEOE = " + Integer.parseInt(str);
+                try {
+                    rs=DBproject.classMarc(this, cond);
+                    jTable3.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                break;
+            case 1:
+                str = (String) jComboBox1.getSelectedItem();
+                str = str.replaceAll("[^0-9]+", "");
+                cond  = "IDTORNEOE = " + Integer.parseInt(str);
+                try {
+                    rs=DBproject.classAss(this, cond);
+                    jTable3.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                break;
+        }
+    }//GEN-LAST:event_jComboBox4ItemStateChanged
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -594,6 +730,7 @@ public class infoTornei extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -611,8 +748,10 @@ public class infoTornei extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }
