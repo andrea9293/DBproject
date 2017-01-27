@@ -156,13 +156,24 @@ public class DBproject {
         }
         
         //SELECT PER ELENCO TORNEI A GIRONI
-        static Statement elTG;
+        static Statement elTg;
         static String elencoTorneiG;
-        static ResultSet elTG (java.awt.Component thrower) throws SQLException{
+        static ResultSet elTg (java.awt.Component thrower) throws SQLException{
             elencoTorneiG="SELECT IDTORNEOG, NOMETORNEOG, STAGIONEG FROM TORNEO_GIRONI ORDER BY IDTORNEOG DESC";
-            elTG=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet result = elTG.executeQuery(elencoTorneiG);
+            elTg=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = elTg.executeQuery(elencoTorneiG);
             System.out.println(elencoTorneiG);
+            return result;
+        }
+        
+        //SELECT PER ELENCO TORNEI A GIRONI
+        static Statement elTe;
+        static String elencoTorneiE;
+        static ResultSet elTe (java.awt.Component thrower) throws SQLException{
+            elencoTorneiE="SELECT IDTORNEOE, NOMETORNEOE, STAGIONEE FROM TORNEO_ELIMINAZIONE ORDER BY IDTORNEOE DESC";
+            elTe=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = elTe.executeQuery(elencoTorneiE);
+            System.out.println(elencoTorneiE);
             return result;
         }
         
@@ -209,8 +220,8 @@ public class DBproject {
         //VISTA PER CLASSIFICA MARCATORI 
         static Statement classMarc;
         static String classificaMarcatori;
-        static ResultSet classMarc (java.awt.Component thrower, Integer torneo) throws SQLException{
-            classificaMarcatori="SELECT GIOCATORE, SQUADRA, GOAL FROM VISTA_MARCATORI WHERE IDTORNEO = " + torneo + " ORDER BY GOAL DESC";
+        static ResultSet classMarc (java.awt.Component thrower, String cond) throws SQLException{
+            classificaMarcatori="SELECT GIOCATORE, SQUADRA, GOAL FROM VISTA_MARCATORI WHERE "  + cond + " ORDER BY GOAL DESC";
             classMarc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = classMarc.executeQuery(classificaMarcatori);
             return result;
@@ -219,8 +230,8 @@ public class DBproject {
         //VISTA PER CLASSIFICA ASSIST
         static Statement classAss;
         static String classificaAssist;
-        static ResultSet classAss (java.awt.Component thrower, Integer torneo) throws SQLException{
-            classificaAssist="SELECT GIOCATORE, SQUADRA, ASSIST FROM VISTA_ASSIST WHERE IDTORNEO = " + torneo + " ORDER BY ASSIST DESC";
+        static ResultSet classAss (java.awt.Component thrower, String cond) throws SQLException{
+            classificaAssist="SELECT GIOCATORE, SQUADRA, ASSIST FROM VISTA_ASSIST WHERE " + cond + " ORDER BY ASSIST DESC";
             classAss=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = classAss.executeQuery(classificaAssist);
             return result;
