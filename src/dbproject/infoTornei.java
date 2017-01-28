@@ -20,8 +20,11 @@ public class infoTornei extends javax.swing.JFrame {
     /**
      * Creates new form infoTornei
      */
+    //Listner per i combo box itemStateChanged
+    Boolean b;
     public infoTornei() throws SQLException {
         initComponents();
+        b=false;
         jTable2.setShowGrid(false);
         jTable1.setShowGrid(false);
         jTable3.setShowGrid(false);
@@ -74,6 +77,7 @@ public class infoTornei extends javax.swing.JFrame {
             DBproject.showError(this, ex);
         }
         
+        b=true;
     }
     
     private void createScheme(Integer index) throws SQLException{
@@ -507,63 +511,64 @@ public class infoTornei extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        ResultSet rs;
-        String str;
-        Integer index;
-                System.out.println("RILEVATO IL CAMBIAMENTO");
-        if(jComboBox3.getSelectedIndex() == 0){
-            System.out.println("TENTO DI CREARE LA CLASSIFICA");
-            str = (String) jComboBox1.getSelectedItem();
-            str = str.replaceAll("[^0-9]+", "");
-            index = Integer.parseInt(str);
-            //CLASSIFICA PER TORNEI
-            try {
-                rs=DBproject.classTg(this, index);
-                jTable1.setModel (new VistaTabelle(rs));
-                System.out.println("creata la classifica");
-                pack();
-            } catch(SQLException ex) {
-                DBproject.showError(this, ex);
+        if(b){
+            ResultSet rs;
+            String str;
+            Integer index;
+                    System.out.println("RILEVATO IL CAMBIAMENTO");
+            if(jComboBox3.getSelectedIndex() == 0){
+                System.out.println("TENTO DI CREARE LA CLASSIFICA");
+                str = (String) jComboBox1.getSelectedItem();
+                str = str.replaceAll("[^0-9]+", "");
+                index = Integer.parseInt(str);
+                //CLASSIFICA PER TORNEI
+                try {
+                    rs=DBproject.classTg(this, index);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    System.out.println("creata la classifica");
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                //CLASSIFICA MARCATORI
+                String cond;
+                try {
+                    cond = "IDTORNEOG = " + Integer.parseInt(str);
+                    rs=DBproject.classMarc(this, cond);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    System.out.println("creata la classifica marcatori");
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+            }else if (jComboBox3.getSelectedIndex() == 1){
+                str = (String) jComboBox1.getSelectedItem();
+                str = str.replaceAll("[^0-9]+", "");
+                index = Integer.parseInt(str);
+                //CLASSIFICA PER TORNEI
+                try {
+                    rs=DBproject.classTg(this, index);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    System.out.println("creata la classifica");
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                //CLASSIFICA ASSIST
+                String cond;
+                try {
+                    cond = "IDTORNEOG = " + Integer.parseInt(str);
+                    rs=DBproject.classAss(this, cond);
+                    jTable3.setModel (new VistaTabelle(rs));
+                    pack();
+                    System.out.println("creata la classifica ASSIST");
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
             }
-            //CLASSIFICA MARCATORI
-            String cond;
-            try {
-                cond = "IDTORNEOG = " + Integer.parseInt(str);
-                rs=DBproject.classMarc(this, cond);
-                jTable2.setModel (new VistaTabelle(rs));
-                System.out.println("creata la classifica marcatori");
-                pack();
-            } catch(SQLException ex) {
-                DBproject.showError(this, ex);
-            }
-        }else if (jComboBox3.getSelectedIndex() == 1){
-            str = (String) jComboBox1.getSelectedItem();
-            str = str.replaceAll("[^0-9]+", "");
-            index = Integer.parseInt(str);
-            //CLASSIFICA PER TORNEI
-            try {
-                rs=DBproject.classTg(this, index);
-                jTable1.setModel (new VistaTabelle(rs));
-                System.out.println("creata la classifica");
-                pack();
-            } catch(SQLException ex) {
-                DBproject.showError(this, ex);
-            }
-            //CLASSIFICA ASSIST
-            String cond;
-            try {
-                cond = "IDTORNEOG = " + Integer.parseInt(str);
-                rs=DBproject.classAss(this, cond);
-                jTable3.setModel (new VistaTabelle(rs));
-                pack();
-                System.out.println("creata la classifica ASSIST");
-            } catch(SQLException ex) {
-                DBproject.showError(this, ex);
-            }
+        }else {
+            System.out.println("b è falsa per box 1");
         }
-        
-        //Aggiungere la classifica da calcolare con gli if come per gli assist e i marcatori, così da evitare
-        //lo switch case
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox3ItemStateChanged
@@ -643,41 +648,45 @@ public class infoTornei extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jComboBox5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox5ItemStateChanged
-        String str = (String) jComboBox5.getSelectedItem();
-        str = str.replaceAll("[^0-9]+", "");
-        Integer index = Integer.parseInt(str);
-        try {
-            createScheme(index);
-        } catch (SQLException ex) {
-            Logger.getLogger(infoTornei.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ResultSet rs;
-        String cond;
-        switch(jComboBox4.getSelectedIndex()){
-            case 0:
-                str = (String) jComboBox1.getSelectedItem();
-                str = str.replaceAll("[^0-9]+", "");
-                cond = "IDTORNEOE = " + Integer.parseInt(str);
-                try {
-                    rs=DBproject.classMarc(this, cond);
-                    jTable3.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                break;
-            case 1:
-                str = (String) jComboBox1.getSelectedItem();
-                str = str.replaceAll("[^0-9]+", "");
-                cond  = "IDTORNEOE = " + Integer.parseInt(str);
-                try {
-                    rs=DBproject.classAss(this, cond);
-                    jTable3.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                break;
+        if(b){
+            String str = (String) jComboBox5.getSelectedItem();
+            str = str.replaceAll("[^0-9]+", "");
+            Integer index = Integer.parseInt(str);
+            try {
+                createScheme(index);
+            } catch (SQLException ex) {
+                Logger.getLogger(infoTornei.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ResultSet rs;
+            String cond;
+            switch(jComboBox4.getSelectedIndex()){
+                case 0:
+                    str = (String) jComboBox1.getSelectedItem();
+                    str = str.replaceAll("[^0-9]+", "");
+                    cond = "IDTORNEOE = " + Integer.parseInt(str);
+                    try {
+                        rs=DBproject.classMarc(this, cond);
+                        jTable3.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+                case 1:
+                    str = (String) jComboBox1.getSelectedItem();
+                    str = str.replaceAll("[^0-9]+", "");
+                    cond  = "IDTORNEOE = " + Integer.parseInt(str);
+                    try {
+                        rs=DBproject.classAss(this, cond);
+                        jTable3.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+            }
+        }else{
+            System.out.println("b è falsa per box 5");
         }
     }//GEN-LAST:event_jComboBox5ItemStateChanged
 
