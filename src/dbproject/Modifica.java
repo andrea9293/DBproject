@@ -5,6 +5,8 @@
  */
 package dbproject;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -20,6 +22,23 @@ public class Modifica extends javax.swing.JFrame {
      */
     public Modifica() {
         initComponents();
+        setLocationRelativeTo(null);
+        //AGGIUNTA DEI LISTNER PER I COMBOBOX    
+        selTab.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    selTabElements();
+                }
+            }
+        });
+        jComboBoxTipo.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    tipoElements();
+                }
+            }
+        });
+        
         try {
             ResultSet rs;
             rs=DBproject.modSq(this);
@@ -46,6 +65,272 @@ public class Modifica extends javax.swing.JFrame {
         jText6.setVisible(false);
         box.setVisible(false);
         jComboBoxTipo.setVisible(false);
+    }
+    
+    private void selTabElements(){
+        jText1.setEditable(false);
+        jText2.setEditable(false);
+        jText3.setEditable(false);
+        jText4.setEditable(false);
+        jText5.setEditable(false);
+        jText6.setEditable(false);
+        jText1.setText("");
+        jText2.setText("");
+        jText3.setText("");
+        jText4.setText("");
+        jText5.setText("");
+        jText6.setText("");
+        jComboBoxTipo.setVisible(false);
+        switch(selTab.getSelectedIndex()){
+            case 0:
+                jText1.setVisible(false);
+                jText2.setVisible(false);
+                jText3.setVisible(false);
+                jText4.setVisible(false);
+                jText5.setVisible(false);
+                jText6.setVisible(false);
+                box.setVisible(false);
+                break;
+            case 1:
+                //EVENTO
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modEv(this);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modGioc(this);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jText1.setVisible(true);
+                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDevento"));
+                jText1.setEditable(false);
+                jText2.setVisible(true);
+                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
+                jText3.setVisible(true);
+                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Minuto"));
+                jText4.setVisible(true);
+                jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("IDgiocatore"));
+                jText5.setVisible(false);
+                jText6.setVisible(false);
+                box.setVisible(true);
+                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Goal", "Tiri", "CartellinoG", "CartellinoR", "Fuorigioco", "Assist", "TiroInPorta" }));
+                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Evento"));
+                break;
+            case 2:
+                //SQUADRA
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modSq(this);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modGioc(this);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jText1.setVisible(true);
+                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra"));
+                jText2.setVisible(true);
+                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+                jText3.setVisible(false);
+                jText4.setVisible(false);
+                jText5.setVisible(false);
+                jText6.setVisible(false);
+                box.setVisible(true);
+                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "club", "nazionale"}));
+                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Squadra"));
+                break;
+            case 3:
+                //GIOCATORE
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modGioc(this);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modSq(this);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jComboBoxTipo.setVisible(true);
+                jText1.setVisible(true);
+                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDgiocatore"));
+                jText2.setVisible(true);
+                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+                jText3.setVisible(true);
+                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
+                jText6.setVisible(true);
+                jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID squadra di riferimento"));
+                jText4.setVisible(false);
+                jText5.setVisible(false);
+                box.setVisible(true);
+                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "portiere", "difensore", "centrocampista", "attaccante"}));
+                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Ruolo"));
+                break;
+            case 4:
+                //STAFF
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modStaff(this);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modSq(this);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jComboBoxTipo.setVisible(true);
+                jText1.setVisible(true);
+                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDstaff"));
+                jText1.setEditable(false);
+                jText2.setVisible(true);
+                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+                jText3.setVisible(true);
+                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
+                jText4.setVisible(true);
+                jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("Luogo di Nascita"));
+                jText5.setVisible(true);
+                jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data di Nascita (aaaa-mm-gg)"));
+                jText6.setVisible(true);
+                jText6.setEditable(true);
+                jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra"));
+                box.setVisible(true);
+                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "allenatore", "dirigente", "presidente"}));
+                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Professione"));
+                break;
+            case 5:
+                //partite
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modPar(this);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modSq(this);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jComboBoxTipo.setVisible(true);
+                jText1.setVisible(true);
+                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
+                jText1.setEditable(false);
+                jText2.setVisible(true);
+                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stadio"));
+                jText3.setVisible(true);
+                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra 1"));
+                jText4.setVisible(true);
+                jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra 2"));
+                jText5.setVisible(true);
+                jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data (aaaa-mm-gg)"));
+                jText6.setVisible(true);
+                jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID del torneo"));
+                box.setVisible(true);
+                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Torneo a Gironi", "Torneo ad Eliminazione"}));
+                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo di Torneo"));
+                break;
+            case 6:
+                //torneo gironi
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modTg(this);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modSq(this);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jText1.setVisible(true);
+                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDtorneo girone"));
+                jText2.setVisible(true);
+                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stagione"));
+                jText3.setVisible(true);
+                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome Torneo"));
+                jText4.setVisible(false);
+                jText5.setVisible(false);
+                jText6.setVisible(false);
+                box.setVisible(false);
+                break;
+            case 7:
+                //torneo eliminazione
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modTe(this);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                try {
+                    ResultSet rs;
+                    rs=DBproject.modSq(this);
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jText1.setVisible(true);
+                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDtorneo eliminazione"));
+                jText2.setVisible(true);
+                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stagione"));
+                jText3.setVisible(true);
+                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome Torneo"));
+                jText4.setVisible(false);
+                jText5.setVisible(false);
+                jText6.setVisible(false);
+                box.setVisible(false);
+                break;
+        }
+    }
+    
+    private void tipoElements(){
+        ResultSet rs;
+        String tipo= (String) jComboBoxTipo.getSelectedItem();
+        try {
+            rs=DBproject.ricSqT(this, tipo);
+            jTable1.setModel (new VistaTabelle(rs));
+            pack();
+        } catch(SQLException ex) {
+            DBproject.showError(this, ex);
+        }
     }
     
     private String searchTab(){
@@ -331,7 +616,7 @@ public class Modifica extends javax.swing.JFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton3)
-                                .addGap(38, 38, 38)
+                                .addGap(46, 46, 46)
                                 .addComponent(jButton2))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 21, Short.MAX_VALUE)
@@ -369,257 +654,7 @@ public class Modifica extends javax.swing.JFrame {
     }//GEN-LAST:event_boxItemStateChanged
 
     private void selTabItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_selTabItemStateChanged
-        jText1.setEditable(false);
-        jText2.setEditable(false);
-        jText3.setEditable(false);
-        jText4.setEditable(false);
-        jText5.setEditable(false);
-        jText6.setEditable(false);
-        jText1.setText("");
-        jText2.setText("");
-        jText3.setText("");
-        jText4.setText("");
-        jText5.setText("");
-        jText6.setText("");
-        jComboBoxTipo.setVisible(false);
-        switch(selTab.getSelectedIndex()){
-            case 0:
-                jText1.setVisible(false);
-                jText2.setVisible(false);
-                jText3.setVisible(false);
-                jText4.setVisible(false);
-                jText5.setVisible(false);
-                jText6.setVisible(false);
-                box.setVisible(false);
-                break;
-            case 1:
-                //EVENTO
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modEv(this);
-                    jTable1.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modGioc(this);
-                    jTable2.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                jText1.setVisible(true);
-                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDevento"));
-                jText1.setEditable(false);
-                jText2.setVisible(true);
-                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
-                jText3.setVisible(true);
-                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Minuto"));
-                jText4.setVisible(true);
-                jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("IDgiocatore"));
-                jText5.setVisible(false);
-                jText6.setVisible(false);
-                box.setVisible(true);
-                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Goal", "Tiri", "CartellinoG", "CartellinoR", "Fuorigioco", "Assist", "TiroInPorta" }));
-                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Evento"));
-                break;
-            case 2:
-                //SQUADRA
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modSq(this);
-                    jTable1.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modGioc(this);
-                    jTable2.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                jText1.setVisible(true);
-                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra"));
-                jText2.setVisible(true);
-                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
-                jText3.setVisible(false);
-                jText4.setVisible(false);
-                jText5.setVisible(false);
-                jText6.setVisible(false);
-                box.setVisible(true);
-                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "club", "nazionale"}));
-                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Squadra"));
-                break;
-            case 3:
-                //GIOCATORE
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modGioc(this);
-                    jTable1.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modSq(this);
-                    jTable2.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                jComboBoxTipo.setVisible(true);
-                jText1.setVisible(true);
-                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDgiocatore"));
-                jText2.setVisible(true);
-                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
-                jText3.setVisible(true);
-                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
-                jText6.setVisible(true);
-                jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID squadra di riferimento"));
-                jText4.setVisible(false);
-                jText5.setVisible(false);
-                box.setVisible(true);
-                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "portiere", "difensore", "centrocampista", "attaccante"}));
-                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Ruolo"));
-                break;
-            case 4:
-                //STAFF
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modStaff(this);
-                    jTable1.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modSq(this);
-                    jTable2.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                jComboBoxTipo.setVisible(true);
-                jText1.setVisible(true);
-                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDstaff"));
-                jText1.setEditable(false);
-                jText2.setVisible(true);
-                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
-                jText3.setVisible(true);
-                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
-                jText4.setVisible(true);
-                jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("Luogo di Nascita"));
-                jText5.setVisible(true);
-                jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data di Nascita (aaaa-mm-gg)"));
-                jText6.setVisible(true);
-                jText6.setEditable(true);
-                jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra"));
-                box.setVisible(true);
-                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "allenatore", "dirigente", "presidente"}));
-                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Professione"));
-                break;
-            case 5:
-                //partite
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modPar(this);
-                    jTable1.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modSq(this);
-                    jTable2.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                jComboBoxTipo.setVisible(true);
-                jText1.setVisible(true);
-                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
-                jText1.setEditable(false);
-                jText2.setVisible(true);
-                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stadio"));
-                jText3.setVisible(true);
-                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra 1"));
-                jText4.setVisible(true);
-                jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra 2"));
-                jText5.setVisible(true);
-                jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data (aaaa-mm-gg)"));
-                jText6.setVisible(true);
-                jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID del torneo"));
-                box.setVisible(true);
-                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Torneo a Gironi", "Torneo ad Eliminazione"}));
-                box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo di Torneo"));
-                break;
-            case 6:
-                //torneo gironi
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modTg(this);
-                    jTable1.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modSq(this);
-                    jTable2.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                jText1.setVisible(true);
-                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDtorneo girone"));
-                jText2.setVisible(true);
-                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stagione"));
-                jText3.setVisible(true);
-                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome Torneo"));
-                jText4.setVisible(false);
-                jText5.setVisible(false);
-                jText6.setVisible(false);
-                box.setVisible(false);
-                break;
-            case 7:
-                //torneo eliminazione
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modTe(this);
-                    jTable1.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                try {
-                    ResultSet rs;
-                    rs=DBproject.modSq(this);
-                    jTable2.setModel (new VistaTabelle(rs));
-                    pack();
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
-                jText1.setVisible(true);
-                jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDtorneo eliminazione"));
-                jText2.setVisible(true);
-                jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stagione"));
-                jText3.setVisible(true);
-                jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome Torneo"));
-                jText4.setVisible(false);
-                jText5.setVisible(false);
-                jText6.setVisible(false);
-                box.setVisible(false);
-                break;
-        }
+        
     }//GEN-LAST:event_selTabItemStateChanged
 
     private void selTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selTabActionPerformed
