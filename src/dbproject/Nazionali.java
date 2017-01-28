@@ -56,6 +56,10 @@ public class Nazionali extends javax.swing.JFrame {
         jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
         jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
         jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID squadra di riferimento"));
+        jText1.setEditable(false);
+        jText2.setEditable(false);
+        jText3.setEditable(false);
+        jText6.setEditable(false);
         try {
             rs=DBproject.modGiocN(this);
             jTable1.setModel (new VistaTabelle(rs));
@@ -100,10 +104,6 @@ public class Nazionali extends javax.swing.JFrame {
         jText6.setText(index.toString());
     }
     private void selTabElements() throws SQLException{
-        jText1.setEditable(false);
-        jText2.setEditable(false);
-        jText3.setEditable(false);
-        jText6.setEditable(false);
         jText1.setText("");
         jText2.setText("");
         jText3.setText("");
