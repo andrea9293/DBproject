@@ -73,10 +73,7 @@ public class Insert extends javax.swing.JFrame {
     }
     
     
-    //String values;
     String colonne;
-    //ResultSet rs;
-    String tipo;
     private void selTabElements(){
         ResultSet rs;
         Integer ID = null;
@@ -190,7 +187,7 @@ public class Insert extends javax.swing.JFrame {
                 break;
             case 3:
                 jComboBoxTipo.setVisible(true);
-                tipo=(String) jComboBoxTipo.getSelectedItem();
+                String tipo=(String) jComboBoxTipo.getSelectedItem();
                 try {
                     rs=DBproject.ricSqT(this, tipo);
                     jTable1.setModel (new VistaTabelle(rs));

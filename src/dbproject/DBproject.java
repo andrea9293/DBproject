@@ -109,9 +109,18 @@ public class DBproject {
         static Statement ricSq;
         static String ricercaSquadra;
         static ResultSet ricSq (java.awt.Component thrower, String sq) throws SQLException{
-            ricercaSquadra="SELECT Squadra, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE LOWER(squadra) = LOWER('" + sq +"')";
+            ricercaSquadra="SELECT Squadra, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE LOWER(squadra) = LOWER('" + sq +"') ORDER BY COGNOME";
             ricSq=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricSq.executeQuery(ricercaSquadra);
+            return result;
+        }
+        
+        static Statement ricSqI;
+        static String ricercaSquadraIndice;
+        static ResultSet ricSqI (java.awt.Component thrower, Integer sq) throws SQLException{
+            ricercaSquadraIndice="SELECT IDGIOCATORE, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE IDSQUADRA = " + sq +" ORDER BY COGNOME";
+            ricSqI=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = ricSqI.executeQuery(ricercaSquadraIndice);
             return result;
         }
         
@@ -318,6 +327,16 @@ public class DBproject {
             modificaGiocatore="SELECT IDGIOCATORE, NOME, COGNOME, IDSQUADRA, RUOLO FROM STAT_INDIVIDUALI ORDER BY COGNOME";
             modGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modGioc .executeQuery(modificaGiocatore);
+            return result;
+        }
+        
+        //FUNZIONE UTILIZZATA PER L'INSERIMENTO DEI GIOCATORI NELLE NAZIONALI
+        static Statement modGiocN;
+        static String modificaGiocatoreNazionale;
+        static ResultSet modGiocN (java.awt.Component thrower) throws SQLException{
+            modificaGiocatoreNazionale="SELECT NOME, COGNOME, RUOLO FROM STAT_INDIVIDUALI ORDER BY COGNOME";
+            modGiocN=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = modGiocN.executeQuery(modificaGiocatoreNazionale);
             return result;
         }
         

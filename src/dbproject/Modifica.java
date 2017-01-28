@@ -670,15 +670,7 @@ public class Modifica extends javax.swing.JFrame {
     }//GEN-LAST:event_jText6ActionPerformed
 
     private void jComboBoxTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoItemStateChanged
-        ResultSet rs;
-        String tipo= (String) jComboBoxTipo.getSelectedItem();
-        try {
-            rs=DBproject.ricSqT(this, tipo);
-            jTable1.setModel (new VistaTabelle(rs));
-            pack();
-        } catch(SQLException ex) {
-            DBproject.showError(this, ex);
-        }
+       
     }//GEN-LAST:event_jComboBoxTipoItemStateChanged
 
     private void jText6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jText6MouseClicked
