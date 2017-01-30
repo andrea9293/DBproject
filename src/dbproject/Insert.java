@@ -98,6 +98,7 @@ public class Insert extends javax.swing.JFrame {
                 box.setVisible(false);
                 break;
             case 1:
+                //eventi
                 try {
                     rs=DBproject.risPart(this);
                     jTable1.setModel (new VistaTabelle(rs));
@@ -149,6 +150,7 @@ public class Insert extends javax.swing.JFrame {
                 colonne+="EVENTO";
                 break;
             case 2:
+                //Squadra
                 try {
                     rs=DBproject.ricSqT(this, "club");
                     jTable1.setModel (new VistaTabelle(rs));
@@ -186,6 +188,7 @@ public class Insert extends javax.swing.JFrame {
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Squadra"));
                 break;
             case 3:
+                //Giocatore
                 jComboBoxTipo.setVisible(true);
                 String tipo=(String) jComboBoxTipo.getSelectedItem();
                 try {
@@ -228,6 +231,7 @@ public class Insert extends javax.swing.JFrame {
                 colonne+="RUOLO";
                 break;
             case 4:
+                //staff                
                 jComboBoxTipo.setVisible(true);
                 tipo=(String) jComboBoxTipo.getSelectedItem();
                 try {
@@ -353,6 +357,7 @@ public class Insert extends javax.swing.JFrame {
                 box.setVisible(false);
                 break;
             case 7:
+                //torneo ad eliminaizone
                 try {
                     rs=DBproject.ricSqT(this, "club");
                     jTable2.setModel (new VistaTabelle(rs));
