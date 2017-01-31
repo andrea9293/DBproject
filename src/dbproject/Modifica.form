@@ -192,20 +192,19 @@
         <Component class="javax.swing.JComboBox" name="selTab">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="8">
-                <StringItem index="0" value=""/>
-                <StringItem index="1" value="EVENTO"/>
-                <StringItem index="2" value="SQUADRA"/>
-                <StringItem index="3" value="GIOCATORE"/>
-                <StringItem index="4" value="MEMBRO STAFF"/>
-                <StringItem index="5" value="PARTITA"/>
-                <StringItem index="6" value="TORNEO GIRONI"/>
-                <StringItem index="7" value="TORNEO ELIMINAZIONE"/>
+              <StringArray count="7">
+                <StringItem index="0" value="EVENTO"/>
+                <StringItem index="1" value="SQUADRA"/>
+                <StringItem index="2" value="GIOCATORE"/>
+                <StringItem index="3" value="MEMBRO STAFF"/>
+                <StringItem index="4" value="PARTITA"/>
+                <StringItem index="5" value="TORNEO GIRONI"/>
+                <StringItem index="6" value="TORNEO ELIMINAZIONE"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Scegliere cosa Inserire"/>
+                <TitledBorder title="Scegliere cosa modificare/eliminare"/>
               </Border>
             </Property>
           </Properties>

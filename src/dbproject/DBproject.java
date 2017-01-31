@@ -99,7 +99,7 @@ public class DBproject {
         static Statement ricGioc;
         static String ricercaGiocatore;
         static ResultSet ricGioc (java.awt.Component thrower, String gioc) throws SQLException{
-            ricercaGiocatore="SELECT Nome, Cognome, Squadra, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = LOWER('" + gioc +"')";
+            ricercaGiocatore="SELECT IDGIOCATORE, Nome, Cognome, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = LOWER('" + gioc +"') GROUP BY IDGIOCATORE, Nome, Cognome, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist";
             ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
             return result;
@@ -137,10 +137,20 @@ public class DBproject {
         //VISTA PER LA RICERCA DELLO STAFF
         static Statement ricStaff;
         static String ricercaStaff;
-        static ResultSet ricStaff (java.awt.Component thrower, String prof, String cognome) throws SQLException{
-            ricercaStaff="SELECT Nome, Cognome, Nazionalita, DataNascita, Squadra FROM VISTA_STAFF WHERE LOWER(PROFESSIONE) = LOWER('" + prof +"') AND LOWER(COGNOME) = LOWER ('" + cognome + "')";
+        static ResultSet ricStaff (java.awt.Component thrower, String cognome) throws SQLException{
+            ricercaStaff="SELECT ST.Nome AS NOME, Cognome, Professione, Luogo_Nascita, DataNascita, S.NOME AS SQUADRA FROM STAFF ST, SQUADRA S WHERE LOWER(COGNOME) = LOWER ('" + cognome + "') AND ST.IDSQUADRA = S.IDSQUADRA";
             ricStaff=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricStaff.executeQuery(ricercaStaff);
+            return result;
+        }
+        
+        //VISTA PER LA RICERCA DELLO STAFF PER SQUADRA
+        static Statement ricStaffS;
+        static String ricercaStaffS;
+        static ResultSet ricStaffS (java.awt.Component thrower, String sq) throws SQLException{
+            ricercaStaffS="SELECT ST.Nome AS NOME, Cognome, Professione, Luogo_Nascita, DataNascita, S.NOME AS SQUADRA FROM STAFF ST, SQUADRA S WHERE LOWER(S.NOME) = LOWER('" + sq +"') AND S.IDSQUADRA = ST.IDSQUADRA ORDER BY COGNOME";
+            ricStaffS=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet result = ricStaffS.executeQuery(ricercaStaffS);
             return result;
         }
         
@@ -334,7 +344,7 @@ public class DBproject {
         static Statement modGiocN;
         static String modificaGiocatoreNazionale;
         static ResultSet modGiocN (java.awt.Component thrower) throws SQLException{
-            modificaGiocatoreNazionale="SELECT NOME, COGNOME, RUOLO FROM STAT_INDIVIDUALI ORDER BY COGNOME";
+            modificaGiocatoreNazionale="SELECT IDGIOCATORE, NOME, COGNOME, RUOLO FROM GIOCATORE ORDER BY COGNOME";
             modGiocN=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modGiocN.executeQuery(modificaGiocatoreNazionale);
             return result;
@@ -344,7 +354,7 @@ public class DBproject {
         static Statement modStaff;
         static String modificaStaff;
         static ResultSet modStaff (java.awt.Component thrower) throws SQLException{
-            modificaStaff="SELECT IDSTAFF, ST.NOME, COGNOME, NAZIONALITA, DATANASCITA, ST.IDSQUADRA, S.NOME AS SQUADRA, PROFESSIONE FROM STAFF ST, SQUADRA S WHERE ST.IDSQUADRA = S.IDSQUADRA ORDER BY COGNOME";
+            modificaStaff="SELECT IDSTAFF, ST.NOME, COGNOME, Luogo_Nascita, DATANASCITA, ST.IDSQUADRA, S.NOME AS SQUADRA, PROFESSIONE FROM STAFF ST, SQUADRA S WHERE ST.IDSQUADRA = S.IDSQUADRA ORDER BY COGNOME";
             modStaff=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modStaff .executeQuery(modificaStaff);
             return result;

@@ -5,6 +5,8 @@
  */
 package dbproject;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -23,6 +25,13 @@ public class RisultatoQuery extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         jComboBox2.setVisible(false);
         jTable1.setShowGrid(false);
+        jComboBox2.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    boxElements();
+                }
+            }
+        });
         ResultSet rs;
         try {
             String order="GOAL";
@@ -32,12 +41,38 @@ public class RisultatoQuery extends javax.swing.JDialog {
         } catch(SQLException ex) {
             DBproject.showError(this, ex);
         }
+        jTextArea2.setEditable(false);
     }
 
     RisultatoQuery() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private void boxElements(){
+        ResultSet rs;
+        String sq=jTextField1.getText();
+        switch(jComboBox2.getSelectedIndex()){
+            case 0:
+                try {
+                    rs=DBproject.ricSq(this, sq);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                break;
+            case 1:
+                try {
+                    rs=DBproject.ricStaffS(this, sq);
+                    jTable1.setModel (new VistaTabelle(rs));
+                    pack();
+                } catch(SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                break;
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,7 +117,7 @@ public class RisultatoQuery extends javax.swing.JDialog {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Giocatore", "Torneo", "Squadra", "Staff" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Giocatore", "Squadra", "Staff" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ricerca"));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -97,7 +132,7 @@ public class RisultatoQuery extends javax.swing.JDialog {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "allenatore", "dirigente", "presidente" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Giocatori", "Staff" }));
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -157,39 +192,28 @@ public class RisultatoQuery extends javax.swing.JDialog {
         
         if("Giocatore".equals((String) jComboBox1.getSelectedItem())){
                String id=jTextField1.getText();
-               try {
+            try {
                rs=DBproject.ricGioc(this, id);
                jTable1.setModel (new VistaTabelle(rs));
                pack();
 
-           } catch(SQLException ex) {
-               DBproject.showError(this, ex);
-           }
-       }
-        if("Staff".equals((String) jComboBox1.getSelectedItem())){
+            } catch(SQLException ex) {
+                DBproject.showError(this, ex);
+            }
+
+       }else if("Staff".equals((String) jComboBox1.getSelectedItem())){
             String cognome =jTextField1.getText();
-            String prof = (String) jComboBox2.getSelectedItem();
             
             try {
-               rs=DBproject.ricStaff(this, prof, cognome);
+               rs=DBproject.ricStaff(this, cognome);
                jTable1.setModel (new VistaTabelle(rs));
                pack();
 
            } catch(SQLException ex) {
                DBproject.showError(this, ex);
            }
-       }
-        
-        if ("Squadra".equals((String) jComboBox1.getSelectedItem())){
-               String sq=jTextField1.getText();
-               try {
-               rs=DBproject.ricSq(this, sq);
-               jTable1.setModel (new VistaTabelle(rs));
-               pack();
-
-           } catch(SQLException ex) {
-               DBproject.showError(this, ex);
-           }
+       }else if ("Squadra".equals((String) jComboBox1.getSelectedItem())){
+           boxElements();
         }
     }    
        /* 
@@ -198,8 +222,18 @@ public class RisultatoQuery extends javax.swing.JDialog {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         jComboBox2.setVisible(false);
         switch (jComboBox1.getSelectedIndex()){
-            case 4: 
+            case 1:
+                jTextArea2.setText("Inserisci il cognome\ndel giocatore da\ncercare per\nvisualizzarne\nle statistiche");
+                break;
+            case 2:
                 jComboBox2.setVisible(true);
+                jTextArea2.setText("Inserisci il nome\ndella squadra da\ncercare per\nvisualizzarne\ni giocatori");
+                break;
+            case 3:
+                jTextArea2.setText("Inserisci il cognome\ndel membro staff\nda cercare per\nvisualizzarne\nle informazioni");
+            case 4: 
+                //jComboBox2.setVisible(true);
+                break;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 

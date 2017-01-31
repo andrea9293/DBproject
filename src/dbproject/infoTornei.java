@@ -22,7 +22,6 @@ public class infoTornei extends javax.swing.JFrame {
     /**
      * Creates new form infoTornei
      */
-    //Listner per i combo box itemStateChanged
     public infoTornei() throws SQLException {
         initComponents();
         jTable2.setShowGrid(false);

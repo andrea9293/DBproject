@@ -40,6 +40,13 @@ public class Insert extends javax.swing.JFrame {
                 }
             }
         });
+        jComboBoxTipo.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange()==ItemEvent.SELECTED){
+                    tipoElements();
+                }
+            }
+        });
         ResultSet rs;
         try {
             String order="SQUADRA";
@@ -239,7 +246,7 @@ public class Insert extends javax.swing.JFrame {
                 }
                 try {
                     rs=DBproject.modStaff(this);
-                    jTable1.setModel (new VistaTabelle(rs));
+                    jTable2.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
@@ -743,7 +750,7 @@ public class Insert extends javax.swing.JFrame {
         }
         if (box.getSelectedIndex() == 2){
             //GENERAZIONE DEL NUMERO TURNO
-            if (!"".equals(jText6.getText())){
+            if (!"".equals(jText6.getText()) && "PARTITA".equals((String)selTab.getSelectedItem())){
                 Integer num=null;
                 try {
                     num=DBproject.numT(this, Integer.parseInt(jText6.getText()));

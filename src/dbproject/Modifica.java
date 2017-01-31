@@ -27,6 +27,7 @@ public class Modifica extends javax.swing.JFrame {
         selTab.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 if(e.getStateChange()==ItemEvent.SELECTED){
+                    
                     selTabElements();
                 }
             }
@@ -38,31 +39,9 @@ public class Modifica extends javax.swing.JFrame {
                 }
             }
         });
-        
-        try {
-            ResultSet rs;
-            rs=DBproject.modSq(this);
-            jTable1.setModel (new VistaTabelle(rs));
-            pack();
-        } catch(SQLException ex) {
-            DBproject.showError(this, ex);
-        }
-        try {
-            ResultSet rs;
-            rs=DBproject.modGioc(this);
-            jTable2.setModel (new VistaTabelle(rs));
-            pack();
-        } catch(SQLException ex) {
-            DBproject.showError(this, ex);
-        }
+        selTabElements();
         jTable2.setShowGrid(false);
         jTable1.setShowGrid(false);
-        jText1.setVisible(false);
-        jText2.setVisible(false);
-        jText3.setVisible(false);
-        jText4.setVisible(false);
-        jText5.setVisible(false);
-        jText6.setVisible(false);
         box.setVisible(false);
         jComboBoxTipo.setVisible(false);
     }
@@ -83,15 +62,6 @@ public class Modifica extends javax.swing.JFrame {
         jComboBoxTipo.setVisible(false);
         switch(selTab.getSelectedIndex()){
             case 0:
-                jText1.setVisible(false);
-                jText2.setVisible(false);
-                jText3.setVisible(false);
-                jText4.setVisible(false);
-                jText5.setVisible(false);
-                jText6.setVisible(false);
-                box.setVisible(false);
-                break;
-            case 1:
                 //EVENTO
                 try {
                     ResultSet rs;
@@ -124,7 +94,7 @@ public class Modifica extends javax.swing.JFrame {
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Goal", "Tiri", "CartellinoG", "CartellinoR", "Fuorigioco", "Assist", "TiroInPorta" }));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Evento"));
                 break;
-            case 2:
+            case 1:
                 //SQUADRA
                 try {
                     ResultSet rs;
@@ -150,11 +120,12 @@ public class Modifica extends javax.swing.JFrame {
                 jText4.setVisible(false);
                 jText5.setVisible(false);
                 jText6.setVisible(false);
+                box.setVisible(false);
                 box.setVisible(true);
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "club", "nazionale"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Squadra"));
                 break;
-            case 3:
+            case 2:
                 //GIOCATORE
                 try {
                     ResultSet rs;
@@ -172,7 +143,7 @@ public class Modifica extends javax.swing.JFrame {
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
-                jComboBoxTipo.setVisible(true);
+                jComboBoxTipo.setVisible(false);
                 jText1.setVisible(true);
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDgiocatore"));
                 jText2.setVisible(true);
@@ -187,7 +158,7 @@ public class Modifica extends javax.swing.JFrame {
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "portiere", "difensore", "centrocampista", "attaccante"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Ruolo"));
                 break;
-            case 4:
+            case 3:
                 //STAFF
                 try {
                     ResultSet rs;
@@ -205,7 +176,7 @@ public class Modifica extends javax.swing.JFrame {
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
-                jComboBoxTipo.setVisible(true);
+                jComboBoxTipo.setVisible(false);
                 jText1.setVisible(true);
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDstaff"));
                 jText1.setEditable(false);
@@ -224,7 +195,7 @@ public class Modifica extends javax.swing.JFrame {
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "allenatore", "dirigente", "presidente"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Professione"));
                 break;
-            case 5:
+            case 4:
                 //partite
                 try {
                     ResultSet rs;
@@ -242,7 +213,7 @@ public class Modifica extends javax.swing.JFrame {
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
-                jComboBoxTipo.setVisible(true);
+                jComboBoxTipo.setVisible(false);
                 jText1.setVisible(true);
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
                 jText1.setEditable(false);
@@ -257,10 +228,11 @@ public class Modifica extends javax.swing.JFrame {
                 jText6.setVisible(true);
                 jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID del torneo"));
                 box.setVisible(true);
+                jComboBoxTipo.setVisible(false);
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Torneo a Gironi", "Torneo ad Eliminazione"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo di Torneo"));
                 break;
-            case 6:
+            case 5:
                 //torneo gironi
                 try {
                     ResultSet rs;
@@ -288,8 +260,9 @@ public class Modifica extends javax.swing.JFrame {
                 jText5.setVisible(false);
                 jText6.setVisible(false);
                 box.setVisible(false);
+                jComboBoxTipo.setVisible(false);
                 break;
-            case 7:
+            case 6:
                 //torneo eliminazione
                 try {
                     ResultSet rs;
@@ -316,12 +289,14 @@ public class Modifica extends javax.swing.JFrame {
                 jText4.setVisible(false);
                 jText5.setVisible(false);
                 jText6.setVisible(false);
+                jComboBoxTipo.setVisible(false);
                 box.setVisible(false);
                 break;
         }
     }
     
     private void tipoElements(){
+        
         ResultSet rs;
         String tipo= (String) jComboBoxTipo.getSelectedItem();
         try {
@@ -419,8 +394,8 @@ public class Modifica extends javax.swing.JFrame {
             }
         });
 
-        selTab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "EVENTO", "SQUADRA", "GIOCATORE", "MEMBRO STAFF", "PARTITA", "TORNEO GIRONI", "TORNEO ELIMINAZIONE" }));
-        selTab.setBorder(javax.swing.BorderFactory.createTitledBorder("Scegliere cosa Inserire"));
+        selTab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EVENTO", "SQUADRA", "GIOCATORE", "MEMBRO STAFF", "PARTITA", "TORNEO GIRONI", "TORNEO ELIMINAZIONE" }));
+        selTab.setBorder(javax.swing.BorderFactory.createTitledBorder("Scegliere cosa modificare/eliminare"));
         selTab.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 selTabItemStateChanged(evt);
@@ -681,7 +656,7 @@ public class Modifica extends javax.swing.JFrame {
         Integer row;
         Integer column;
         switch(selTab.getSelectedIndex()){
-            case 2:
+            case 1:
                 row = jTable1.getSelectedRow();
                 column = 0;
                 jText1.setText(jTable1.getValueAt(row, column).toString());
@@ -694,7 +669,7 @@ public class Modifica extends javax.swing.JFrame {
                     box.setSelectedIndex(2);
                 } 
                 break;
-            case 1:
+            case 0:
                 row = jTable1.getSelectedRow();
                 column = 0;
                 jText1.setText(jTable1.getValueAt(row, column).toString());
@@ -721,7 +696,7 @@ public class Modifica extends javax.swing.JFrame {
                     box.setSelectedIndex(7);
                 }
                 break;
-            case 3:
+            case 2:
                 row = jTable1.getSelectedRow();
                 column = 0;
                 jText1.setText(jTable1.getValueAt(row, column).toString());
@@ -742,7 +717,7 @@ public class Modifica extends javax.swing.JFrame {
                     box.setSelectedIndex(4);
                 }
                 break;
-            case 4:
+            case 3:
                 row = jTable1.getSelectedRow();
                 column = 0;
                 jText1.setText(jTable1.getValueAt(row, column).toString());
@@ -765,7 +740,7 @@ public class Modifica extends javax.swing.JFrame {
                     box.setSelectedIndex(3);
                 }
                 break;
-            case 5:
+            case 4:
                 row = jTable1.getSelectedRow();
                 column = 0;
                 jText1.setText(jTable1.getValueAt(row, column).toString());
@@ -789,7 +764,7 @@ public class Modifica extends javax.swing.JFrame {
                     }
                 }
                 break;
-            case 6:
+            case 5:
                 row = jTable1.getSelectedRow();
                 column = 0;
                 jText1.setText(jTable1.getValueAt(row, column).toString());
@@ -798,7 +773,7 @@ public class Modifica extends javax.swing.JFrame {
                 column++;
                 jText3.setText(jTable1.getValueAt(row, column).toString());
                 break;
-            case 7:
+            case 6:
                 row = jTable1.getSelectedRow();
                 column = 0;
                 jText1.setText(jTable1.getValueAt(row, column).toString());
@@ -1164,9 +1139,7 @@ public class Modifica extends javax.swing.JFrame {
            } catch (SQLException ex) {
                DBproject.showError(this, ex);
            }
-        } else {
-           System.out.print("no");
-        }
+        } 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
