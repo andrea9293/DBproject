@@ -37,31 +37,33 @@ public class Login extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        userField.setText("ANDREA");
+        //TEXT FIELD PER L'USERNAME
+        userField.setText("");
         userField.setBorder(javax.swing.BorderFactory.createTitledBorder("USERNAME"));
         userField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userFieldActionPerformed(evt);
             }
         });
-
-        passField.setText("090209");
+        //TEXT FIELD PER LA PASSWORD
+        passField.setText("");
         passField.setBorder(javax.swing.BorderFactory.createTitledBorder("PASSWORD"));
         passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passFieldActionPerformed(evt);
             }
         });
-
+        
+        //Tasto LOGIN
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        
+        
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LOGIN");
 
@@ -112,9 +114,9 @@ public class Login extends javax.swing.JFrame {
 
     private void userFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_userFieldActionPerformed
+    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         //Assegnazione del contenuto del JField "userField" a "userName"
         DBproject.userName = userField.getText();
         //Assegnazione del contenuto del JPasswordField "passField" a "passWord"
@@ -129,15 +131,15 @@ public class Login extends javax.swing.JFrame {
         } catch (SQLException e) {
             DBproject.showError(this, e);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
-    private void passFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passFieldActionPerformed
+    private void passFieldActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_passFieldActionPerformed
+    }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -164,7 +166,6 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -174,11 +175,11 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField passField;
     private javax.swing.JTextField userField;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
 }
