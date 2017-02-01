@@ -85,10 +85,8 @@ public class Nazionali extends javax.swing.JFrame {
             String ris = result.getString("NOME");
             ris += ", ";
             ris += result.getString("IDSQUADRA");
-            System.out.println(ris);
             box.addItem(ris);
         }
-        System.out.println("creato il bo per NAZIONALI");
     }
     private void boxElements() throws SQLException{
         ResultSet rs;
@@ -102,7 +100,7 @@ public class Nazionali extends javax.swing.JFrame {
         str = (String) box.getSelectedItem();
         str = str.replaceAll("[^0-9]+", "");
         index = Integer.parseInt(str);
-        jText6.setText(index.toString());
+        //jText6.setText(index.toString());
     }
     private void selTabElements() throws SQLException{
         jText1.setText("");
@@ -119,7 +117,7 @@ public class Nazionali extends javax.swing.JFrame {
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
-                jButton1.setText("Registra");
+                jButton1.setText("Convoca");
                 box.setVisible(false);
                 break;
             case 1:
@@ -131,7 +129,7 @@ public class Nazionali extends javax.swing.JFrame {
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
-                jButton1.setText("Elimina da Nazionale");
+                jButton1.setText("Congeda");
                 boxElements();
                 break;
         }
@@ -235,7 +233,7 @@ public class Nazionali extends javax.swing.JFrame {
 
         box.setBorder(javax.swing.BorderFactory.createTitledBorder("Scegli Nazionale"));
 
-        jButton1.setText("Registra");
+        jButton1.setText("Convoca");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

@@ -54,6 +54,11 @@ public class Login extends javax.swing.JFrame {
                 passFieldActionPerformed(evt);
             }
         });
+        passField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passFieldKeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +168,10 @@ public class Login extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void passFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passFieldKeyPressed
+        
+    }//GEN-LAST:event_passFieldKeyPressed
 
     /**
      * @param args the command line arguments

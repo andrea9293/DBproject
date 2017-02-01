@@ -1082,7 +1082,7 @@ public class Modifica extends javax.swing.JFrame {
                         DBproject.upd(tab, col, val, index, id);
                     }
                     if (jText3.isEditable()){
-                        col = "NOME";
+                        col = "NOMETORNEOE";
                         val = "'" + jText3.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }

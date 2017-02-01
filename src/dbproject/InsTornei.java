@@ -380,6 +380,8 @@ public class InsTornei extends javax.swing.JFrame {
                 val+="'" + jTextField16.getText() + "')";
                 DBproject.insert(tabella, colonne, val);
             }
+            JOptionPane.showMessageDialog(null, "Squadre Inserite");
+            dispose();
         } catch (SQLException ex) {
                 DBproject.showError(this, ex);
             }
@@ -408,6 +410,7 @@ public class InsTornei extends javax.swing.JFrame {
             rs=DBproject.ricSqT(this, tipo);
             jTable1.setModel (new VistaTabelle(rs));
             pack();
+            
         } catch(SQLException ex) {
             DBproject.showError(this, ex);
         }

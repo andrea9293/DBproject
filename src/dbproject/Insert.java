@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +26,7 @@ public class Insert extends javax.swing.JFrame {
     public Insert() {
         initComponents();
         setLocationRelativeTo(null);
+        //JFrame.getRootPane().setDefaultButton(jButton1);
         //AGGIUNTA DEI LISTNER PER I COMBOBOX    
         selTab.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
@@ -680,7 +682,6 @@ public class Insert extends javax.swing.JFrame {
                 }       
             }
             col+=")";
-           
             String val;
             val=createValues();
             try {

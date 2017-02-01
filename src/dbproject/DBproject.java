@@ -386,7 +386,7 @@ public class DBproject {
         static ResultSet modTe (java.awt.Component thrower) throws SQLException{
             Statement modTe;
             String modificaTorneoE;
-            modificaTorneoE="SELECT IDTORNEOEE, STAGIONEE, NOMETORNEOE FROM TORNEO_ELIMINAZIONE ORDER BY IDTORNEOE DESC";
+            modificaTorneoE="SELECT IDTORNEOE, STAGIONEE, NOMETORNEOE FROM TORNEO_ELIMINAZIONE ORDER BY IDTORNEOE DESC";
             modTe=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modTe.executeQuery(modificaTorneoE);
             return result;
