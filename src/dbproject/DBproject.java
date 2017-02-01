@@ -74,10 +74,8 @@ public class DBproject {
         String up;
         int a;
         up="INSERT INTO " + tab + " " + col + " VALUES " + val;
-        System.out.println(up);
         insert=defaultConn.createStatement();
         insert.executeUpdate(up);
-        //JOptionPane.showMessageDialog(thrower, "Inserimento Eseguito");
     }
     
     
