@@ -67,11 +67,12 @@ public class DBproject {
         JOptionPane.showMessageDialog(thrower, message, "Errore" + e.getErrorCode(), JOptionPane.ERROR_MESSAGE);
     }
     
-    static Statement insert;
-    static String up;
-    static int a;
+    
 
     static void insert(String tab, String col, String val) throws SQLException {
+        Statement insert;
+        String up;
+        int a;
         up="INSERT INTO " + tab + " " + col + " VALUES " + val;
         System.out.println(up);
         insert=defaultConn.createStatement();
@@ -81,63 +82,63 @@ public class DBproject {
     
     
         //VISTE
-        //CALCOLO DEGLI ID
-        static Statement calcMax;
-        static String calc;
-        static int calcMax (String tab, String col) throws SQLException{
-            calc="SELECT MAX(" + col + ") FROM " + tab;
-            calcMax=defaultConn.createStatement();
-            ResultSet result = calcMax.executeQuery(calc);
+        //CALCOLO DEGLI I
+    static int calcMax (String tab, String col) throws SQLException{
+        Statement calcMax;
+        String calc;
+        calc="SELECT MAX(" + col + ") FROM " + tab;
+        calcMax=defaultConn.createStatement();
+        ResultSet result = calcMax.executeQuery(calc);
         int id = 0;
         while (result.next()) {
             id = result.getInt(1);
         }System.out.println(id);
         return id;
-        }
+    }
         
         //VISTA PER LA RICERCA DEL GIOCATORE
-        static Statement ricGioc;
-        static String ricercaGiocatore;
-        static ResultSet ricGioc (java.awt.Component thrower, String gioc) throws SQLException{
-            ricercaGiocatore="SELECT IDGIOCATORE, Nome, Cognome, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = LOWER('" + gioc +"') GROUP BY IDGIOCATORE, Nome, Cognome, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist";
-            ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
-            return result;
-        }
+    static ResultSet ricGioc (java.awt.Component thrower, String gioc) throws SQLException{
+        Statement ricGioc;
+        String ricercaGiocatore;
+        ricercaGiocatore="SELECT IDGIOCATORE, Nome, Cognome, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist FROM STAT_INDIVIDUALI WHERE LOWER(cognome) = LOWER('" + gioc +"') GROUP BY IDGIOCATORE, Nome, Cognome, Goal, Tiri, Falli, Ammonizioni, Espulsioni, Fuorigioco, Assist";
+        ricGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet result = ricGioc.executeQuery(ricercaGiocatore);
+        return result;
+    }
         
         //VISTA PER LA RICERCA DI UNA SQUADRA
-        static Statement ricSq;
-        static String ricercaSquadra;
-        static ResultSet ricSq (java.awt.Component thrower, String sq) throws SQLException{
-            ricercaSquadra="SELECT Squadra, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE LOWER(squadra) = LOWER('" + sq +"') ORDER BY COGNOME";
-            ricSq=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet result = ricSq.executeQuery(ricercaSquadra);
-            return result;
-        }
-        
-        static Statement ricSqI;
-        static String ricercaSquadraIndice;
-        static ResultSet ricSqI (java.awt.Component thrower, Integer sq) throws SQLException{
-            ricercaSquadraIndice="SELECT IDGIOCATORE, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE IDSQUADRA = " + sq +" ORDER BY COGNOME";
-            ricSqI=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet result = ricSqI.executeQuery(ricercaSquadraIndice);
-            return result;
-        }
+    static ResultSet ricSq (java.awt.Component thrower, String sq) throws SQLException{
+        Statement ricSq;
+        String ricercaSquadra;
+        ricercaSquadra="SELECT Squadra, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE LOWER(squadra) = LOWER('" + sq +"') ORDER BY COGNOME";
+        ricSq=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet result = ricSq.executeQuery(ricercaSquadra);
+        return result;
+    }
+    
+    static ResultSet ricSqI (java.awt.Component thrower, Integer sq) throws SQLException{
+        Statement ricSqI;
+        String ricercaSquadraIndice;
+        ricercaSquadraIndice="SELECT IDGIOCATORE, Nome, Cognome, Goal, Assist, Ammonizioni, Espulsioni FROM STAT_INDIVIDUALI WHERE IDSQUADRA = " + sq +" ORDER BY COGNOME";
+        ricSqI=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet result = ricSqI.executeQuery(ricercaSquadraIndice);
+        return result;
+    }
         
         //VISTA PER LA RICERCA DELLE SQUADRE PER TIPO
-        static Statement ricSqT;
-        static String ricercaSquadraTipo;
-        static ResultSet ricSqT (java.awt.Component thrower, String tipo) throws SQLException{
-            ricercaSquadraTipo="SELECT IDsquadra, Nome, Tipo FROM SQUADRA WHERE LOWER(tipo) = LOWER('" + tipo +"')";
-            ricSqT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet result = ricSqT.executeQuery(ricercaSquadraTipo);
-            return result;
-        }
+    static ResultSet ricSqT (java.awt.Component thrower, String tipo) throws SQLException{
+        Statement ricSqT;
+        String ricercaSquadraTipo;
+        ricercaSquadraTipo="SELECT IDsquadra, Nome, Tipo FROM SQUADRA WHERE LOWER(tipo) = LOWER('" + tipo +"')";
+        ricSqT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet result = ricSqT.executeQuery(ricercaSquadraTipo);
+        return result;
+    }
         
         //VISTA PER LA RICERCA DELLO STAFF
-        static Statement ricStaff;
-        static String ricercaStaff;
         static ResultSet ricStaff (java.awt.Component thrower, String cognome) throws SQLException{
+            Statement ricStaff;
+            String ricercaStaff;
             ricercaStaff="SELECT ST.Nome AS NOME, Cognome, Professione, Luogo_Nascita, DataNascita, S.NOME AS SQUADRA FROM STAFF ST, SQUADRA S WHERE LOWER(COGNOME) = LOWER ('" + cognome + "') AND ST.IDSQUADRA = S.IDSQUADRA";
             ricStaff=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricStaff.executeQuery(ricercaStaff);
@@ -145,9 +146,9 @@ public class DBproject {
         }
         
         //VISTA PER LA RICERCA DELLO STAFF PER SQUADRA
-        static Statement ricStaffS;
-        static String ricercaStaffS;
         static ResultSet ricStaffS (java.awt.Component thrower, String sq) throws SQLException{
+            Statement ricStaffS;
+            String ricercaStaffS;
             ricercaStaffS="SELECT ST.Nome AS NOME, Cognome, Professione, Luogo_Nascita, DataNascita, S.NOME AS SQUADRA FROM STAFF ST, SQUADRA S WHERE LOWER(S.NOME) = LOWER('" + sq +"') AND S.IDSQUADRA = ST.IDSQUADRA ORDER BY COGNOME";
             ricStaffS=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricStaffS.executeQuery(ricercaStaffS);
@@ -155,9 +156,9 @@ public class DBproject {
         }
         
         //VISTA RISULTATO PARTITE
-        static Statement risPart;
-        static String risultatoPartite;
         static ResultSet risPart (java.awt.Component thrower) throws SQLException{
+            Statement risPart;
+            String risultatoPartite;
             risultatoPartite="SELECT IDpartita, Squadra1, Gol1, Gol2, Squadra2 FROM VISTA_RIS_PARTITE ORDER BY IDPARTITA DESC";
             risPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = risPart.executeQuery(risultatoPartite);
@@ -165,9 +166,9 @@ public class DBproject {
         }
 
         //VISTA RCERCA GIOCATORI
-        static Statement ricAllGioc;
-        static String tuttiGiocatori;
         static ResultSet ricAllGioc (java.awt.Component thrower, String order) throws SQLException{
+            Statement ricAllGioc;
+            String tuttiGiocatori;
             tuttiGiocatori="SELECT IDgiocatore, Cognome, Squadra, Goal, Ammonizioni, Espulsioni, Assist FROM STAT_INDIVIDUALI ORDER BY " + order + " DESC";
             ricAllGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = ricAllGioc.executeQuery(tuttiGiocatori);
@@ -175,9 +176,9 @@ public class DBproject {
         }
         
         //SELECT PER ELENCO TORNEI A GIRONI
-        static Statement elTg;
-        static String elencoTorneiG;
         static ResultSet elTg (java.awt.Component thrower) throws SQLException{
+            Statement elTg;
+            String elencoTorneiG;
             elencoTorneiG="SELECT IDTORNEOG, NOMETORNEOG, STAGIONEG FROM TORNEO_GIRONI ORDER BY IDTORNEOG DESC";
             elTg=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = elTg.executeQuery(elencoTorneiG);
@@ -186,9 +187,9 @@ public class DBproject {
         }
         
         //SELECT PER ELENCO TORNEI A GIRONI
-        static Statement elTe;
-        static String elencoTorneiE;
         static ResultSet elTe (java.awt.Component thrower) throws SQLException{
+            Statement elTe;
+            String elencoTorneiE;
             elencoTorneiE="SELECT IDTORNEOE, NOMETORNEOE, STAGIONEE FROM TORNEO_ELIMINAZIONE ORDER BY IDTORNEOE DESC";
             elTe=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = elTe.executeQuery(elencoTorneiE);
@@ -197,19 +198,19 @@ public class DBproject {
         }
         
         //VISTA DETTAGLI EVENTI PER PARTITA
-        static Statement dettEv;
-        static String dettagliEventi;
         static ResultSet dettEv (java.awt.Component thrower, Integer idpartita) throws SQLException{
+            Statement dettEv;
+            String dettagliEventi;
             dettagliEventi="SELECT MINUTO, SQUADRA, EVENTO, GIOCATORE, IDPARTITA  FROM VISTA_EVENTI WHERE IDPARTITA = " + idpartita + " ORDER BY MINUTO DESC";
             dettEv=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = dettEv.executeQuery(dettagliEventi);
             return result;
         }
         
-        //RISULTATO SINGOLA PARTITA
-        static Statement risSPart;
-        static String risultatoSingolaPartita;
+        //RISULTATO SINGOLA PARTITA        
         static String risultatoSingolo (java.awt.Component thrower, Integer idpartita) throws SQLException{
+            Statement risSPart;
+            String risultatoSingolaPartita;
             risultatoSingolaPartita="SELECT SQUADRA1, SQUADRA2, GOL1, GOL2 FROM VISTA_RIS_PARTITE WHERE IDPARTITA = " + idpartita;
             risSPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = risSPart.executeQuery(risultatoSingolaPartita);
@@ -227,9 +228,9 @@ public class DBproject {
         }
 
         //VISTA PER CLASSIFICHE TORNEI
-        static Statement classTg;
-        static String classificaTorneiG;
         static ResultSet classTg (java.awt.Component thrower, Integer torneo) throws SQLException{
+            Statement classTg;
+            String classificaTorneiG;
             classificaTorneiG="SELECT POS, SQ, PTI, V, P FROM VISTA_CLASSIFICA WHERE IDTORNEO = " + torneo + " ORDER BY PTI DESC";
             classTg=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = classTg.executeQuery(classificaTorneiG);
@@ -237,9 +238,9 @@ public class DBproject {
         }
         
         //VISTA PER CLASSIFICA MARCATORI 
-        static Statement classMarc;
-        static String classificaMarcatori;
         static ResultSet classMarc (java.awt.Component thrower, String cond) throws SQLException{
+            Statement classMarc;
+            String classificaMarcatori;
             classificaMarcatori="SELECT GIOCATORE, SQUADRA, GOAL FROM VISTA_MARCATORI WHERE "  + cond + " ORDER BY GOAL DESC";
             classMarc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = classMarc.executeQuery(classificaMarcatori);
@@ -247,9 +248,9 @@ public class DBproject {
         }
         
         //VISTA PER CLASSIFICA ASSIST
-        static Statement classAss;
-        static String classificaAssist;
         static ResultSet classAss (java.awt.Component thrower, String cond) throws SQLException{
+            Statement classAss;
+            String classificaAssist;
             classificaAssist="SELECT GIOCATORE, SQUADRA, ASSIST FROM VISTA_ASSIST WHERE " + cond + " ORDER BY ASSIST DESC";
             classAss=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = classAss.executeQuery(classificaAssist);
@@ -257,9 +258,9 @@ public class DBproject {
         }
         
         //QUERY PER LA RICERCA E CREAZIONE DEL NUMERO TURNO TORNEO
-        static Statement numT;
-        static String numeroTurno;
         static Integer numT (java.awt.Component thrower, Integer torneo) throws SQLException{
+            Statement numT;
+            String numeroTurno;
         //RICERCA DELL'ULTIMO NUMERO TURNO UTILIZZATO PER QUEL TORNEO
             numeroTurno="SELECT NUMERO_TURNO_TORNEO FROM PARTITA WHERE IDTORNEOE = " + torneo + " ORDER BY NUMERO_TURNO_TORNEO ASC";
             numT=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -311,19 +312,19 @@ public class DBproject {
         }
         
         //SELECT PER LA MODIFICA DEGLI ELEMENTI
-        static Statement modEv;
-        static String modificaEventi;
         static ResultSet modEv (java.awt.Component thrower) throws SQLException{
+            Statement modEv;
+            String modificaEventi;
             modificaEventi="SELECT IDEVENTO, IDPARTITA, MINUTO, IDGIOCATORE, EVENTO, GIOCATORE, SQUADRA FROM VISTA_EVENTI ORDER BY IDEVENTO";
             modEv=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modEv .executeQuery(modificaEventi);
             return result;
         }
         
-        //SELECT PER LA MODIFICA DI UNA SQUADRA
-        static Statement modSq;
-        static String modificaSquadra;
+        //SELECT PER LA MODIFICA DI UNA SQUADRA        
         static ResultSet modSq (java.awt.Component thrower) throws SQLException{
+            Statement modSq;
+            String modificaSquadra;
             modificaSquadra="SELECT IDSQUADRA, NOME, TIPO FROM SQUADRA ORDER BY NOME";
             modSq=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modSq .executeQuery(modificaSquadra);
@@ -331,9 +332,9 @@ public class DBproject {
         }
         
         //SELECT PER LA MODIFICA DI UN GIOCATROE
-        static Statement modGioc;
-        static String modificaGiocatore;
         static ResultSet modGioc (java.awt.Component thrower) throws SQLException{
+            Statement modGioc;
+            String modificaGiocatore;
             modificaGiocatore="SELECT IDGIOCATORE, NOME, COGNOME, IDSQUADRA, RUOLO FROM STAT_INDIVIDUALI ORDER BY COGNOME";
             modGioc=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modGioc .executeQuery(modificaGiocatore);
@@ -341,9 +342,9 @@ public class DBproject {
         }
         
         //FUNZIONE UTILIZZATA PER L'INSERIMENTO DEI GIOCATORI NELLE NAZIONALI
-        static Statement modGiocN;
-        static String modificaGiocatoreNazionale;
         static ResultSet modGiocN (java.awt.Component thrower) throws SQLException{
+            Statement modGiocN;
+            String modificaGiocatoreNazionale;
             modificaGiocatoreNazionale="SELECT IDGIOCATORE, NOME, COGNOME, RUOLO FROM GIOCATORE ORDER BY COGNOME";
             modGiocN=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modGiocN.executeQuery(modificaGiocatoreNazionale);
@@ -351,18 +352,18 @@ public class DBproject {
         }
         
         //SELECT PER LA MODIFICA DELLO STAFF
-        static Statement modStaff;
-        static String modificaStaff;
         static ResultSet modStaff (java.awt.Component thrower) throws SQLException{
+            Statement modStaff;
+            String modificaStaff;
             modificaStaff="SELECT IDSTAFF, ST.NOME, COGNOME, Luogo_Nascita, DATANASCITA, ST.IDSQUADRA, S.NOME AS SQUADRA, PROFESSIONE FROM STAFF ST, SQUADRA S WHERE ST.IDSQUADRA = S.IDSQUADRA ORDER BY COGNOME";
             modStaff=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modStaff .executeQuery(modificaStaff);
             return result;
         }
         //SELECT PER LA MODIFICA DELLE PARTITE
-        static Statement modPar;
-        static String modificaPartita;
         static ResultSet modPar (java.awt.Component thrower) throws SQLException{
+            Statement modPar;
+            String modificaPartita;
             modificaPartita="SELECT IDPARTITA, STADIO, IDSQ1, IDSQ2, DATA, IDTORNEOG, IDTORNEOE FROM PARTITA ORDER BY IDPARTITA DESC";
             modPar=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modPar.executeQuery(modificaPartita);
@@ -370,9 +371,9 @@ public class DBproject {
         }
         
         //SELECT PER LA MODIFICA DI UN TORNEO A GIRONI
-        static Statement modTg;
-        static String modificaTorneoG;
         static ResultSet modTg (java.awt.Component thrower) throws SQLException{
+            Statement modTg;
+            String modificaTorneoG;
             modificaTorneoG="SELECT IDTORNEOG, STAGIONEG, NOMETORNEOG FROM TORNEO_GIRONI ORDER BY IDTORNEOG DESC";
             modTg=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modTg.executeQuery(modificaTorneoG);
@@ -380,9 +381,9 @@ public class DBproject {
         }
         
         //SELECT PER LA MODIFICA DI UN TORNEO AD ELIMINAIZONE
-        static Statement modTe;
-        static String modificaTorneoE;
         static ResultSet modTe (java.awt.Component thrower) throws SQLException{
+            Statement modTe;
+            String modificaTorneoE;
             modificaTorneoE="SELECT IDTORNEOEE, STAGIONEE, NOMETORNEOE FROM TORNEO_ELIMINAZIONE ORDER BY IDTORNEOE DESC";
             modTe=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = modTe.executeQuery(modificaTorneoE);
@@ -390,9 +391,9 @@ public class DBproject {
         }
         
         //FUNZIONE PER GLI AGGIORNAMENTI
-        static Statement upd;
-        static String update;
-        static void upd (String tab, String col, String val, String index, String id) throws SQLException{
+        static void upd (String tab, String col, String val, String index, String id) throws SQLException{    
+        Statement upd;
+        String update;
             update="UPDATE " + tab + " SET " + col + " = " + val + " WHERE " + index + " = " + id;
             upd=defaultConn.createStatement();
             System.out.println(update);
@@ -400,11 +401,10 @@ public class DBproject {
         }
         
     //FUNZIONE PER LE ELIMINAIZONI
-
-        static String del;
-        static Statement delete;
-        static int nDel;
         static public void del(java.awt.Component thrower, String tab, String cond, String val) throws SQLException {
+            String del;
+            Statement delete;
+            int nDel;
             del = "DELETE FROM " + tab + " WHERE " + cond + val;
             System.out.println(del);
             delete=defaultConn.createStatement();

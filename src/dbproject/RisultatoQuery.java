@@ -227,7 +227,7 @@ public class RisultatoQuery extends javax.swing.JDialog {
                 break;
             case 2:
                 jComboBox2.setVisible(true);
-                jTextArea2.setText("Inserisci il nome\ndella squadra da\ncercare per\nvisualizzarne\ni giocatori");
+                jTextArea2.setText("Inserisci il nome\ndella squadra da\ncercare per\nvisualizzarne\ni giocatori o\ni membri dello staff");
                 break;
             case 3:
                 jTextArea2.setText("Inserisci il cognome\ndel membro staff\nda cercare per\nvisualizzarne\nle informazioni");

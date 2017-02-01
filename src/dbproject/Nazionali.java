@@ -179,7 +179,7 @@ public class Nazionali extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        selTab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Registra in Nazionale", "rimuovi da Nazionale" }));
+        selTab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Convocazione in Nazionale", "Congedo da Nazionale" }));
         selTab.setBorder(javax.swing.BorderFactory.createTitledBorder("Scegliere cosa Inserire"));
         selTab.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
