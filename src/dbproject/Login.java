@@ -35,35 +35,34 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        hostField = new javax.swing.JTextField();
+        portaField = new javax.swing.JTextField();
+        servizioField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        //TEXT FIELD PER L'USERNAME
-        userField.setText("");
+
         userField.setBorder(javax.swing.BorderFactory.createTitledBorder("USERNAME"));
         userField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userFieldActionPerformed(evt);
             }
         });
-        //TEXT FIELD PER LA PASSWORD
-        passField.setText("");
+
         passField.setBorder(javax.swing.BorderFactory.createTitledBorder("PASSWORD"));
         passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passFieldActionPerformed(evt);
             }
         });
-        
-        //Tasto LOGIN
+
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        
-        
-        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); 
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LOGIN");
 
@@ -73,6 +72,15 @@ public class Login extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        hostField.setText("localhost");
+        hostField.setBorder(javax.swing.BorderFactory.createTitledBorder("Host"));
+
+        portaField.setText("1521");
+        portaField.setBorder(javax.swing.BorderFactory.createTitledBorder("Porta"));
+
+        servizioField.setText("xe");
+        servizioField.setBorder(javax.swing.BorderFactory.createTitledBorder("Servizio"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,11 +94,14 @@ public class Login extends javax.swing.JFrame {
                 .addGap(0, 70, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(userField, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                    .addComponent(passField)
+                    .addComponent(hostField)
+                    .addComponent(portaField)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(passField))
+                    .addComponent(servizioField))
                 .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
@@ -103,24 +114,36 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(hostField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(portaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(servizioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userFieldActionPerformed
+    private void userFieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }
+    }                                         
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //Assegnazione del contenuto del JField "userField" a "userName"
         DBproject.userName = userField.getText();
         //Assegnazione del contenuto del JPasswordField "passField" a "passWord"
         DBproject.passWord = new String( passField.getPassword());
+        //Assegnazione del contenuto del JField "hostField" a "host"
+        DBproject.host = hostField.getText();
+        //Assegnazione del contenuto del JField "portaField" a "porta"
+        DBproject.porta = portaField.getText();
+        //Assegnazione del contenuto del JField "serviceField" a "servizio
+        DBproject.servizio = servizioField.getText();
         
         try {
             DBproject.setDefaultConn(DBproject.newConn());
@@ -131,15 +154,15 @@ public class Login extends javax.swing.JFrame {
         } catch (SQLException e) {
             DBproject.showError(this, e);
         }
-    }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void passFieldActionPerformed(java.awt.event.ActionEvent evt) {
+    private void passFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passFieldActionPerformed
         // TODO add your handling code here:
-    }
+    }//GEN-LAST:event_passFieldActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
-    }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,7 +189,7 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
+        //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -175,11 +198,14 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField hostField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField passField;
+    private javax.swing.JTextField portaField;
+    private javax.swing.JTextField servizioField;
     private javax.swing.JTextField userField;
-    // End of variables declaration
+    // End of variables declaration//GEN-END:variables
 }

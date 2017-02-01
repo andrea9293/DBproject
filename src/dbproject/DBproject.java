@@ -26,6 +26,12 @@ public class DBproject {
     static public String passWord = "";
     //Stringa contenente la parte iniziale (rappresentante il tipo di libreria) dell'url
     static public String url = "jdbc:oracle:thin:@//";
+    //Stringa contenente l'host del Database
+    static public String host = "";
+    //Stringa contenente il numero di porta dell'host
+    static public String porta = "";
+    //Stringa contenente il tipo di servizio del DBMS
+    static public String servizio = "";
     //Datasource necessario per la connessione
     static private OracleDataSource ods;
     //Connessione di default
@@ -52,7 +58,7 @@ public class DBproject {
     static public Connection newConn() throws SQLException{
         ods = new OracleDataSource();
         //Assegnazione dell'url al datasource
-        ods.setURL(url + "localhost:1521/xe");
+        ods.setURL(url + host + ":" + porta + "/" + servizio);
         //Assegnazione dell'username
         ods.setUser(userName);
         //Assegnazione della password
@@ -391,6 +397,8 @@ public class DBproject {
         Statement upd;
         String update;
             update="UPDATE " + tab + " SET " + col + " = " + val + " WHERE " + index + " = " + id;
+                        System.out.println(update);
+
             upd=defaultConn.createStatement();
             upd.executeUpdate(update);
         }
@@ -401,6 +409,8 @@ public class DBproject {
             Statement delete;
             int nDel;
             del = "DELETE FROM " + tab + " WHERE " + cond + val;
+                        System.out.println(del);
+
             delete=defaultConn.createStatement();
             nDel = delete.executeUpdate(del);
             JOptionPane.showMessageDialog(thrower, nDel + " righe cancellate");

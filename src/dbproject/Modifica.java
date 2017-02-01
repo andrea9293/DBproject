@@ -335,6 +335,7 @@ public class Modifica extends javax.swing.JFrame {
         }else if ("SQUADRA".equals((String)selTab.getSelectedItem())){
             cond="IDSQUADRA = ";
         }else if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
+            System.out.println("sono dentro");
             cond="IDGIOCATORE = ";
         }else if ("MEMBRO STAFF".equals((String)selTab.getSelectedItem())){
             cond="STAFF = ";
@@ -816,7 +817,7 @@ public class Modifica extends javax.swing.JFrame {
         String id;
         try {
             switch (selTab.getSelectedIndex()){
-                case 1:
+                case 0:
                     index = "IDEVENTO";
                     id = jText1.getText();
                     if (jText2.isEditable()){
@@ -856,12 +857,12 @@ public class Modifica extends javax.swing.JFrame {
                         DBproject.showError(this, ex);
                     }
                     break;
-                case 2:
+                case 1:
                     index = "IDSQUADRA";
                     id = jText1.getText();
                     if (jText2.isEditable()){
                         col = "NOME";
-                        val = jText2.getText();
+                        val = "'" + jText2.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
                     if(box.getSelectedItem().toString() != jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString()){
@@ -880,30 +881,32 @@ public class Modifica extends javax.swing.JFrame {
                     try {
                         ResultSet rs;
                         rs=DBproject.modGioc(this);
-                        jTable1.setModel (new VistaTabelle(rs));
+                        jTable2.setModel (new VistaTabelle(rs));
                         pack();
                     } catch(SQLException ex) {
                         DBproject.showError(this, ex);
                     }
                     break;
-                case 3:
+                case 2:
                     index = "IDGIOCATORE";
                     id = jText1.getText();
                     if (jText2.isEditable()){
                         col = "NOME";
-                        val = jText2.getText();
+                        val = "'" + jText2.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
                     if (jText3.isEditable()){
                         col = "COGNOME";
-                        val = jText3.getText();
+                        val = "'" + jText3.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);                    
                     }
                     if(jText6.isEditable()){
-                        tab = "SQUADRA_GIOCATORI";
-                        col = "IDGIOCATORE";
+                        String assTab = "SQUADRA_GIOCATORI";
+                        col = "IDSQUADRA";
                         val = jText6.getText();
-                        DBproject.upd(tab, col, val, index, id);
+                        Integer row = jTable1.getSelectedRow();
+                        String assId = id + " AND IDSQUADRA = " + jTable1.getValueAt(row, 3).toString();
+                        DBproject.upd(assTab, col, val, index, assId);
                     }
                     if(box.getSelectedItem().toString() != jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString()){
                         col = "RUOLO";
@@ -927,22 +930,22 @@ public class Modifica extends javax.swing.JFrame {
                         DBproject.showError(this, ex);
                     }  
                     break;
-                case 4:
+                case 3:
                     index = "IDSTAFF";
                     id = jText1.getText();
                     if (jText2.isEditable()){
                         col = "NOME";
-                        val = jText2.getText();
+                        val ="'" + jText2.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
                     if (jText3.isEditable()){
                         col = "COGNOME";
-                        val = jText3.getText();
+                        val = "'" + jText3.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);                    
                     }
                     if (jText4.isEditable()){
                         col = "`NAZIONALITA";
-                        val = jText4.getText();
+                        val ="'" + jText4.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);                    
                     }
                     if (jText5.isEditable()){
@@ -977,12 +980,12 @@ public class Modifica extends javax.swing.JFrame {
                         DBproject.showError(this, ex);
                     }
                     break;
-                case 5:
+                case 4:
                     index = "IDPARTITA";
                     id = jText1.getText();
                     if (jText2.isEditable()){
                         col = "STADIO";
-                        val = jText2.getText();
+                        val = "'" + jText2.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
                     if (jText3.isEditable()){
@@ -1038,18 +1041,18 @@ public class Modifica extends javax.swing.JFrame {
                         DBproject.showError(this, ex);
                     }
                     break;
-                case 6:                    
+                case 5:                    
                     id = jText1.getText();
                     index = "IDTORNEOG";
                     id = jText1.getText();
                     if (jText2.isEditable()){
                         col = "STAGIONE";
-                        val = jText2.getText();
+                        val = "'" + jText2.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
                     if (jText3.isEditable()){
                         col = "NOME";
-                        val = jText3.getText();
+                        val = "'" + jText3.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
                     try {
@@ -1069,18 +1072,18 @@ public class Modifica extends javax.swing.JFrame {
                         DBproject.showError(this, ex);
                     }
                     break;
-                case 7:                    
+                case 6:                    
                     id = jText1.getText();
                     index = "IDTORNEOE";
                     id = jText1.getText();
                     if (jText2.isEditable()){
                         col = "STAGIONE";
-                        val = jText2.getText();
+                        val = "'" + jText2.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
                     if (jText3.isEditable()){
                         col = "NOME";
-                        val = jText3.getText();
+                        val = "'" + jText3.getText() + "'";
                         DBproject.upd(tab, col, val, index, id);
                     }
                     try {
