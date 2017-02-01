@@ -90,7 +90,7 @@ public class DBproject {
         int id = 0;
         while (result.next()) {
             id = result.getInt(1);
-        }System.out.println(id);
+        }
         return id;
     }
         
@@ -180,7 +180,6 @@ public class DBproject {
             elencoTorneiG="SELECT IDTORNEOG, NOMETORNEOG, STAGIONEG FROM TORNEO_GIRONI ORDER BY IDTORNEOG DESC";
             elTg=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = elTg.executeQuery(elencoTorneiG);
-            System.out.println(elencoTorneiG);
             return result;
         }
         
@@ -191,7 +190,6 @@ public class DBproject {
             elencoTorneiE="SELECT IDTORNEOE, NOMETORNEOE, STAGIONEE FROM TORNEO_ELIMINAZIONE ORDER BY IDTORNEOE DESC";
             elTe=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = elTe.executeQuery(elencoTorneiE);
-            System.out.println(elencoTorneiE);
             return result;
         }
         
@@ -394,7 +392,6 @@ public class DBproject {
         String update;
             update="UPDATE " + tab + " SET " + col + " = " + val + " WHERE " + index + " = " + id;
             upd=defaultConn.createStatement();
-            System.out.println(update);
             upd.executeUpdate(update);
         }
         
@@ -404,7 +401,6 @@ public class DBproject {
             Statement delete;
             int nDel;
             del = "DELETE FROM " + tab + " WHERE " + cond + val;
-            System.out.println(del);
             delete=defaultConn.createStatement();
             nDel = delete.executeUpdate(del);
             JOptionPane.showMessageDialog(thrower, nDel + " righe cancellate");
