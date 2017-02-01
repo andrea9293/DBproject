@@ -73,10 +73,8 @@ public class DBproject {
 
     static void insert(String tab, String col, String val) throws SQLException {
         up="INSERT INTO " + tab + " " + col + " VALUES " + val;
-        System.out.println(up);
         insert=defaultConn.createStatement();
         insert.executeUpdate(up);
-        //JOptionPane.showMessageDialog(thrower, "Inserimento Eseguito");
     }
     
     
@@ -88,11 +86,11 @@ public class DBproject {
             calc="SELECT MAX(" + col + ") FROM " + tab;
             calcMax=defaultConn.createStatement();
             ResultSet result = calcMax.executeQuery(calc);
-        int id = 0;
-        while (result.next()) {
-            id = result.getInt(1);
-        }System.out.println(id);
-        return id;
+            int id = 0;
+            while (result.next()) {
+                id = result.getInt(1);
+            }
+            return id;
         }
         
         //VISTA PER LA RICERCA DEL GIOCATORE
