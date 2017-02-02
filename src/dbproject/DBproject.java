@@ -415,7 +415,18 @@ public class DBproject {
             nDel = delete.executeUpdate(del);
             JOptionPane.showMessageDialog(thrower, nDel + " righe cancellate");
         }
-        
+        static public Integer dimVettore(String query) throws SQLException { 
+            Statement vett = null;
+            vett=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            System.out.println("creato lo statement");
+            ResultSet result = vett.executeQuery(query);
+            System.out.println("query eseguita");
+            Integer n=0;
+            while (result.next())
+                n++;
+            System.out.println("forn eseguito " + n);
+            return n;
+        }
 }
 
 

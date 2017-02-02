@@ -66,15 +66,19 @@ public class infoTornei extends javax.swing.JFrame {
         boxItemE();
     }
     
+    private Integer [] vettG;
+
+    private Integer [] vettE;
+    
     private void creaClassifica(){
         //RICERCA DELL'IDTORNEO DELLA PRIMA SELEZIONE
         String str;
         Integer index;
         ResultSet rs;
         String cond;
-        str = (String) jComboBox1.getSelectedItem();
-        str = str.replaceAll("[^0-9]+", "");
-        index = Integer.parseInt(str);
+        /*str = (String) jComboBox1.getSelectedItem();
+        str = str.replaceAll("[^0-9]+", "");*/
+        index = vettG[jComboBox1.getSelectedIndex()];
         //CLASSIFICA PER TORNEI
         try {
             rs=DBproject.classTg(this, index);
@@ -93,9 +97,7 @@ public class infoTornei extends javax.swing.JFrame {
         String cond;
         switch(jComboBox3.getSelectedIndex()){
             case 0:
-                str = (String) jComboBox1.getSelectedItem();
-                str = str.replaceAll("[^0-9]+", "");
-                cond = "IDTORNEOG = " + Integer.parseInt(str);
+                cond = "IDTORNEOG = " + vettG[jComboBox1.getSelectedIndex()];
                 try {
                     rs=DBproject.classMarc(this, cond);
                     jTable2.setModel (new VistaTabelle(rs));
@@ -105,9 +107,7 @@ public class infoTornei extends javax.swing.JFrame {
                 }
                 break;
             case 1:
-                str = (String) jComboBox1.getSelectedItem();
-                str = str.replaceAll("[^0-9]+", "");
-                cond  = "IDTORNEOG = " + Integer.parseInt(str);
+                cond  = "IDTORNEOG = " + vettG[jComboBox1.getSelectedIndex()];
                 try {
                     rs=DBproject.classAss(this, cond);
                     jTable2.setModel (new VistaTabelle(rs));
@@ -125,9 +125,7 @@ public class infoTornei extends javax.swing.JFrame {
         String cond;
         switch(jComboBox4.getSelectedIndex()){
             case 0:
-                str = (String) jComboBox1.getSelectedItem();
-                str = str.replaceAll("[^0-9]+", "");
-                cond = "IDTORNEOE = " + Integer.parseInt(str);
+                cond = "IDTORNEOE = " + vettE[jComboBox5.getSelectedIndex()];
                 try {
                     rs=DBproject.classMarc(this, cond);
                     jTable3.setModel (new VistaTabelle(rs));
@@ -137,9 +135,7 @@ public class infoTornei extends javax.swing.JFrame {
                 }
                 break;
             case 1:
-                str = (String) jComboBox1.getSelectedItem();
-                str = str.replaceAll("[^0-9]+", "");
-                cond  = "IDTORNEOE = " + Integer.parseInt(str);
+                cond  = "IDTORNEOE = " + vettE[jComboBox5.getSelectedIndex()];
                 try {
                     rs=DBproject.classAss(this, cond);
                     jTable3.setModel (new VistaTabelle(rs));
@@ -153,9 +149,7 @@ public class infoTornei extends javax.swing.JFrame {
     
     private void createScheme() throws SQLException{
         Statement createScheme;   
-        String str = (String) jComboBox5.getSelectedItem();
-        str = str.replaceAll("[^0-9]+", "");
-        Integer index = Integer.parseInt(str);
+        Integer index = vettE[jComboBox5.getSelectedIndex()];
         String query;
         query= "SELECT IDTORNEOE, SQUADRA1, GOL1, GOL2, SQUADRA2, NUMERO_TURNO FROM VISTA_RIS_PARTITE WHERE IDTORNEOE = " + index;
         createScheme = DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -206,7 +200,7 @@ public class infoTornei extends javax.swing.JFrame {
         if (!"".equals(jLabel16.getText())){
             Integer gol1=0;
             Integer gol2=0;
-            str = jLabel16.getText();
+            String str = jLabel16.getText();
             str = str.replaceAll("[^0-9]+", "");
             gol1 = Integer.parseInt(str);
             str = jLabel15.getText();
@@ -225,13 +219,17 @@ public class infoTornei extends javax.swing.JFrame {
     
     private void boxItemG () throws SQLException{
         Statement boxItem;
+        Integer dim=0;
         boxItem=DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet result = boxItem.executeQuery("SELECT NOMETORNEOG, IDTORNEOG FROM TORNEO_GIRONI ORDER BY IDTORNEOG ASC");
+        String query = "SELECT NOMETORNEOG, IDTORNEOG FROM TORNEO_GIRONI ORDER BY IDTORNEOG DESC";
+        ResultSet result = boxItem.executeQuery(query);
+        dim=DBproject.dimVettore(query);
+        vettG = new Integer[dim];
+        Integer i=0;
         while (result.next()){
             String ris = result.getString("NOMETORNEOG");
-            ris += ", ";
-            ris += result.getString("IDTORNEOG");
-            System.out.println(ris);
+            vettG [i] = result.getInt("IDTORNEOG");
+            i++;
             jComboBox1.addItem(ris);
         }
         System.out.println("creato il bo per tornei g");
@@ -239,14 +237,16 @@ public class infoTornei extends javax.swing.JFrame {
 
     private void boxItemE () throws SQLException{
         Statement boxItem;
+        String query = "SELECT NOMETORNEOE, IDTORNEOE FROM TORNEO_ELIMINAZIONE";
         boxItem=DBproject.defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet result = boxItem.executeQuery("SELECT NOMETORNEOE, IDTORNEOE FROM TORNEO_ELIMINAZIONE");
+        ResultSet result = boxItem.executeQuery(query);
+        Integer dim=DBproject.dimVettore(query);
+        vettE = new Integer[dim];
+        Integer i=0;
         while (result.next()){
             String ris = result.getString("NOMETORNEOE");
-            ris += ", ";
-            System.out.println(ris);
-            ris += result.getString("IDTORNEOE");
-            System.out.println(ris);
+            vettE [i] = result.getInt("IDTORNEOE");
+            i++;
             jComboBox5.addItem(ris);
         }
         System.out.println("creato il bo per tornei e");
