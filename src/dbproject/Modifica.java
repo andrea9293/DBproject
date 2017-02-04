@@ -377,7 +377,7 @@ public class Modifica extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jText5.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Nazionalità"));
@@ -1139,9 +1139,138 @@ public class Modifica extends javax.swing.JFrame {
                     cond="IDPARTITA = ";
                     DBproject.del(this,tab,cond,jText1.getText());                
                 }
+                switch (selTab.getSelectedIndex()){
+                    case 0:
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modEv(this);
+                            jTable1.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modGioc(this);
+                            jTable2.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        break;
+                    case 1:
+                        try {
+                        ResultSet rs;
+                        rs=DBproject.modSq(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modGioc(this);
+                            jTable2.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        break;
+                    case 2:
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modGioc(this);
+                            jTable1.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modSq(this);
+                            jTable2.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }  
+                        break;
+                    case 3:
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modStaff(this);
+                            jTable1.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modSq(this);
+                            jTable2.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        break;
+                    case 4:
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modPar(this);
+                            jTable1.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modSq(this);
+                            jTable2.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        break;
+                    case 5:                    
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modTg(this);
+                            jTable1.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modSq(this);
+                            jTable2.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        break;
+                    case 6:                    
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modTe(this);
+                            jTable1.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        try {
+                            ResultSet rs;
+                            rs=DBproject.modSq(this);
+                            jTable2.setModel (new VistaTabelle(rs));
+                            pack();
+                        } catch(SQLException ex) {
+                            DBproject.showError(this, ex);
+                        }
+                        break;
+                }
            } catch (SQLException ex) {
                DBproject.showError(this, ex);
            }
+           
         } 
     }//GEN-LAST:event_jButton3ActionPerformed
 

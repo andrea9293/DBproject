@@ -81,6 +81,7 @@ public class DBproject {
         int a;
         up="INSERT INTO " + tab + " " + col + " VALUES " + val;
         insert=defaultConn.createStatement();
+        System.out.println(up);
         insert.executeUpdate(up);
     }
     
@@ -163,7 +164,7 @@ public class DBproject {
         static ResultSet risPart (java.awt.Component thrower) throws SQLException{
             Statement risPart;
             String risultatoPartite;
-            risultatoPartite="SELECT IDpartita, Squadra1, Gol1, Gol2, Squadra2 FROM VISTA_RIS_PARTITE ORDER BY IDPARTITA DESC";
+            risultatoPartite="SELECT IDpartita, Squadra1, Gol1, Gol2, Squadra2, IDsq1, IDsq2 FROM VISTA_RIS_PARTITE ORDER BY IDPARTITA DESC";
             risPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = risPart.executeQuery(risultatoPartite);
             return result;
@@ -233,7 +234,7 @@ public class DBproject {
         static ResultSet classTg (java.awt.Component thrower, Integer torneo) throws SQLException{
             Statement classTg;
             String classificaTorneiG;
-            classificaTorneiG="SELECT POS, SQ, PTI, V, P FROM VISTA_CLASSIFICA WHERE IDTORNEO = " + torneo + " ORDER BY PTI DESC";
+            classificaTorneiG="SELECT ROW_NUMBER() OVER (ORDER BY COALESCE(PTI,0) DESC), SQ, PTI, V, P FROM VISTA_CLASSIFICA WHERE IDTORNEO = " + torneo + " ORDER BY PTI DESC";
             classTg=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet result = classTg.executeQuery(classificaTorneiG);
             return result;
@@ -415,6 +416,8 @@ public class DBproject {
             nDel = delete.executeUpdate(del);
             JOptionPane.showMessageDialog(thrower, nDel + " righe cancellate");
         }
+        
+        //DIMENSIONE DEL VETTORE CONTENENTE GLI ID TORNEI
         static public Integer dimVettore(String query) throws SQLException { 
             Statement vett = null;
             vett=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -426,6 +429,36 @@ public class DBproject {
                 n++;
             System.out.println("forn eseguito " + n);
             return n;
+        }
+        
+        //VISUALIZZA I PARTECIPANTI AD UN TORNEO
+        static public ResultSet partTornei(Boolean tipo, Integer ID) throws SQLException{
+            ResultSet result;
+            Statement partTornei = null;
+            String partTorneiE;
+            String partTorneiG;
+            partTornei=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            if (tipo){
+                partTorneiG="SELECT S.IDSQUADRA, IDTORNEOG, NOME FROM PARTECIPANTI_GIRONI PG, SQUADRA S WHERE IDTORNEOG = " + ID + " AND PG.IDSQUADRA = S.IDSQUADRA";
+                result = partTornei.executeQuery(partTorneiG);
+            }else{
+                partTorneiE="SELECT S.IDSQUADRA, IDTORNEOE, NOME FROM PARTECIPANTI_ELIMINAZIONE PE, SQUADRA S WHERE IDTORNEOE = " + ID + " AND PE.IDSQUADRA = S.IDSQUADRA";
+                result = partTornei.executeQuery(partTorneiE);
+            }
+            return result;
+        }
+        //VISUALIZZA I GIOCATORI PARTECIPANTI AD UNA PARTITA
+        static public ResultSet partPart(Integer ID1, Integer ID2) throws SQLException{
+            ResultSet result;
+            Statement partPart = null;;
+            String query;
+            partPart=defaultConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            query="SELECT ST.IDSQUADRA AS IDSQUADRA, ST.IDGIOCATORE AS IDGIOCATORE, ST.SQUADRA AS SQUADRA, ST.COGNOME AS GIOCATORE" +
+                    "  FROM STAT_INDIVIDUALI ST" +
+                    "  WHERE (" + ID1 + "= ST.IDSQUADRA OR " + ID2 + " = ST.IDSQUADRA)" +
+                    "  GROUP BY ST.IDSQUADRA, ST.IDGIOCATORE, ST.SQUADRA, ST.COGNOME";
+            result = partPart.executeQuery(query);
+            return result;
         }
 }
 

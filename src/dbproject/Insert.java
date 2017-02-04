@@ -26,59 +26,25 @@ public class Insert extends javax.swing.JFrame {
     public Insert() {
         initComponents();
         setLocationRelativeTo(null);
-        //JFrame.getRootPane().setDefaultButton(jButton1);
         //AGGIUNTA DEI LISTNER PER I COMBOBOX    
-        selTab.addItemListener(new ItemListener(){
-            public void itemStateChanged(ItemEvent e){
-                if(e.getStateChange()==ItemEvent.SELECTED){
-                    selTabElements();
-                }
+        selTab.addItemListener((ItemEvent e) -> {
+            if(e.getStateChange()==ItemEvent.SELECTED){
+                selTabElements();
             }
         });
-        box.addItemListener(new ItemListener(){
-            public void itemStateChanged(ItemEvent e){
-                if(e.getStateChange()==ItemEvent.SELECTED){
-                    boxElements();
-                }
+        box.addItemListener((ItemEvent e) -> {
+            if(e.getStateChange()==ItemEvent.SELECTED){
+                boxElements();
             }
         });
-        jComboBoxTipo.addItemListener(new ItemListener(){
-            public void itemStateChanged(ItemEvent e){
-                if(e.getStateChange()==ItemEvent.SELECTED){
-                    tipoElements();
-                }
+        jComboBoxTipo.addItemListener((ItemEvent e) -> {
+            if(e.getStateChange()==ItemEvent.SELECTED){
+                tipoElements();
             }
         });
-        ResultSet rs;
-        try {
-            String order="SQUADRA";
-            rs=DBproject.ricAllGioc(this, order);
-            jTable2.setModel (new VistaTabelle(rs));
-            pack();
-        } catch(SQLException ex) {
-            DBproject.showError(this, ex);
-        }
-        try {
-            rs=DBproject.risPart(this);
-            jTable1.setModel (new VistaTabelle(rs));
-            pack();
-        } catch(SQLException ex) {
-            DBproject.showError(this, ex);
-        }
         jTable2.setShowGrid(false);
         jTable1.setShowGrid(false);
-        jTable2.setVisible(true);
-        jTable1.setVisible(true);
-        jText1.setVisible(false);
-        jText2.setVisible(false);
-        jText3.setVisible(false);
-        jText4.setVisible(false);
-        jText5.setVisible(false);
-        jText6.setVisible(false);
-        box.setVisible(false);
-        jLabel2.setVisible(false);
-        jComboBoxTipo.setVisible(false);
-
+        selTabElements();
     }
     
     
@@ -105,6 +71,7 @@ public class Insert extends javax.swing.JFrame {
                 jText5.setVisible(false);
                 jText6.setVisible(false);
                 box.setVisible(false);
+                jButton3.setVisible(false);
                 break;
             case 1:
                 //eventi
@@ -157,6 +124,7 @@ public class Insert extends javax.swing.JFrame {
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Goal", "Tiri", "CartellinoG", "CartellinoR", "Fuorigioco", "Assist", "TiroInPorta" }));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Evento"));
                 colonne+="EVENTO";
+                jButton3.setVisible(true);
                 break;
             case 2:
                 //Squadra
@@ -179,9 +147,9 @@ public class Insert extends javax.swing.JFrame {
                 colonne+="IDSQUADRA, ";
                 try {
                         ID = DBproject.calcMax("SQUADRA", "IDSQUADRA") + 1;
-                    } catch (SQLException ex) {
-                        DBproject.showError(this, ex);
-                    }
+                } catch (SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
                 jText1.setText(Integer.toString(ID));
                 jText1.setEditable(false);
                 jText2.setVisible(true);
@@ -195,6 +163,7 @@ public class Insert extends javax.swing.JFrame {
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "club", "nazionale"}));
                 colonne+="TIPO";
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Squadra"));
+                jButton3.setVisible(false);
                 break;
             case 3:
                 //Giocatore
@@ -238,6 +207,7 @@ public class Insert extends javax.swing.JFrame {
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "portiere", "difensore", "centrocampista", "attaccante"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Ruolo"));
                 colonne+="RUOLO";
+                jButton3.setVisible(false);
                 break;
             case 4:
                 //staff                
@@ -287,12 +257,13 @@ public class Insert extends javax.swing.JFrame {
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "allenatore", "dirigente", "presidente"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Professione"));
                 colonne+="PROFESSIONE";
+                jButton3.setVisible(false);
                 break;
             case 5:
                 //partite
                 try {
                     rs=DBproject.elTg(this);
-                    jTable2.setModel (new VistaTabelle(rs));
+                    jTable1.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
@@ -301,7 +272,7 @@ public class Insert extends javax.swing.JFrame {
                 tipo=(String) jComboBoxTipo.getSelectedItem();
                 try {
                     rs=DBproject.ricSqT(this, tipo);
-                    jTable1.setModel (new VistaTabelle(rs));
+                    jTable2.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
@@ -334,6 +305,7 @@ public class Insert extends javax.swing.JFrame {
                 box.setVisible(true);
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Torneo a Gironi", "Torneo ad Eliminazione"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo di Torneo"));
+                jButton3.setVisible(false);
                 break;
             case 6:
                 //torneo gironi
@@ -351,7 +323,14 @@ public class Insert extends javax.swing.JFrame {
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
+                try {
+                    ID = DBproject.calcMax("TORNEO_GIRONI", "IDTORNEOG") + 1;
+                } catch (SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jText1.setText(ID.toString());
                 jText1.setVisible(true);
+                jText1.setEditable(false);
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDtorneo girone"));
                 colonne+="IDTORNEOG, ";
                 jText2.setVisible(true);
@@ -364,6 +343,7 @@ public class Insert extends javax.swing.JFrame {
                 jText5.setVisible(false);
                 jText6.setVisible(false);
                 box.setVisible(false);
+                jButton3.setVisible(false);
                 break;
             case 7:
                 //torneo ad eliminaizone
@@ -381,7 +361,13 @@ public class Insert extends javax.swing.JFrame {
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
-                //torneo eliminazione
+                try {
+                        ID = DBproject.calcMax("TORNEO_ELIMINAZIONE", "IDTORNEOE") + 1;
+                } catch (SQLException ex) {
+                    DBproject.showError(this, ex);
+                }
+                jText1.setText(ID.toString());
+                jText1.setEditable(false);
                 jText1.setVisible(true);
                 jText1.setBorder(javax.swing.BorderFactory.createTitledBorder("IDtorneo eliminazione"));
                 colonne+="IDTORNEOE, ";
@@ -395,19 +381,47 @@ public class Insert extends javax.swing.JFrame {
                 jText5.setVisible(false);
                 jText6.setVisible(false);
                 box.setVisible(false);
+                jButton3.setVisible(false);
                 break;                
         }
     }
     
     private void boxElements(){
-                //RENDE MODIFICABILE O MENO IL CAMPO IDTORNEO A SECONDA SE SI TRATTA DI UNA PARTITA DI TORNEO OPPURE NO
+    //RENDE MODIFICABILE O MENO IL CAMPO IDTORNEO A SECONDA SE SI TRATTA DI UNA PARTITA DI TORNEO OPPURE NO
         if("PARTITA".equals((String)selTab.getSelectedItem())){
-            int index = box.getSelectedIndex();
-                if (index == 1 || index == 2){
-                    jText6.setEditable(true);
-                }else{
+            ResultSet rs;
+            switch (box.getSelectedIndex()){
+                case 0:
                     jText6.setEditable(false);
-                }
+                    try {
+                        rs=DBproject.ricSqT(this, jComboBoxTipo.getSelectedItem().toString());
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+                case 1:
+                    jText6.setEditable(true);
+                    try {
+                        rs=DBproject.elTg(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+                case 2:
+                    jText6.setEditable(true);
+                    try {
+                        rs=DBproject.elTe(this);
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+            }
         }
     }
     
@@ -449,8 +463,9 @@ public class Insert extends javax.swing.JFrame {
         jText4 = new javax.swing.JTextField();
         jText1 = new javax.swing.JTextField();
         jComboBoxTipo = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Inserisci");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -481,6 +496,11 @@ public class Insert extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -494,6 +514,11 @@ public class Insert extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jText5.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -508,6 +533,7 @@ public class Insert extends javax.swing.JFrame {
         });
 
         selTab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "EVENTO", "SQUADRA", "GIOCATORE", "MEMBRO STAFF", "PARTITA", "TORNEO GIRONI", "TORNEO ELIMINAZIONE" }));
+        selTab.setSelectedIndex(1);
         selTab.setBorder(javax.swing.BorderFactory.createTitledBorder("Scegliere cosa Inserire"));
         selTab.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -609,6 +635,13 @@ public class Insert extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton3.setText("Riepilogo Partita");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -617,14 +650,16 @@ public class Insert extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton2)
+                                .addGap(72, 72, 72)
+                                .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                             .addComponent(jScrollPane1))))
@@ -645,7 +680,8 @@ public class Insert extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap())
         );
 
@@ -654,22 +690,6 @@ public class Insert extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             String tab=searchTab();
-            if("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
-                InsTornei tg = new InsTornei ();
-                tg.colonne="(IDTORNEOG, IDSQUADRA)";
-                tg.valori="('" + jText1.getText() + "', ";
-                tg.tabella="PARTECIPANTI_GIRONI";
-                tg.setVisible(true);
-            }
-            
-            if("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
-                InsTornei tg = new InsTornei ();
-                tg.colonne="(IDTORNEOE, IDSQUADRA)";
-                tg.valori="('" + jText1.getText() + "', ";
-                tg.tabella="PARTECIPANTI_ELIMINAZIONE";
-                tg.setVisible(true);
-            }
-
             String col=colonne;
             if("PARTITA".equals((String)selTab.getSelectedItem())){
                 Integer index = box.getSelectedIndex();
@@ -685,18 +705,42 @@ public class Insert extends javax.swing.JFrame {
             String val;
             val=createValues();
             try {
-                DBproject.insert(tab, col, val);
-                if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
-                    tab="SQUADRA_GIOCATORI";
-                    col="(IDSQUADRA, IDGIOCATORE)";
-                    Integer ID = DBproject.calcMax("GIOCATORE", "IDGIOCATORE");
-                    val="('" + jText6.getText() + "', '" + ID + "')";
+                if("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
+                    InsTornei tg = new InsTornei ();
+                    tg.colonne="(IDTORNEOG, IDSQUADRA)";
+                    tg.valori="('" + jText1.getText() + "', ";
+                    tg.tabella="PARTECIPANTI_GIRONI";
+                    tg.tab=tab;
+                    tg.col=col;
+                    tg.val=val;
+                    tg.setVisible(true);
+                    Integer index = Integer.parseInt(jText1.getText()) +1;
+                    jText1.setText(index.toString());
+                }else if("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
+                    InsTornei tg = new InsTornei ();
+                    tg.colonne="(IDTORNEOE, IDSQUADRA)";
+                    tg.valori="('" + jText1.getText() + "', ";
+                    tg.tabella="PARTECIPANTI_ELIMINAZIONE";
+                    tg.tab=tab;
+                    tg.col=col;
+                    tg.val=val;
+                    tg.setVisible(true);
+                    Integer index = Integer.parseInt(jText1.getText()) +1;
+                    jText1.setText(index.toString());
+                }else{
                     DBproject.insert(tab, col, val);
+                    if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
+                        tab="SQUADRA_GIOCATORI";
+                        col="(IDSQUADRA, IDGIOCATORE)";
+                        Integer ID = DBproject.calcMax("GIOCATORE", "IDGIOCATORE");
+                        val="('" + jText6.getText() + "', '" + ID + "')";
+                        DBproject.insert(tab, col, val);
+                    }
+                    JOptionPane.showMessageDialog(null, "Inserimento Eseguito");
+                    //INCREMENTO DELL'ID PER IL SUCCESSIVO INSERIMENTO
+                    Integer index = Integer.parseInt(jText1.getText()) +1;
+                    jText1.setText(index.toString());
                 }
-                JOptionPane.showMessageDialog(null, "Inserimento Eseguito");
-                //INCREMENTO DELL'ID PER IL SUCCESSIVO INSERIMENTO
-                Integer index = Integer.parseInt(jText1.getText()) +1;
-                jText1.setText(index.toString());
             }catch (SQLException ex) {
                 DBproject.showError(this, ex);
             }
@@ -706,7 +750,7 @@ public class Insert extends javax.swing.JFrame {
                 ResultSet rs;
                 Integer index = Integer.parseInt(jText1.getText());
                 jText1.setText(Integer.toString(index+1));
-                try {
+                /*try {
                     Integer idpartita= Integer.parseInt(jText2.getText());
                     rs=DBproject.dettEv(this, idpartita);
                     jTable1.setModel (new VistaTabelle(rs));
@@ -714,13 +758,10 @@ public class Insert extends javax.swing.JFrame {
                     String ris = DBproject.risultatoSingolo(this, idpartita);
                     jLabel2.setVisible(true);
                     jLabel2.setText(ris);
-                } catch(SQLException ex) {
-                    DBproject.showError(this, ex);
-                }
+                }*/
                 try {
-                    String order="SQUADRA";
-                    rs=DBproject.ricAllGioc(this, order);
-                    jTable2.setModel (new VistaTabelle(rs));
+                    rs=DBproject.risPart(this);
+                    jTable1.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
@@ -819,6 +860,97 @@ public class Insert extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jText2ActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        Integer row;
+        Integer column;
+        ResultSet rs;
+        try {
+            switch(selTab.getSelectedIndex()){
+                case 1:
+                    row = jTable1.getSelectedRow();
+                    rs = DBproject.partPart(Integer.parseInt(jTable1.getValueAt(row, 5).toString()),Integer.parseInt(jTable1.getValueAt(row, 6).toString()));
+                    jTable2.setModel (new VistaTabelle(rs));
+                    pack();
+                    jText2.setText(jTable1.getValueAt(row, 0).toString());
+                    break;
+                case 3:
+                    row = jTable1.getSelectedRow();
+                    column = 0;
+                    jText6.setText(jTable1.getValueAt(row, column).toString());
+                    break;
+                case 4:
+                    row = jTable1.getSelectedRow();
+                    column = 0;
+                    jText6.setText(jTable1.getValueAt(row, column).toString());
+                    break;
+                case 5:
+                    row = jTable1.getSelectedRow();
+                    column = 0;
+                    if (box.getSelectedIndex()==1){
+                        rs=DBproject.partTornei(true, Integer.parseInt(jTable1.getValueAt(row, column).toString()));
+                        jTable2.setModel (new VistaTabelle(rs));
+                        pack();
+                        jText6.setText(jTable1.getValueAt(row, column).toString());
+                    }else if (box.getSelectedIndex()==2){
+                        rs=DBproject.partTornei(false, Integer.parseInt(jTable1.getValueAt(row, column).toString()));
+                        jTable2.setModel (new VistaTabelle(rs));
+                        pack();                    
+                        jText6.setText(jTable1.getValueAt(row, column).toString());
+                    }
+                    break;
+            }
+        }catch(SQLException ex) {
+            DBproject.showError(this, ex);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        Integer row;
+        Integer column;
+        ResultSet rs;
+        //try {
+            switch(selTab.getSelectedIndex()){
+                case 1:
+                    row = jTable2.getSelectedRow();
+                    jText4.setText(jTable2.getValueAt(row, 0).toString());
+                    break;
+                case 5:
+                    row = jTable2.getSelectedRow();
+                    if ("".equals(jText3.getText())){
+                        jText3.setText(jTable2.getValueAt(row, 0).toString());
+                    }else if ("".equals(jText4.getText())){
+                        jText4.setText(jTable2.getValueAt(row, 0).toString());
+                    }else if(!"".equals(jText3.getText())){
+                        jText3.setText(jTable2.getValueAt(row, 0).toString());
+                    }else if(!"".equals(jText3.getText())){
+                        jText4.setText(jTable2.getValueAt(row, 0).toString());
+                    }
+                    break;
+            }
+        /*}catch(SQLException ex) {
+            DBproject.showError(this, ex);
+        }*/
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(selTab.getSelectedIndex() == 1 && !"".equals(jText2.getText())){
+            DettEventi de = new DettEventi ();
+            ResultSet rs;
+            try {
+                Integer idpartita= Integer.parseInt(jText2.getText());
+                rs=DBproject.dettEv(this, idpartita);
+                de.jTable2.setModel (new VistaTabelle(rs));
+                pack();
+                String ris = DBproject.risultatoSingolo(this, idpartita);
+                de.jLabel2.setText(ris);
+                de.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Insert.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -857,6 +989,7 @@ public class Insert extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> box;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
