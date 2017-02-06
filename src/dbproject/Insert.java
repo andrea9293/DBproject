@@ -24,6 +24,7 @@ public class Insert extends javax.swing.JFrame {
      * Creates new form Inserimento
      */
     public Insert() {
+        //LA CLASSE SI OCCUPA DI TUTTI GLI INSERIMENTI DI NUOVI ELEMENTI NEL DATABASE
         initComponents();
         setLocationRelativeTo(null);
         //AGGIUNTA DEI LISTNER PER I COMBOBOX    
@@ -48,6 +49,8 @@ public class Insert extends javax.swing.JFrame {
     }
     
     
+    //IL SEGUENTE METODO VIENE UTILIZZATO PER LA CREAZIONE DELLA STRINGA COLONNE, LA QUALE VERRÀ INVIATA 
+    //NELLA FUNZIONE insert CONTENUTA NELLA CLASSE DBproject.java PER IL POPOLAMENTO DEL DATABASE
     String colonne;
     private void selTabElements(){
         ResultSet rs;
@@ -406,7 +409,6 @@ public class Insert extends javax.swing.JFrame {
     }
     
     private void boxElements(){
-    //RENDE MODIFICABILE O MENO IL CAMPO IDTORNEO A SECONDA SE SI TRATTA DI UNA PARTITA DI TORNEO OPPURE NO
         if("PARTITA".equals((String)selTab.getSelectedItem())){
             ResultSet rs;
             switch (box.getSelectedIndex()){
@@ -732,8 +734,10 @@ public class Insert extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //seclta della tabella  e delle colonne
             String tab=searchTab();
             String col=colonne;
+            //verifica se è una partita di un torneo o un'amichevole
             if("PARTITA".equals((String)selTab.getSelectedItem())){
                 Integer index = box.getSelectedIndex();
                 if (index == 1){
@@ -746,8 +750,10 @@ public class Insert extends javax.swing.JFrame {
             }
             col+=")";
             String val;
+            //ricerca dei valori
             val=createValues();
             try {
+                //in caso di creazione tornei si entra nella classe InsTornei.java
                 if("TORNEO GIRONI".equals((String)selTab.getSelectedItem())){
                     InsTornei tg = new InsTornei ();
                     tg.colonne="(IDTORNEOG, IDSQUADRA)";
@@ -779,6 +785,7 @@ public class Insert extends javax.swing.JFrame {
                         }
                     }else{
                         DBproject.insert(tab, col, val);
+                        //popolamento dell'associazione SQUADRA_GIOCATORI
                         if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
                             tab="SQUADRA_GIOCATORI";
                             col="(IDSQUADRA, IDGIOCATORE)";
@@ -809,7 +816,7 @@ public class Insert extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    
+    //Funzione responsabile del prelievo delle informazioni dai campi di testo
     private String createValues(){
         String values="(";
         if(jText1.isVisible())
@@ -851,6 +858,7 @@ public class Insert extends javax.swing.JFrame {
         return values;        
     }
     
+    //Funzione che si occupa della ricerca della tabella da riempire
     private String searchTab(){
         String tab="";
         if ("EVENTO".equals((String)selTab.getSelectedItem())){

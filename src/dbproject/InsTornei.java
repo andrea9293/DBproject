@@ -28,19 +28,21 @@ public class InsTornei extends javax.swing.JFrame {
      * Creates new form InsTornei
      */
     public InsTornei() {
+        //CLASSE PER LA CREAZIONE DEI TORNEI
         initComponents();
         setLocationRelativeTo(null);
-        jLabel1.setText("Inserire gli ID relativi alle squadre \nche parteciperanno al torneo");
-        ResultSet rs;
+        jLabel1.setText("Inserire gli ID relativi alle squadre che parteciperanno al torneo");
+        
         String tipo=(String) jComboBox1.getSelectedItem();
         try {
+            ResultSet rs;
             rs=DBproject.ricSqT(this, tipo);
             jTable1.setModel (new VistaTabelle(rs));
             pack();
 
         } catch(SQLException ex) {
             DBproject.showError(this, ex);
-       }
+        }
         jTable1.setShowGrid(false);
        
     }
@@ -240,8 +242,10 @@ public class InsTornei extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     
+    //LA FUNZIONE SI OCCUPA DI VERFIFICARE CHE IL NUMERO DI PARTECIPANTI IN UN TORNEO AD ELIMINAIZONE DIRETTA
+    //SIA UNA POTENZA DI 2
     private Boolean isPower (){
-                    Integer index=0;
+        Integer index=0;
             if (!"".equals(jTextField1.getText())){
                 index=index+1;
             }
@@ -301,10 +305,14 @@ public class InsTornei extends javax.swing.JFrame {
             return ris;
     }
     
+    //CREAZIONE DELLE ASSOCIAZIONI PER I PARTECIPANTI AI TORNEI A GIRONI O AD ELIMINAZIOINE
+    //
     private void createParticipants (){
         String vaule;
         try {
+            //viene creato il torneo
             DBproject.insert(tab,col,val);
+            //vengono inserite le squadre in PARTECIPANTI_GIRONI o in PARTECIPANTI_ELIMINAZIONE
             if (!"".equals(jTextField1.getText())){
                 vaule=valori;
                 vaule+="'" + jTextField1.getText() + "')";
@@ -386,13 +394,14 @@ public class InsTornei extends javax.swing.JFrame {
                 DBproject.insert(tabella, colonne, vaule);
             }
             JOptionPane.showMessageDialog(null, "Torneo Inserito");
-            
             dispose();
         } catch (SQLException ex) {
             DBproject.showError(this, ex);
         }
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //NEL CASO DEI TORNEI AD ELIMINAZIONE VIENE VERIFICATO CHE IL NUMERO DI PARTECIPANTI SIA UNA POTENZA DI 2
+        //ALTRIMENTI INSERISCE IL TORNEO A GIRONI
         if ("PARTECIPANTI_ELIMINAZIONE".equals(tabella)){
             Boolean ris=isPower();
             if (ris){
@@ -410,6 +419,8 @@ public class InsTornei extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField13ActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        //CAMBIA LA VISUALIZZAZIONE NELLA TABELLA A SECONDA SE SI VOGLIONO
+        //INSERIRE SQUADRE DI CLUB O DI NAZIONALI
         ResultSet rs;
         String tipo=(String) jComboBox1.getSelectedItem();
         try {

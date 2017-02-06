@@ -15,6 +15,7 @@ public class DettEventi extends javax.swing.JFrame {
      * Creates new form DettEventi
      */
     public DettEventi() {
+        //CLASSE PER LA VISUALIZZAZIONE DELLE PARTITE NEL DETTAGLIO
         initComponents();
         jTable2.setShowGrid(false);
     }

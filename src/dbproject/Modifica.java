@@ -46,6 +46,7 @@ public class Modifica extends javax.swing.JFrame {
         jComboBoxTipo.setVisible(false);
     }
     
+    //Il metodo si occupa dei vambiamenti da apportare al'interfaccia a seconda dell'elemento da modificare
     private void selTabElements(){
         jText1.setEditable(false);
         jText2.setEditable(false);
@@ -294,7 +295,8 @@ public class Modifica extends javax.swing.JFrame {
                 break;
         }
     }
-    
+    //Il metodo è responsabile della visualizzazione delle squadre di club o di nazionale
+    //a seconda delle necessità dell'utente
     private void tipoElements(){
         
         ResultSet rs;
@@ -308,6 +310,8 @@ public class Modifica extends javax.swing.JFrame {
         }
     }
     
+    
+    //Funzione per la ricerca della tabella da modificare
     private String searchTab(){
         String tab="";
         if ("EVENTO".equals((String)selTab.getSelectedItem())){
@@ -328,6 +332,8 @@ public class Modifica extends javax.swing.JFrame {
         return tab;
     }
     
+    //La funzione si occupa della ricerca della condizione necessaria da associare alla chiave primaria
+    //per la ricerca del preciso elemento da modificare, selezionato dall'utente
     private String searchCond(){
         String cond="";
         if ("EVENTO".equals((String)selTab.getSelectedItem())){
@@ -653,6 +659,9 @@ public class Modifica extends javax.swing.JFrame {
         jText6.setEditable(true);
     }//GEN-LAST:event_jText6MouseClicked
 
+    
+    //A SECONDA DELLE ESIGENZE DELL'UTENTE, CLICCANDO SULLA TABELLA VENGONO RIEMPITI GLI APPOSITI 
+    //CAMPI DI TESTO
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         Integer row;
         Integer column;
@@ -809,15 +818,20 @@ public class Modifica extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //SI PROCEDE ALL'AGGIORNAMENTO VERO E PROPRIO
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String tab=searchTab();
         String col;
         String val;
         String index;
         String id;
+        //Per la selezione degli aggiornamenti da effettuare, si procede con la verifica 
+        //di quali campi sono modificabili. Se sono modificabili allora vengono presi 
+        //in considerazione dall'algoritmo
         try {
             switch (selTab.getSelectedIndex()){
                 case 0:
+                    //modifica degli eventi
                     index = "IDEVENTO";
                     id = jText1.getText();
                     if (jText2.isEditable()){
@@ -858,6 +872,7 @@ public class Modifica extends javax.swing.JFrame {
                     }
                     break;
                 case 1:
+                    //modifica delle squadre
                     index = "IDSQUADRA";
                     id = jText1.getText();
                     if (jText2.isEditable()){
@@ -888,6 +903,7 @@ public class Modifica extends javax.swing.JFrame {
                     }
                     break;
                 case 2:
+                    //modifica dei giocatori
                     index = "IDGIOCATORE";
                     id = jText1.getText();
                     if (jText2.isEditable()){
@@ -931,6 +947,7 @@ public class Modifica extends javax.swing.JFrame {
                     }  
                     break;
                 case 3:
+                    //modifica dello staff
                     index = "IDSTAFF";
                     id = jText1.getText();
                     if (jText2.isEditable()){
@@ -981,6 +998,7 @@ public class Modifica extends javax.swing.JFrame {
                     }
                     break;
                 case 4:
+                    //modifica delle partite
                     index = "IDPARTITA";
                     id = jText1.getText();
                     if (jText2.isEditable()){
@@ -1041,7 +1059,8 @@ public class Modifica extends javax.swing.JFrame {
                         DBproject.showError(this, ex);
                     }
                     break;
-                case 5:                    
+                case 5:        
+                    //modifica torneo a gironi
                     id = jText1.getText();
                     index = "IDTORNEOG";
                     id = jText1.getText();
@@ -1072,7 +1091,8 @@ public class Modifica extends javax.swing.JFrame {
                         DBproject.showError(this, ex);
                     }
                     break;
-                case 6:                    
+                case 6:     
+                    //modifica torneo ad eliminazione
                     id = jText1.getText();
                     index = "IDTORNEOE";
                     id = jText1.getText();
@@ -1110,6 +1130,7 @@ public class Modifica extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    //TASTO PER L'ELIMINAZIONE DI UN ELEMENTO
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int option = JOptionPane.showConfirmDialog(null, "Sei sicuro di voler eliminare l'elemento?", "Avviso", JOptionPane.YES_NO_OPTION);
         if (option == 0) { 
