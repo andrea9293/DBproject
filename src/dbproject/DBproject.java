@@ -190,7 +190,7 @@ public class DBproject {
             return result;
         }
         
-        //SELECT PER ELENCO TORNEI A GIRONI
+        //SELECT PER ELENCO TORNEI AD ELIMINAZIONE
         static ResultSet elTe (java.awt.Component thrower) throws SQLException{
             Statement elTe;
             String elencoTorneiE;

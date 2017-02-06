@@ -344,7 +344,7 @@ public class Modifica extends javax.swing.JFrame {
         }else if ("TORNEO ELIMINAZIONE".equals((String)selTab.getSelectedItem())){
             cond="IDTORNEOE = ";
         }else if ("PARTITA".equals((String)selTab.getSelectedItem())){
-            cond="IDPARTITA";
+            cond="IDPARTITA = ";
         }
         return cond;
     }
@@ -1134,10 +1134,6 @@ public class Modifica extends javax.swing.JFrame {
                     tab="PARTECIPANTI_ELIMINAZIONE";
                     cond="IDTORNEOE = ";
                     DBproject.del(this,tab,cond,jText1.getText());
-                }else if ("PARTITA".equals((String)selTab.getSelectedItem())){
-                    tab="INCONTRI";
-                    cond="IDPARTITA = ";
-                    DBproject.del(this,tab,cond,jText1.getText());                
                 }
                 switch (selTab.getSelectedIndex()){
                     case 0:

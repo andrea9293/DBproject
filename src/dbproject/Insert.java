@@ -111,12 +111,15 @@ public class Insert extends javax.swing.JFrame {
                 jText1.setEditable(false);
                 jText2.setVisible(true);
                 jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("IDpartita"));
+                jText2.setEditable(false);
                 colonne+="IDPARTITA, ";                
                 jText3.setVisible(true);
                 jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Minuto"));
+                jText3.setEditable(true);
                 colonne+="MINUTO, ";
                 jText4.setVisible(true);
                 jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("IDgiocatore"));
+                jText4.setEditable(false);
                 colonne+="IDGIOCATORE, ";
                 jText5.setVisible(false);
                 jText6.setVisible(false);
@@ -154,6 +157,7 @@ public class Insert extends javax.swing.JFrame {
                 jText1.setEditable(false);
                 jText2.setVisible(true);
                 jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+                jText2.setEditable(true);
                 colonne+="NOME, ";
                 jText3.setVisible(false);
                 jText4.setVisible(false);
@@ -195,14 +199,17 @@ public class Insert extends javax.swing.JFrame {
                 jText1.setText(Integer.toString(ID));
                 jText1.setEditable(false);
                 jText2.setVisible(true);
+                jText2.setEditable(true);
                 jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
                 colonne+="NOME, ";
                 jText3.setVisible(true);
+                jText3.setEditable(true);
                 jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
                 colonne+="COGNOME, ";
                 jText6.setVisible(true);
                 jText6.setEditable(true);
                 jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID squadra di riferimento"));
+                jText6.setEditable(false);
                 box.setVisible(true);
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "portiere", "difensore", "centrocampista", "attaccante"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Ruolo"));
@@ -239,19 +246,23 @@ public class Insert extends javax.swing.JFrame {
                 jText1.setEditable(false);
                 jText2.setVisible(true);
                 jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+                jText2.setEditable(true);
                 colonne+="NOME, ";
                 jText3.setVisible(true);
                 jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cognome"));
+                jText3.setEditable(true);
                 colonne+="COGNOME, ";
                 jText4.setVisible(true);
                 jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("Luogo di Nascita"));
+                jText4.setEditable(true);
                 colonne+="LUOGO_NASCITA, ";
                 jText5.setVisible(true);
                 jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data di Nascita (aaaa-mm-gg)"));
+                jText5.setEditable(true);
                 colonne+="DATANASCITA, ";
                 jText6.setVisible(true);
-                jText6.setEditable(true);
                 jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra"));
+                jText6.setEditable(false);
                 colonne+="IDSQUADRA, ";
                 box.setVisible(true);
                 box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "allenatore", "dirigente", "presidente"}));
@@ -289,21 +300,25 @@ public class Insert extends javax.swing.JFrame {
                 jText1.setEditable(false);
                 jText2.setVisible(true);
                 jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stadio"));
+                jText2.setEditable(true);
                 colonne+="STADIO, ";
                 jText3.setVisible(true);
                 jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra 1"));
+                jText3.setEditable(false);
                 colonne+="IDSQ1, ";
                 jText4.setVisible(true);
                 jText4.setBorder(javax.swing.BorderFactory.createTitledBorder("IDsquadra 2"));
+                jText4.setEditable(false);
                 colonne+="IDSQ2, ";
                 jText5.setVisible(true);
                 jText5.setBorder(javax.swing.BorderFactory.createTitledBorder("Data (aaaa-mm-gg)"));
+                jText5.setEditable(true);
                 colonne+="DATA";
                 jText6.setVisible(true);
                 jText6.setEditable(false);
                 jText6.setBorder(javax.swing.BorderFactory.createTitledBorder("ID del torneo"));
                 box.setVisible(true);
-                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Torneo a Gironi", "Torneo ad Eliminazione"}));
+                box.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Amichevole", "Torneo a Gironi", "Torneo ad Eliminazione"}));
                 box.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo di Torneo"));
                 jButton3.setVisible(false);
                 break;
@@ -312,7 +327,7 @@ public class Insert extends javax.swing.JFrame {
                 try {
                     rs=DBproject.ricSqT(this, "club");
                     jTable2.setModel (new VistaTabelle(rs));
-                    rs=DBproject.modTg(this);pack();
+                    pack();
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
@@ -335,9 +350,11 @@ public class Insert extends javax.swing.JFrame {
                 colonne+="IDTORNEOG, ";
                 jText2.setVisible(true);
                 jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stagione"));
+                jText2.setEditable(true);
                 colonne+="STAGIONEG, ";
                 jText3.setVisible(true);
                 jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome Torneo"));
+                jText3.setEditable(true);
                 colonne+="NOMETORNEOG";
                 jText4.setVisible(false);
                 jText5.setVisible(false);
@@ -350,12 +367,12 @@ public class Insert extends javax.swing.JFrame {
                 try {
                     rs=DBproject.ricSqT(this, "club");
                     jTable2.setModel (new VistaTabelle(rs));
-                    rs=DBproject.modTg(this);pack();
+                    pack();
                 } catch(SQLException ex) {
                     DBproject.showError(this, ex);
                 }
                 try {
-                    rs=DBproject.elTe(this);
+                    rs=DBproject.modTe(this);
                     jTable1.setModel (new VistaTabelle(rs));
                     pack();
                 } catch(SQLException ex) {
@@ -373,9 +390,11 @@ public class Insert extends javax.swing.JFrame {
                 colonne+="IDTORNEOE, ";
                 jText2.setVisible(true);
                 jText2.setBorder(javax.swing.BorderFactory.createTitledBorder("Stagione"));
+                jText2.setEditable(true);
                 colonne+="STAGIONEE, ";
                 jText3.setVisible(true);
                 jText3.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome Torneo"));
+                jText3.setEditable(true);
                 colonne+="NOMETORNEOE";
                 jText4.setVisible(false);
                 jText5.setVisible(false);
@@ -392,17 +411,11 @@ public class Insert extends javax.swing.JFrame {
             ResultSet rs;
             switch (box.getSelectedIndex()){
                 case 0:
-                    jText6.setEditable(false);
-                    try {
-                        rs=DBproject.ricSqT(this, jComboBoxTipo.getSelectedItem().toString());
-                        jTable1.setModel (new VistaTabelle(rs));
-                        pack();
-                    } catch(SQLException ex) {
-                        DBproject.showError(this, ex);
-                    }
+                    jComboBoxTipo.setVisible(true);
+                    jText6.setText("");
                     break;
                 case 1:
-                    jText6.setEditable(true);
+                    jComboBoxTipo.setVisible(false);
                     try {
                         rs=DBproject.elTg(this);
                         jTable1.setModel (new VistaTabelle(rs));
@@ -412,7 +425,7 @@ public class Insert extends javax.swing.JFrame {
                     }
                     break;
                 case 2:
-                    jText6.setEditable(true);
+                    jComboBoxTipo.setVisible(false);
                     try {
                         rs=DBproject.elTe(this);
                         jTable1.setModel (new VistaTabelle(rs));
@@ -422,6 +435,29 @@ public class Insert extends javax.swing.JFrame {
                     }
                     break;
             }
+        }else if ("SQUADRA".equals((String)selTab.getSelectedItem())){
+            ResultSet rs;
+            switch (box.getSelectedIndex()){
+                case 1:
+                    try {
+                        rs=DBproject.ricSqT(this, "club");
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+                case 2:
+                    try {
+                        rs=DBproject.ricSqT(this, "nazionale");
+                        jTable1.setModel (new VistaTabelle(rs));
+                        pack();
+                    } catch(SQLException ex) {
+                        DBproject.showError(this, ex);
+                    }
+                    break;
+
+            }
         }
     }
     
@@ -429,9 +465,16 @@ public class Insert extends javax.swing.JFrame {
         ResultSet rs;
         String tipo= (String) jComboBoxTipo.getSelectedItem();
         try {
-            rs=DBproject.ricSqT(this, tipo);
-            jTable1.setModel (new VistaTabelle(rs));
-            pack();
+            if (selTab.getSelectedIndex()==5){
+                rs=DBproject.ricSqT(this, tipo);
+                jTable2.setModel (new VistaTabelle(rs));
+                pack();
+            }else {
+                rs=DBproject.ricSqT(this, tipo);
+                jTable1.setModel (new VistaTabelle(rs));
+                pack();
+            }
+            
         } catch(SQLException ex) {
             DBproject.showError(this, ex);
         }
@@ -728,18 +771,26 @@ public class Insert extends javax.swing.JFrame {
                     Integer index = Integer.parseInt(jText1.getText()) +1;
                     jText1.setText(index.toString());
                 }else{
-                    DBproject.insert(tab, col, val);
-                    if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
-                        tab="SQUADRA_GIOCATORI";
-                        col="(IDSQUADRA, IDGIOCATORE)";
-                        Integer ID = DBproject.calcMax("GIOCATORE", "IDGIOCATORE");
-                        val="('" + jText6.getText() + "', '" + ID + "')";
+                    if ("PARTITA".equals((String)selTab.getSelectedItem())){
+                        if(jText3.getText().equals(jText4.getText())){
+                            JOptionPane.showMessageDialog(null, "ATTENZIONE!\nGli ID delle Squadre devono essere diversi");
+                        }else {
+                            DBproject.insert(tab, col, val);
+                        }
+                    }else{
                         DBproject.insert(tab, col, val);
+                        if ("GIOCATORE".equals((String)selTab.getSelectedItem())){
+                            tab="SQUADRA_GIOCATORI";
+                            col="(IDSQUADRA, IDGIOCATORE)";
+                            Integer ID = DBproject.calcMax("GIOCATORE", "IDGIOCATORE");
+                            val="('" + jText6.getText() + "', '" + ID + "')";
+                            DBproject.insert(tab, col, val);
+                        }
                     }
-                    JOptionPane.showMessageDialog(null, "Inserimento Eseguito");
                     //INCREMENTO DELL'ID PER IL SUCCESSIVO INSERIMENTO
-                    Integer index = Integer.parseInt(jText1.getText()) +1;
-                    jText1.setText(index.toString());
+                        Integer index = Integer.parseInt(jText1.getText()) +1;
+                        jText1.setText(index.toString());
+                    JOptionPane.showMessageDialog(null, "Inserimento Eseguito");
                 }
             }catch (SQLException ex) {
                 DBproject.showError(this, ex);
@@ -748,17 +799,6 @@ public class Insert extends javax.swing.JFrame {
             //AGGIORNAMENTO IN TEMPO REALE DEGLI EVENTI E DELLE STATISTICHE
             if("EVENTO".equals((String)selTab.getSelectedItem())){
                 ResultSet rs;
-                Integer index = Integer.parseInt(jText1.getText());
-                jText1.setText(Integer.toString(index+1));
-                /*try {
-                    Integer idpartita= Integer.parseInt(jText2.getText());
-                    rs=DBproject.dettEv(this, idpartita);
-                    jTable1.setModel (new VistaTabelle(rs));
-                    pack();
-                    String ris = DBproject.risultatoSingolo(this, idpartita);
-                    jLabel2.setVisible(true);
-                    jLabel2.setText(ris);
-                }*/
                 try {
                     rs=DBproject.risPart(this);
                     jTable1.setModel (new VistaTabelle(rs));
@@ -786,7 +826,7 @@ public class Insert extends javax.swing.JFrame {
             }
         }
         if(jText6.isVisible()){
-            if(!"GIOCATORE".equals((String)selTab.getSelectedItem()) && jText6.isEditable()){
+            if(!"GIOCATORE".equals((String)selTab.getSelectedItem()) && !"".equals(jText6.getText())){
                 values+=", '" + jText6.getText() + "'";
             }
         }
@@ -903,16 +943,15 @@ public class Insert extends javax.swing.JFrame {
             DBproject.showError(this, ex);
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
+    Boolean jump=false;
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         Integer row;
-        Integer column;
         ResultSet rs;
-        //try {
             switch(selTab.getSelectedIndex()){
                 case 1:
                     row = jTable2.getSelectedRow();
-                    jText4.setText(jTable2.getValueAt(row, 0).toString());
+                    jText4.setText(jTable2.getValueAt(row, 1).toString());
                     break;
                 case 5:
                     row = jTable2.getSelectedRow();
@@ -920,16 +959,15 @@ public class Insert extends javax.swing.JFrame {
                         jText3.setText(jTable2.getValueAt(row, 0).toString());
                     }else if ("".equals(jText4.getText())){
                         jText4.setText(jTable2.getValueAt(row, 0).toString());
-                    }else if(!"".equals(jText3.getText())){
+                    }else if(!"".equals(jText3.getText()) && jump == false){
                         jText3.setText(jTable2.getValueAt(row, 0).toString());
-                    }else if(!"".equals(jText3.getText())){
+                        jump=true;
+                    }else /*if(!"".equals(jText3.getText()) && jump == true)*/{
                         jText4.setText(jTable2.getValueAt(row, 0).toString());
+                        jump=false;
                     }
                     break;
             }
-        /*}catch(SQLException ex) {
-            DBproject.showError(this, ex);
-        }*/
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
